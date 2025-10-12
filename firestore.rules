@@ -2,7 +2,9 @@
  * @fileoverview Firestore Security Rules for Herbolario Barcelona.
  *
  * Core Philosophy:
- * This ruleset provides public read access to all product-related data (products, benefits, stacks, content, and reviews) while restricting write access to prevent unauthorized modifications. No user-specific data or ownership is defined.
+ * This ruleset allows public read access to all top-level collections, including products, benefits,
+ * product stacks, and educational content. Reviews are stored as subcollections of products and are
+ * also publicly readable. Write access is generally denied in this prototype due to lack of defined ownership.
  *
  * Data Structure:
  * - /products/{productId}: Stores product information.
@@ -12,71 +14,82 @@
  * - /products/{productId}/reviews/{reviewId}: Stores product reviews.
  *
  * Key Security Decisions:
- * - Public read access is granted to all collections.
- * - Write access is denied across all collections.
+ * - Public Read Access: All top-level collections are publicly readable to enable broad discovery of products, benefits, stacks, and content.
+ * - Write Restrictions: All write operations are initially disabled due to the absence of defined ownership or roles. These require a clear definition in the data model and application logic before being enabled.
+ * - No User Listing: The application does not have user accounts or a user collection, therefore no user listing needs to be restricted.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Allows public read access to product information, but restricts all writes.
+     * @description Allows public read access to product information.  Write access is denied.
      * @path /products/{productId}
-     * @allow (get, list) Any user can read product information.
-     * @deny (create, update, delete) No user can create, update, or delete product information.
-     * @principle Grants public read access while restricting all writes.
+     * @allow (get, list): Any user can read product information.
+     * @deny (create, update, delete): No one can create, update, or delete products without defined roles.
+     * @principle Public read, restricted write.
      */
     match /products/{productId} {
       allow get, list: if true;
-      allow create, update, delete: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to benefit information, but restricts all writes.
+     * @description Allows public read access to benefit information. Write access is denied.
      * @path /benefits/{benefitId}
-     * @allow (get, list) Any user can read benefit information.
-     * @deny (create, update, delete) No user can create, update, or delete benefit information.
-     * @principle Grants public read access while restricting all writes.
+     * @allow (get, list): Any user can read benefit information.
+     * @deny (create, update, delete): No one can create, update, or delete benefits without defined roles.
+     * @principle Public read, restricted write.
      */
     match /benefits/{benefitId} {
       allow get, list: if true;
-      allow create, update, delete: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to product stack information, but restricts all writes.
+     * @description Allows public read access to product stack information. Write access is denied.
      * @path /productStacks/{productStackId}
-     * @allow (get, list) Any user can read product stack information.
-     * @deny (create, update, delete) No user can create, update, or delete product stack information.
-     * @principle Grants public read access while restricting all writes.
+     * @allow (get, list): Any user can read product stack information.
+     * @deny (create, update, delete): No one can create, update, or delete product stacks without defined roles.
+     * @principle Public read, restricted write.
      */
     match /productStacks/{productStackId} {
       allow get, list: if true;
-      allow create, update, delete: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to educational content, but restricts all writes.
+     * @description Allows public read access to educational content. Write access is denied.
      * @path /educationalContent/{educationalContentId}
-     * @allow (get, list) Any user can read educational content.
-     * @deny (create, update, delete) No user can create, update, or delete educational content.
-     * @principle Grants public read access while restricting all writes.
+     * @allow (get, list): Any user can read educational content.
+     * @deny (create, update, delete): No one can create, update, or delete educational content without defined roles.
+     * @principle Public read, restricted write.
      */
     match /educationalContent/{educationalContentId} {
       allow get, list: if true;
-      allow create, update, delete: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to product reviews, but restricts all writes.
+     * @description Allows public read access to product reviews.  Write access is denied.
      * @path /products/{productId}/reviews/{reviewId}
-     * @allow (get, list) Any user can read product reviews.
-     * @deny (create, update, delete) No user can create, update, or delete product reviews.
-     * @principle Grants public read access while restricting all writes.
+     * @allow (get, list): Any user can read product reviews.
+     * @deny (create, update, delete): No one can create, update, or delete reviews without defined roles.
+     * @principle Public read, restricted write.
      */
     match /products/{productId}/reviews/{reviewId} {
       allow get, list: if true;
-      allow create, update, delete: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
   }
 }

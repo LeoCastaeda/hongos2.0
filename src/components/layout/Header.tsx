@@ -8,6 +8,8 @@ import {
   User,
   X,
   type LucideIcon,
+  LogOut,
+  UserCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,9 +18,20 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { benefits } from '@/lib/data';
 import { useCart } from '@/context/CartContext';
 import { CartSheet } from '../cart/CartSheet';
+import { useUser, useAuth } from '@/firebase';
+import { getAuth, signOut } from 'firebase/auth';
 
 const navLinks = [
   { href: '/collections/all', label: 'Comprar' },
@@ -30,6 +43,71 @@ const navLinks = [
 export function Header() {
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
+
+  const UserMenu = () => {
+    if (isUserLoading) {
+      return (
+        <Button variant="ghost" size="icon">
+          <div className="h-5 w-5 animate-pulse bg-muted rounded-full" />
+        </Button>
+      );
+    }
+
+    if (!user) {
+      return (
+        <Button asChild variant="ghost" size="icon">
+          <Link href="/login">
+            <User className="h-5 w-5" />
+            <span className="sr-only">Perfil</span>
+          </Link>
+        </Button>
+      );
+    }
+
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user.photoURL || ''} alt={user.displayName || ''} />
+              <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{user.displayName}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {user.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link href="/profile">
+              <UserCircle className="mr-2 h-4 w-4" />
+              <span>Perfil</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSignOut}>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Cerrar Sesión</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -118,10 +196,7 @@ export function Header() {
             <span className="font-bold font-headline">Boulet</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-              <span className="sr-only">Perfil</span>
-            </Button>
+            <UserMenu />
             <CartSheet>
                 <Button variant="ghost" size="icon" className="relative">
                 {itemCount > 0 && (

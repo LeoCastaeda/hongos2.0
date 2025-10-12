@@ -1,10 +1,26 @@
 {
   "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "type": "object",
+      "description": "Represents a user's public profile information.",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name."
+        },
+        "photoURL": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the user's profile picture."
+        }
+      }
+    },
     "Product": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Product",
       "type": "object",
-      "description": "Represents a product sold by Herbolario Barcelona.",
+      "description": "Represents a product sold by Boulet.",
       "properties": {
         "id": {
           "type": "string",
@@ -178,97 +194,45 @@
   },
   "auth": {
     "providers": [
-      "password",
-      "anonymous"
+      "google.com"
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/products/{productId}",
-        "definition": {
-          "entityName": "Product",
-          "schema": {
-            "$ref": "#/backend/entities/Product"
-          },
-          "description": "Stores product information.",
-          "params": [
-            {
-              "name": "productId",
-              "description": "The unique identifier of the product."
-            }
-          ]
-        }
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/backend/entities/UserProfile"
       },
-      {
-        "path": "/benefits/{benefitId}",
-        "definition": {
-          "entityName": "Benefit",
-          "schema": {
-            "$ref": "#/backend/entities/Benefit"
-          },
-          "description": "Stores information about product benefits.",
-          "params": [
-            {
-              "name": "benefitId",
-              "description": "The unique identifier of the benefit."
-            }
-          ]
-        }
+      "description": "Stores public profile information for each user."
+    },
+    "/products/{productId}": {
+      "schema": {
+        "$ref": "#/backend/entities/Product"
       },
-      {
-        "path": "/productStacks/{productStackId}",
-        "definition": {
-          "entityName": "ProductStack",
-          "schema": {
-            "$ref": "#/backend/entities/ProductStack"
-          },
-          "description": "Stores pre-defined product stacks or bundles.",
-          "params": [
-            {
-              "name": "productStackId",
-              "description": "The unique identifier of the product stack."
-            }
-          ]
-        }
+      "description": "Stores product information."
+    },
+    "/benefits/{benefitId}": {
+      "schema": {
+        "$ref": "#/backend/entities/Benefit"
       },
-      {
-        "path": "/educationalContent/{educationalContentId}",
-        "definition": {
-          "entityName": "EducationalContent",
-          "schema": {
-            "$ref": "#/backend/entities/EducationalContent"
-          },
-          "description": "Stores educational content like guides and recipes.",
-          "params": [
-            {
-              "name": "educationalContentId",
-              "description": "The unique identifier of the educational content."
-            }
-          ]
-        }
+      "description": "Stores information about product benefits."
+    },
+    "/productStacks/{productStackId}": {
+      "schema": {
+        "$ref": "#/backend/entities/ProductStack"
       },
-      {
-        "path": "/products/{productId}/reviews/{reviewId}",
-        "definition": {
-          "entityName": "Review",
-          "schema": {
-            "$ref": "#/backend/entities/Review"
-          },
-          "description": "Stores product reviews.",
-          "params": [
-            {
-              "name": "productId",
-              "description": "The unique identifier of the product."
-            },
-            {
-              "name": "reviewId",
-              "description": "The unique identifier of the review."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The Firestore structure is designed to efficiently manage product information, benefits, product stacks, educational content, and reviews for the Herbolario Barcelona application. The core principle is to maintain Authorization Independence and facilitate secure list operations.\n\n*   **Products, Benefits, ProductStacks, and EducationalContent are stored in root-level collections.** This allows for simple queries and management of these global resources.  Since no specific ownership or private access is mentioned for these entities, they are treated as public and globally accessible.\n*   **Reviews are stored as a subcollection of Products.** This facilitates easy retrieval of reviews for a specific product.  Since no user-specific information is associated with reviews (beyond the 'author' field), and no mention of user ownership of reviews exists, the structure assumes a global review system.\n\n**Authorization Independence:** Since all collections are globally accessible, no denormalization is needed.\n\n**QAPs:** The structure enables secure list operations because:\n\n*   Each collection stores only one type of data, ensuring homogenous security posture.\n*   No complex filtering is required in the rules, as each collection serves a specific purpose."
+      "description": "Stores pre-defined product stacks or bundles."
+    },
+    "/educationalContent/{educationalContentId}": {
+      "schema": {
+        "$ref": "#/backend/entities/EducationalContent"
+      },
+      "description": "Stores educational content like guides and recipes."
+    },
+    "/products/{productId}/reviews/{reviewId}": {
+      "schema": {
+        "$ref": "#/backend/entities/Review"
+      },
+      "description": "Stores product reviews."
+    }
   }
 }
