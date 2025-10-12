@@ -1,0 +1,82 @@
+/**
+ * @fileoverview Firestore Security Rules for Herbolario Barcelona.
+ *
+ * Core Philosophy:
+ * This ruleset provides public read access to all product-related data (products, benefits, stacks, content, and reviews) while restricting write access to prevent unauthorized modifications. No user-specific data or ownership is defined.
+ *
+ * Data Structure:
+ * - /products/{productId}: Stores product information.
+ * - /benefits/{benefitId}: Stores benefit information.
+ * - /productStacks/{productStackId}: Stores product stack information.
+ * - /educationalContent/{educationalContentId}: Stores educational content.
+ * - /products/{productId}/reviews/{reviewId}: Stores product reviews.
+ *
+ * Key Security Decisions:
+ * - Public read access is granted to all collections.
+ * - Write access is denied across all collections.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows public read access to product information, but restricts all writes.
+     * @path /products/{productId}
+     * @allow (get, list) Any user can read product information.
+     * @deny (create, update, delete) No user can create, update, or delete product information.
+     * @principle Grants public read access while restricting all writes.
+     */
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to benefit information, but restricts all writes.
+     * @path /benefits/{benefitId}
+     * @allow (get, list) Any user can read benefit information.
+     * @deny (create, update, delete) No user can create, update, or delete benefit information.
+     * @principle Grants public read access while restricting all writes.
+     */
+    match /benefits/{benefitId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to product stack information, but restricts all writes.
+     * @path /productStacks/{productStackId}
+     * @allow (get, list) Any user can read product stack information.
+     * @deny (create, update, delete) No user can create, update, or delete product stack information.
+     * @principle Grants public read access while restricting all writes.
+     */
+    match /productStacks/{productStackId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to educational content, but restricts all writes.
+     * @path /educationalContent/{educationalContentId}
+     * @allow (get, list) Any user can read educational content.
+     * @deny (create, update, delete) No user can create, update, or delete educational content.
+     * @principle Grants public read access while restricting all writes.
+     */
+    match /educationalContent/{educationalContentId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to product reviews, but restricts all writes.
+     * @path /products/{productId}/reviews/{reviewId}
+     * @allow (get, list) Any user can read product reviews.
+     * @deny (create, update, delete) No user can create, update, or delete product reviews.
+     * @principle Grants public read access while restricting all writes.
+     */
+    match /products/{productId}/reviews/{reviewId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+  }
+}
