@@ -1,3 +1,100 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A bright, airy scene with natural light and plants, suggesting wellness.",
+      "imageUrl": "https://picsum.photos/seed/100/1800/1000",
+      "imageHint": "natural wellness"
+    },
+    {
+      "id": "product-cerebro",
+      "description": "Product bottle for Cerebro supplement.",
+      "imageUrl": "https://picsum.photos/seed/201/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "product-energia",
+      "description": "Product bottle for Energia supplement.",
+      "imageUrl": "https://picsum.photos/seed/202/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "product-estres",
+      "description": "Product bottle for Estres supplement.",
+      "imageUrl": "https://picsum.photos/seed/203/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "product-sueno",
+      "description": "Product bottle for Sueno supplement.",
+      "imageUrl": "https://picsum.photos/seed/204/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "product-pack-productividad",
+      "description": "Product bundle for Productividad pack.",
+      "imageUrl": "https://picsum.photos/seed/301/600/600",
+      "imageHint": "product bundle"
+    },
+    {
+      "id": "product-pack-nervioso",
+      "description": "Product bundle for Nervioso pack.",
+      "imageUrl": "https://picsum.photos/seed/302/600/600",
+      "imageHint": "product bundle"
+    },
+    {
+      "id": "product-pack-inmunidad",
+      "description": "Product bundle for Inmunidad pack.",
+      "imageUrl": "https://picsum.photos/seed/303/600/600",
+      "imageHint": "product bundle"
+    },
+    {
+      "id": "educational-guides",
+      "description": "Image for educational guides.",
+      "imageUrl": "https://picsum.photos/seed/401/600/400",
+      "imageHint": "nature guide"
+    },
+    {
+      "id": "educational-recipes",
+      "description": "Image for healthy recipes.",
+      "imageUrl": "https://picsum.photos/seed/402/600/400",
+      "imageHint": "healthy food"
+    },
+    {
+      "id": "educational-science",
+      "description": "Image for science behind supplements.",
+      "imageUrl": "https://picsum.photos/seed/403/600/400",
+      "imageHint": "science lab"
+    },
+    {
+      "id": "about-story",
+      "description": "Image representing the brand's story.",
+      "imageUrl": "https://picsum.photos/seed/501/1200/800",
+      "imageHint": "barcelona street"
+    },
+    {
+      "id": "about-sustainability",
+      "description": "Image representing sustainability.",
+      "imageUrl": "https://picsum.photos/seed/502/600/400",
+      "imageHint": "green leaves"
+    },
+    {
+      "id": "product-inmunidad",
+      "description": "Product bottle for Inmunidad supplement.",
+      "imageUrl": "https://picsum.photos/seed/205/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "product-digestivo",
+      "description": "Product bottle for Digestivo supplement.",
+      "imageUrl": "https://picsum.photos/seed/206/600/600",
+      "imageHint": "product bottle"
+    },
+    {
+      "id": "quiz-background",
+      "description": "A calming natural background for the quiz.",
+      "imageUrl": "https://picsum.photos/seed/601/1200/800",
+      "imageHint": "calm nature"
+    }
+  ]
 }
