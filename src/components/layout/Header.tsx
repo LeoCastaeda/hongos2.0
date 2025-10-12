@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {
-  Mushroom,
+  Leaf,
   Menu,
   ShoppingCart,
   User,
@@ -31,7 +31,7 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Mushroom className="h-6 w-6 text-primary" />
+            <Leaf className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">
               Boulet
             </span>
@@ -61,7 +61,7 @@ export function Header() {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between border-b pb-4">
                     <Link href="/" className="flex items-center space-x-2">
-                        <Mushroom className="h-6 w-6 text-primary" />
+                        <Leaf className="h-6 w-6 text-primary" />
                         <span className="font-bold font-headline">Boulet</span>
                     </Link>
                     <SheetClose asChild>
@@ -109,7 +109,7 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <Link href="/" className="flex items-center space-x-2 md:hidden">
-            <Mushroom className="h-6 w-6 text-primary" />
+            <Leaf className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline">Boulet</span>
           </Link>
           <div className="flex items-center gap-2">

@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { Brain, Twitter, Instagram, Facebook } from 'lucide-react';
+import { Twitter, Instagram, Facebook, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Mushroom } from 'lucide-react';
 
 const footerLinks = {
   comprar: [
@@ -29,7 +28,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 pr-8">
             <Link href="/" className="inline-flex items-center space-x-2 mb-4">
-              <Mushroom className="h-7 w-7 text-primary" />
+              <Leaf className="h-7 w-7 text-primary" />
               <span className="text-xl font-bold font-headline">
                 Boulet
               </span>
