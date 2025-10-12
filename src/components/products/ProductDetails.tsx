@@ -14,7 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Star, CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import type { Product, Review } from '@/lib/types';
+import type { Product, Review, PurchaseType } from '@/lib/types';
+import { useCart } from '@/context/CartContext';
 
 interface ProductDetailsProps {
     product: Product;
@@ -23,7 +24,8 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product, reviews }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
-  const [purchaseType, setPurchaseType] = useState('onetime');
+  const [purchaseType, setPurchaseType] = useState<PurchaseType>('onetime');
+  const { addToCart } = useCart();
 
   const placeholder = PlaceHolderImages.find(p => p.id === product.image);
   const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
@@ -32,6 +34,11 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
   const originalPrice = product.price;
   const subscriptionPrice = originalPrice * 0.85;
   const displayPrice = purchaseType === 'subscribe' ? subscriptionPrice : originalPrice;
+
+  const handleAddToCart = (e: React.FormEvent) => {
+    e.preventDefault();
+    addToCart(product, quantity, purchaseType);
+  }
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
@@ -73,10 +80,10 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
           {purchaseType === 'subscribe' && <span className="ml-2 text-base font-normal text-muted-foreground line-through">{originalPrice.toFixed(2)}€</span>}
         </p>
         
-        <form className="mt-8">
+        <form className="mt-8" onSubmit={handleAddToCart}>
           <fieldset>
             <legend className="mb-4 font-medium">Elige tu opción de compra:</legend>
-            <RadioGroup value={purchaseType} onValueChange={setPurchaseType} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <RadioGroup value={purchaseType} onValueChange={(value) => setPurchaseType(value as PurchaseType)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Label htmlFor="onetime" className={`flex cursor-pointer flex-col rounded-lg border p-4 hover:bg-accent/10 ${purchaseType === 'onetime' ? 'border-primary ring-2 ring-primary' : 'border-border'}`}>
                 <div className="flex items-center justify-between">
                   <span className="font-semibold">Compra única</span>

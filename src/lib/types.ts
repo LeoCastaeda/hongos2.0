@@ -46,3 +46,11 @@ export type QuizQuestion = {
   options: { text: string; value: string }[];
   type: 'multiple-choice';
 };
+
+export type PurchaseType = 'onetime' | 'subscribe';
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  purchaseType: PurchaseType;
+}

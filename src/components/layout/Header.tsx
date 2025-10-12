@@ -17,6 +17,8 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { benefits } from '@/lib/data';
+import { useCart } from '@/context/CartContext';
+import { CartSheet } from '../cart/CartSheet';
 
 const navLinks = [
   { href: '/collections/all', label: 'Comprar' },
@@ -26,6 +28,9 @@ const navLinks = [
 ];
 
 export function Header() {
+  const { cartItems } = useCart();
+  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -117,10 +122,17 @@ export function Header() {
               <User className="h-5 w-5" />
               <span className="sr-only">Perfil</span>
             </Button>
-            <Button variant="ghost" size="icon">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Carrito</span>
-            </Button>
+            <CartSheet>
+                <Button variant="ghost" size="icon" className="relative">
+                {itemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                    {itemCount}
+                    </span>
+                )}
+                <ShoppingCart className="h-5 w-5" />
+                <span className="sr-only">Carrito</span>
+                </Button>
+            </CartSheet>
           </div>
         </div>
       </div>
