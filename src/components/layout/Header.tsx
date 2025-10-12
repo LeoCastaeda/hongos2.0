@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {
-  Brain,
+  Mushroom,
   Menu,
   ShoppingCart,
   User,
@@ -20,7 +20,7 @@ import { benefits } from '@/lib/data';
 
 const navLinks = [
   { href: '/collections/all', label: 'Comprar' },
-  { href: '/learn', label: 'Guías' },
+  { href: '/learn', label: 'Aprender' },
   { href: '/about', label: 'Nosotros' },
   { href: '/quiz', label: 'Quiz' },
 ];
@@ -31,9 +31,9 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Brain className="h-6 w-6 text-primary" />
+            <Mushroom className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">
-              Herbolario Barcelona
+              Boulet
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -61,8 +61,8 @@ export function Header() {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between border-b pb-4">
                     <Link href="/" className="flex items-center space-x-2">
-                        <Brain className="h-6 w-6 text-primary" />
-                        <span className="font-bold font-headline">Herbolario Barcelona</span>
+                        <Mushroom className="h-6 w-6 text-primary" />
+                        <span className="font-bold font-headline">Boulet</span>
                     </Link>
                     <SheetClose asChild>
                         <Button variant="ghost" size="icon">
@@ -109,8 +109,8 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <Link href="/" className="flex items-center space-x-2 md:hidden">
-            <Brain className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">Herbolario</span>
+            <Mushroom className="h-6 w-6 text-primary" />
+            <span className="font-bold font-headline">Boulet</span>
           </Link>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon">

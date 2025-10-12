@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Herbolario Barcelona',
-  description: 'Suplementos naturales para una vida mejor.',
+  title: 'Boulet | Hongos Funcionales',
+  description: 'Suplementos naturales a base de hongos para una vida mejor.',
 };
 
 export default function RootLayout({

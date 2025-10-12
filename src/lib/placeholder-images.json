@@ -2,99 +2,81 @@
   "placeholderImages": [
     {
       "id": "hero-background",
-      "description": "A bright, airy scene with natural light and plants, suggesting wellness.",
+      "description": "A mystical forest scene with sun rays filtering through the trees, suggesting the natural power of mushrooms.",
       "imageUrl": "https://picsum.photos/seed/100/1800/1000",
-      "imageHint": "natural wellness"
+      "imageHint": "mushroom forest"
     },
     {
-      "id": "product-cerebro",
-      "description": "Product bottle for Cerebro supplement.",
+      "id": "product-lions-mane",
+      "description": "Product bottle for Lion's Mane tincture.",
       "imageUrl": "https://picsum.photos/seed/201/600/600",
       "imageHint": "product bottle"
     },
     {
-      "id": "product-energia",
-      "description": "Product bottle for Energia supplement.",
+      "id": "product-cordyceps",
+      "description": "Product bottle for Cordyceps tincture.",
       "imageUrl": "https://picsum.photos/seed/202/600/600",
       "imageHint": "product bottle"
     },
     {
-      "id": "product-estres",
-      "description": "Product bottle for Estres supplement.",
+      "id": "product-reishi",
+      "description": "Product bottle for Reishi tincture.",
       "imageUrl": "https://picsum.photos/seed/203/600/600",
       "imageHint": "product bottle"
     },
     {
-      "id": "product-sueno",
-      "description": "Product bottle for Sueno supplement.",
+      "id": "product-turkey-tail",
+      "description": "Product bottle for Turkey Tail tincture.",
       "imageUrl": "https://picsum.photos/seed/204/600/600",
       "imageHint": "product bottle"
     },
     {
-      "id": "product-pack-productividad",
-      "description": "Product bundle for Productividad pack.",
+      "id": "product-pack-mente-cuerpo",
+      "description": "Product bundle for Mente y Cuerpo pack.",
       "imageUrl": "https://picsum.photos/seed/301/600/600",
       "imageHint": "product bundle"
     },
     {
-      "id": "product-pack-nervioso",
-      "description": "Product bundle for Nervioso pack.",
+      "id": "product-pack-calma-defensa",
+      "description": "Product bundle for Calma y Defensa pack.",
       "imageUrl": "https://picsum.photos/seed/302/600/600",
       "imageHint": "product bundle"
     },
     {
-      "id": "product-pack-inmunidad",
-      "description": "Product bundle for Inmunidad pack.",
-      "imageUrl": "https://picsum.photos/seed/303/600/600",
-      "imageHint": "product bundle"
-    },
-    {
       "id": "educational-guides",
-      "description": "Image for educational guides.",
+      "description": "Image for educational guides about functional mushrooms.",
       "imageUrl": "https://picsum.photos/seed/401/600/400",
-      "imageHint": "nature guide"
+      "imageHint": "mushrooms guide"
     },
     {
       "id": "educational-recipes",
-      "description": "Image for healthy recipes.",
+      "description": "Image for healthy recipes with mushrooms.",
       "imageUrl": "https://picsum.photos/seed/402/600/400",
-      "imageHint": "healthy food"
+      "imageHint": "mushroom recipe"
     },
     {
       "id": "educational-science",
-      "description": "Image for science behind supplements.",
+      "description": "Image for science behind functional mushrooms.",
       "imageUrl": "https://picsum.photos/seed/403/600/400",
       "imageHint": "science lab"
     },
     {
       "id": "about-story",
-      "description": "Image representing the brand's story.",
+      "description": "Image representing the brand's story, maybe a person foraging for mushrooms.",
       "imageUrl": "https://picsum.photos/seed/501/1200/800",
-      "imageHint": "barcelona street"
+      "imageHint": "mushroom foraging"
     },
     {
       "id": "about-sustainability",
-      "description": "Image representing sustainability.",
+      "description": "Image representing sustainability, like hands holding a small mushroom sprout.",
       "imageUrl": "https://picsum.photos/seed/502/600/400",
-      "imageHint": "green leaves"
-    },
-    {
-      "id": "product-inmunidad",
-      "description": "Product bottle for Inmunidad supplement.",
-      "imageUrl": "https://picsum.photos/seed/205/600/600",
-      "imageHint": "product bottle"
-    },
-    {
-      "id": "product-digestivo",
-      "description": "Product bottle for Digestivo supplement.",
-      "imageUrl": "https://picsum.photos/seed/206/600/600",
-      "imageHint": "product bottle"
+      "imageHint": "mushroom sprout"
     },
     {
       "id": "quiz-background",
-      "description": "A calming natural background for the quiz.",
+      "description": "A calming natural background for the quiz, with soft-focus mushrooms.",
       "imageUrl": "https://picsum.photos/seed/601/1200/800",
-      "imageHint": "calm nature"
+      "imageHint": "calm mushrooms"
     }
   ]
 }

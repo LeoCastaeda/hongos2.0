@@ -1,155 +1,125 @@
 import type { Product, Benefit, Article, Review, QuizQuestion } from '@/lib/types';
-import { Brain, Zap, HeartPulse, Moon, Shield, Leaf } from 'lucide-react';
+import { Brain, Zap, HeartPulse, Moon, Shield } from 'lucide-react';
 
 export const benefits: Benefit[] = [
-  { id: '1', name: 'Cerebro', slug: 'cerebro', description: 'Mejora la función cognitiva y la memoria.', icon: Brain },
+  { id: '1', name: 'Enfoque', slug: 'enfoque', description: 'Mejora la función cognitiva y la memoria.', icon: Brain },
   { id: '2', name: 'Energía', slug: 'energia', description: 'Aumenta tus niveles de energía y vitalidad.', icon: Zap },
-  { id: '3', name: 'Estrés', slug: 'estres', description: 'Ayuda a calmar la mente y reducir el estrés.', icon: HeartPulse },
-  { id: '4', name: 'Sueño', slug: 'sueno', description: 'Promueve un sueño reparador y profundo.', icon: Moon },
+  { id: '3', name: 'Calma', slug: 'calma', description: 'Ayuda a calmar la mente y reducir el estrés.', icon: HeartPulse },
+  { id: '4', name: 'Descanso', slug: 'descanso', description: 'Promueve un sueño reparador y profundo.', icon: Moon },
   { id: '5', name: 'Inmunidad', slug: 'inmunidad', description: 'Fortalece tu sistema inmunológico.', icon: Shield },
-  { id: '6', name: 'Digestión', slug: 'digestion', description: 'Mejora la salud de tu sistema digestivo.', icon: Leaf },
 ];
 
 export const products: Product[] = [
   {
     id: 'prod-001',
-    name: 'Tinctura Cerebro',
-    slug: 'tinctura-cerebro',
-    price: 29.99,
-    description: 'Una mezcla de hierbas nootrópicas para mejorar la claridad mental, el enfoque y la memoria. Perfecto para estudiantes y profesionales.',
-    benefits: ['Mejora el enfoque', 'Aumenta la memoria', 'Claridad mental'],
-    howToUse: 'Tomar 1 gotero completo (1ml) dos veces al día. Puede mezclarse con agua o zumo.',
-    labResults: 'Cada lote es probado por terceros para garantizar su pureza y potencia. Certificado de análisis disponible bajo petición.',
+    name: 'Tintura de Melena de León',
+    slug: 'tintura-melena-de-leon',
+    price: 34.99,
+    description: 'Potencia tu claridad mental y enfoque. Nuestra tintura de Melena de León (Hericium erinaceus) es ideal para el trabajo, estudio y creatividad.',
+    benefits: ['Mejora la memoria y el enfoque', 'Estimula la regeneración neuronal', 'Apoya la salud cognitiva'],
+    howToUse: 'Tomar 1 gotero completo (1ml) una o dos veces al día. Puede mezclarse con tu bebida favorita (café, té, batido) o tomarse directamente.',
+    labResults: 'Doble extracción de cuerpo fructífero 100% orgánico. Analizado por terceros para garantizar >25% de Beta-glucanos y pureza.',
     faqs: [
-      { question: '¿Tiene cafeína?', answer: 'No, esta fórmula no contiene cafeína ni otros estimulantes.' },
-      { question: '¿Cuándo veré resultados?', answer: 'Los efectos pueden notarse en tan solo unos días, con beneficios acumulativos a lo largo de varias semanas.' }
+      { question: '¿Es un estimulante?', answer: 'No, la Melena de León mejora la cognición sin ser un estimulante como la cafeína. Proporciona un enfoque claro y sostenido.' },
+      { question: '¿Cuándo veré resultados?', answer: 'Los efectos pueden notarse en las primeras dos semanas de uso diario, con beneficios que se consolidan con el tiempo.' }
     ],
-    image: 'product-cerebro',
+    image: 'product-lions-mane',
     isBestSeller: true,
     type: 'tincture',
-    benefitCategory: 'cerebro'
+    benefitCategory: 'enfoque'
   },
   {
     id: 'prod-002',
-    name: 'Tinctura Energía',
-    slug: 'tinctura-energia',
-    price: 27.99,
-    description: 'Combate la fatiga y aumenta tu vitalidad de forma natural con esta mezcla de adaptógenos y hierbas energizantes.',
-    benefits: ['Aumento de energía sostenida', 'Combate la fatiga', 'Mejora el rendimiento físico'],
-    howToUse: 'Tomar 1 gotero completo (1ml) por la mañana y al mediodía. Evitar tomarlo cerca de la hora de dormir.',
-    labResults: 'Libre de metales pesados y pesticidas. Certificado de análisis disponible.',
+    name: 'Tintura de Cordyceps',
+    slug: 'tintura-cordyceps',
+    price: 34.99,
+    description: 'Aumenta tu energía y resistencia física. El Cordyceps (Cordyceps militaris) es el aliado perfecto para deportistas y personas con un estilo de vida activo.',
+    benefits: ['Aumenta la energía y vitalidad', 'Mejora el rendimiento atlético', 'Reduce la fatiga'],
+    howToUse: 'Tomar 1 gotero completo (1ml) por la mañana o antes de la actividad física. No se recomienda su uso cerca de la hora de dormir.',
+    labResults: 'Doble extracción de cuerpo fructífero 100% orgánico. Analizado por terceros para garantizar pureza y potencia.',
     faqs: [
-      { question: '¿Puede reemplazar mi café de la mañana?', answer: 'Muchos usuarios lo encuentran como una excelente alternativa sin los nervios del café.' }
+      { question: '¿Puede sustituir mi bebida energética?', answer: 'Sí, muchos usuarios lo prefieren por ser una fuente de energía natural y sin el "crash" de las bebidas azucaradas.' }
     ],
-    image: 'product-energia',
+    image: 'product-cordyceps',
+    isBestSeller: true,
     type: 'tincture',
     benefitCategory: 'energia'
   },
   {
     id: 'prod-003',
-    name: 'Tinctura Estrés',
-    slug: 'tinctura-estres',
-    price: 31.99,
-    description: 'Una fórmula calmante para ayudar a tu cuerpo a gestionar el estrés diario y promover una sensación de calma y bienestar.',
-    benefits: ['Reduce la ansiedad', 'Promueve la calma', 'Equilibra el estado de ánimo'],
-    howToUse: 'Tomar 1 gotero completo (1ml) hasta tres veces al día, según sea necesario durante momentos de estrés.',
-    labResults: 'Potencia garantizada. Probado en laboratorio para pureza.',
+    name: 'Tintura de Reishi',
+    slug: 'tintura-reishi',
+    price: 34.99,
+    description: 'Encuentra tu centro y calma tu mente. El Reishi (Ganoderma lucidum), conocido como el "hongo de la inmortalidad", es un adaptógeno que ayuda a gestionar el estrés.',
+    benefits: ['Reduce el estrés y la ansiedad', 'Promueve la relajación', 'Apoya el sistema inmunológico'],
+    howToUse: 'Tomar 1 gotero completo (1ml) por la tarde o noche para ayudar a relajarte y desconectar del día.',
+    labResults: 'Doble extracción de cuerpo fructífero 100% orgánico. Alto contenido en triterpenos y beta-glucanos, verificado por laboratorio.',
     faqs: [
-      { question: '¿Me dará sueño?', answer: 'No es un sedante, pero al reducir el estrés, puede ayudarte a relajarte. Es seguro para usar durante el día.' }
+      { question: '¿Me dará sueño si lo tomo durante el día?', answer: 'No es un sedante. Simplemente ayuda a tu cuerpo a equilibrar su respuesta al estrés, promoviendo un estado de calma.' }
     ],
-    image: 'product-estres',
+    image: 'product-reishi',
     isBestSeller: true,
     type: 'tincture',
-    benefitCategory: 'estres'
+    benefitCategory: 'calma'
   },
   {
     id: 'prod-004',
-    name: 'Tinctura Sueño',
-    slug: 'tinctura-sueno',
-    price: 28.99,
-    description: 'Relájate y prepárate para una noche de sueño profundo y reparador. Esta mezcla te ayuda a conciliar el sueño más rápido y a mejorar su calidad.',
-    benefits: ['Concilia el sueño más rápido', 'Mejora la calidad del sueño', 'Despierta renovado'],
-    howToUse: 'Tomar 1-2 goteros completos (1-2ml) 30 minutos antes de acostarse.',
-    labResults: 'Cada lote es analizado para garantizar la ausencia de contaminantes.',
+    name: 'Tintura de Turkey Tail',
+    slug: 'tintura-turkey-tail',
+    price: 34.99,
+    description: 'Refuerza tus defensas naturales. La Cola de Pavo (Trametes versicolor) es uno de los hongos más investigados por su potente apoyo al sistema inmunológico.',
+    benefits: ['Fortalece el sistema inmune', 'Rico en antioxidantes y prebióticos', 'Apoya la salud intestinal'],
+    howToUse: 'Tomar 1 gotero completo (1ml) al día como mantenimiento. Puede tomarse en cualquier momento del día.',
+    labResults: 'Doble extracción de cuerpo fructífero 100% orgánico. Verificado para contener un alto nivel de Polisacárido-K (PSK).',
     faqs: [
-      { question: '¿Crea dependencia?', answer: 'No, esta fórmula utiliza hierbas no adictivas para promover el ciclo natural del sueño.' }
+      { question: '¿Puedo tomarlo si estoy resfriado?', answer: 'Sí, puede ayudar a tu cuerpo a recuperarse. Puedes aumentar la dosis a 2-3 veces al día durante periodos de enfermedad.' }
     ],
-    image: 'product-sueno',
-    type: 'tincture',
-    benefitCategory: 'sueno'
-  },
-    {
-    id: 'prod-005',
-    name: 'Tinctura Inmunidad',
-    slug: 'tinctura-inmunidad',
-    price: 26.99,
-    description: 'Refuerza las defensas naturales de tu cuerpo con esta poderosa mezcla de hierbas que apoyan el sistema inmunológico.',
-    benefits: ['Fortalece el sistema inmune', 'Propiedades antivirales y antibacterianas', 'Rico en antioxidantes'],
-    howToUse: 'Tomar 1 gotero completo (1ml) al día para mantenimiento. Aumentar a 3 veces al día ante los primeros síntomas de resfriado.',
-    labResults: 'Certificado de análisis disponible bajo petición.',
-    faqs: [
-      { question: '¿Es seguro para niños?', answer: 'Recomendamos consultar con un pediatra antes de administrarlo a niños.' }
-    ],
-    image: 'product-inmunidad',
+    image: 'product-turkey-tail',
     type: 'tincture',
     benefitCategory: 'inmunidad'
   },
   {
     id: 'pack-001',
-    name: 'Pack Productividad',
-    slug: 'pack-productividad',
-    price: 52.99,
-    description: 'El dúo dinámico para un rendimiento mental y físico óptimo. Incluye Tinctura Cerebro y Tinctura Energía.',
-    benefits: ['Máximo enfoque mental', 'Energía durante todo el día', 'Ahorro del 10%'],
-    howToUse: 'Combinar el uso de ambas tincturas según las instrucciones individuales para potenciar los resultados.',
-    labResults: 'Ambos productos probados por terceros.',
+    name: 'Pack Mente y Cuerpo',
+    slug: 'pack-mente-y-cuerpo',
+    price: 62.99,
+    description: 'El pack definitivo para un rendimiento óptimo. Combina la claridad mental de la Melena de León con la energía física del Cordyceps.',
+    benefits: ['Máximo rendimiento mental y físico', 'Enfoque sostenido y vitalidad', 'Ahorro del 10%'],
+    howToUse: 'Tomar Cordyceps por la mañana y Melena de León cuando necesites un impulso cognitivo.',
+    labResults: 'Ambos productos han sido analizados por laboratorios independientes para garantizar su calidad y pureza.',
     faqs: [],
-    image: 'product-pack-productividad',
+    image: 'product-pack-mente-cuerpo',
     isBestSeller: true,
     type: 'bundle',
-    benefitCategory: 'cerebro'
+    benefitCategory: 'enfoque'
   },
   {
     id: 'pack-002',
-    name: 'Pack Calma Total',
-    slug: 'pack-calma-total',
-    price: 54.99,
-    description: 'Encuentra tu equilibrio día y noche. Gestiona el estrés durante el día y duerme profundamente por la noche. Incluye Tinctura Estrés y Tinctura Sueño.',
-    benefits: ['Bienestar 24/7', 'Menos estrés, mejor sueño', 'Ahorro del 10%'],
-    howToUse: 'Usar Tinctura Estrés durante el día y Tinctura Sueño por la noche.',
-    labResults: 'Ambos productos probados por terceros.',
+    name: 'Pack Calma y Defensa',
+    slug: 'pack-calma-y-defensa',
+    price: 62.99,
+    description: 'Fortalece tu cuerpo y calma tu mente. El Reishi te ayuda a gestionar el estrés mientras que la Cola de Pavo refuerza tu sistema inmune.',
+    benefits: ['Reduce el estrés', 'Fortalece las defensas', 'Ahorro del 10%'],
+    howToUse: 'Tomar Cola de Pavo por la mañana y Reishi por la tarde/noche para un bienestar integral.',
+    labResults: 'Ambos productos han sido analizados por laboratorios independientes para garantizar su calidad y pureza.',
     faqs: [],
-    image: 'product-pack-nervioso',
+    image: 'product-pack-calma-defensa',
     type: 'bundle',
-    benefitCategory: 'estres'
-  },
-  {
-    id: 'pack-003',
-    name: 'Pack Inmunidad Plus',
-    slug: 'pack-inmunidad-plus',
-    price: 49.99,
-    description: 'Una defensa completa para tu cuerpo. Incluye Tinctura Inmunidad y Tinctura Digestivo para una base sólida de salud.',
-    benefits: ['Doble protección', 'Salud digestiva e inmune', 'Ahorro del 10%'],
-    howToUse: 'Tomar cada tinctura según sus indicaciones para un apoyo integral.',
-    labResults: 'Ambos productos probados por terceros.',
-    faqs: [],
-    image: 'product-pack-inmunidad',
-    type: 'bundle',
-    benefitCategory: 'inmunidad'
+    benefitCategory: 'calma'
   },
 ];
 
 export const articles: Article[] = [
-  { id: '1', title: 'Guía de adaptógenos para principiantes', slug: 'guia-adaptogenos', content: 'Contenido completo sobre adaptógenos...', image: 'educational-guides', category: 'guides' },
-  { id: '2', title: 'Receta de Latte Relajante con Tinctura de Sueño', slug: 'receta-latte-sueno', content: 'Prepara esta deliciosa bebida...', image: 'educational-recipes', category: 'recipes' },
-  { id: '3', title: 'La ciencia detrás de los nootrópicos naturales', slug: 'ciencia-nootropicos', content: 'Explora cómo funcionan las hierbas para el cerebro...', image: 'educational-science', category: 'science' },
+  { id: '1', title: '¿Qué son los hongos funcionales?', slug: 'que-son-hongos-funcionales', content: 'Contenido completo sobre hongos funcionales...', image: 'educational-guides', category: 'guides' },
+  { id: '2', title: 'Receta: Café a prueba de balas con Melena de León', slug: 'receta-cafe-melena-leon', content: 'Prepara esta deliciosa bebida para potenciar tu mañana...', image: 'educational-recipes', category: 'recipes' },
+  { id: '3', title: 'La ciencia de la doble extracción', slug: 'ciencia-doble-extraccion', content: 'Descubre por qué nuestro método de extracción es superior...', image: 'educational-science', category: 'science' },
 ];
 
 export const reviews: Review[] = [
-  { id: '1', author: 'Ana G.', rating: 5, text: 'La Tinctura Cerebro ha cambiado mis días de trabajo. ¡Mucho más enfocada!', product_id: 'prod-001' },
-  { id: '2', author: 'Carlos R.', rating: 5, text: '¡Increíble! Duermo como un bebé con la Tinctura Sueño. Totalmente recomendado.', product_id: 'prod-004' },
-  { id: '3', author: 'Lucía M.', rating: 4, text: 'El Pack Productividad es genial. La Tinctura de Energía me da un empujón sin nervios.', product_id: 'pack-001' },
-  { id: '4', author: 'Javier P.', rating: 5, text: 'He notado una gran diferencia en mis niveles de estrés desde que tomo la Tinctura Estrés. Un producto excelente.', product_id: 'prod-003' },
+  { id: '1', author: 'Elena V.', rating: 5, text: 'La tintura de Melena de León ha sido un antes y un después en mi productividad. ¡Concentración a tope!', product_id: 'prod-001' },
+  { id: '2', author: 'Marcos L.', rating: 5, text: 'Uso Cordyceps antes de ir al gimnasio y la diferencia en mi resistencia es brutal. ¡Energía limpia!', product_id: 'prod-002' },
+  { id: '3', author: 'Sofía P.', rating: 5, text: 'El Reishi me ayuda a bajar las revoluciones después de un día de locos. Duermo mucho mejor. Lo recomiendo.', product_id: 'prod-003' },
+  { id: '4', author: 'Javier G.', rating: 4, text: 'El pack Mente y Cuerpo es la combinación perfecta para mis largas jornadas de trabajo y estudio. Muy contento.', product_id: 'pack-001' },
 ];
 
 export const quizQuestions: QuizQuestion[] = [
@@ -158,54 +128,54 @@ export const quizQuestions: QuizQuestion[] = [
         question: '¿Cuál es tu principal objetivo de bienestar?',
         type: 'multiple-choice',
         options: [
-            { text: 'Mejorar mi enfoque y memoria', value: 'cerebro' },
-            { text: 'Tener más energía durante el día', value: 'energia' },
-            { text: 'Reducir el estrés y la ansiedad', value: 'estres' },
-            { text: 'Dormir mejor por la noche', value: 'sueno' },
+            { text: 'Mejorar mi enfoque y claridad mental', value: 'enfoque' },
+            { text: 'Aumentar mis niveles de energía y vitalidad', value: 'energia' },
+            { text: 'Gestionar el estrés y sentirme más calmado', value: 'calma' },
+            { text: 'Mejorar la calidad de mi descanso', value: 'descanso' },
         ],
     },
     {
         id: 2,
-        question: '¿Cómo describirías tus niveles de energía a media tarde?',
+        question: '¿Cómo te sientes normalmente a media tarde?',
         type: 'multiple-choice',
         options: [
-            { text: 'Altos y estables', value: 'energia_alta' },
-            { text: 'Sufro un bajón notable', value: 'energia' },
-            { text: 'Variables, dependen del día', value: 'estres' },
-            { text: 'Bajos, me siento cansado', value: 'energia' },
+            { text: 'Con energía y productivo', value: 'energia_alta' },
+            { text: 'Noto un bajón de energía significativo', value: 'energia' },
+            { text: 'Cansado mentalmente, me cuesta concentrarme', value: 'enfoque' },
+            { text: 'Algo ansioso o estresado por el resto del día', value: 'calma' },
         ],
     },
     {
         id: 3,
-        question: '¿Con qué frecuencia te sientes abrumado o estresado?',
+        question: '¿Qué tan a menudo te sientes estresado o abrumado?',
         type: 'multiple-choice',
         options: [
-            { text: 'Casi nunca', value: 'calma' },
-            { text: 'Algunas veces a la semana', value: 'estres' },
-            { text: 'Casi todos los días', value: 'estres' },
-            { text: 'El estrés afecta mi sueño', value: 'sueno' },
+            { text: 'Raramente', value: 'calma_buena' },
+            { text: 'Varias veces por semana', value: 'calma' },
+            { text: 'Casi a diario', value: 'calma' },
+            { text: 'Mi estrés afecta negativamente mi sueño', value: 'descanso' },
         ],
     },
     {
         id: 4,
-        question: '¿Qué tal es la calidad de tu sueño?',
+        question: 'Describe la calidad de tu sueño:',
         type: 'multiple-choice',
         options: [
-            { text: 'Duermo profundamente y me levanto descansado', value: 'sueno_bueno' },
-            { text: 'Me cuesta conciliar el sueño', value: 'sueno' },
-            { text: 'Me despierto varias veces por la noche', value: 'sueno' },
-            { text: 'Duermo, pero me levanto cansado', value: 'energia' },
+            { text: 'Excelente, duermo profundo y me levanto renovado', value: 'sueno_bueno' },
+            { text: 'Me cuesta quedarme dormido', value: 'descanso' },
+            { text: 'Me despierto durante la noche', value: 'descanso' },
+            { text: 'Duermo las horas, pero me levanto cansado', value: 'energia' },
         ],
     },
     {
         id: 5,
-        question: '¿Te gustaría mejorar tu capacidad para concentrarte en tareas complejas?',
+        question: '¿En qué área buscas un mayor rendimiento?',
         type: 'multiple-choice',
         options: [
-            { text: 'Sí, es una prioridad para mí', value: 'cerebro' },
-            { text: 'A veces me distraigo, podría mejorar', value: 'cerebro' },
-            { text: 'No, mi concentración es buena', value: 'concentracion_buena' },
-            { text: 'Mi falta de energía afecta mi concentración', value: 'energia' },
+            { text: 'En el trabajo o estudios, necesito más concentración', value: 'enfoque' },
+            { text: 'En el deporte o actividad física, busco más resistencia', value: 'energia' },
+            { text: 'En mi día a día, para tener más vitalidad general', value: 'energia' },
+            { text: 'En mi capacidad para relajarme y desconectar', value: 'calma' },
         ],
     },
 ];

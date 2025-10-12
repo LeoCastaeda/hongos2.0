@@ -11,7 +11,7 @@ export function Reviews() {
             Lo que dice nuestra comunidad
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Opiniones reales de personas que han transformado su bienestar.
+            Opiniones reales de personas que han integrado Boulet en su rutina.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

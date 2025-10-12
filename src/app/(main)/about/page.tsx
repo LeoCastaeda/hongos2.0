@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Check, Leaf, Heart, MapPin } from 'lucide-react';
+import { Check, Leaf, Heart, MapPin, Award } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function AboutPage() {
@@ -10,12 +10,12 @@ export default function AboutPage() {
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-3xl mx-auto">
-          <p className="text-primary font-semibold">Nuestra Marca</p>
+          <p className="text-primary font-semibold">Nuestra Historia</p>
           <h1 className="text-4xl md:text-6xl font-headline font-bold my-4">
-            Pasión por el bienestar, con raíces en Barcelona.
+            Volviendo a lo natural, potenciando el futuro.
           </h1>
           <p className="text-lg text-muted-foreground">
-            En Herbolario Barcelona, creemos en el poder de la naturaleza para restaurar el equilibrio y potenciar la vida. Combinamos la sabiduría herbal tradicional con la ciencia moderna para crear suplementos puros y efectivos.
+            En Boulet, creemos que el bienestar es un equilibrio entre cuerpo y mente. Nuestra misión es reconectar a las personas con el poder de la naturaleza a través de suplementos a base de hongos funcionales, cultivados con respeto y procesados con ciencia.
           </p>
         </div>
         
@@ -34,30 +34,30 @@ export default function AboutPage() {
 
         <div className="grid md:grid-cols-2 gap-16 items-center my-16">
           <div>
-            <h2 id="sustainability" className="text-3xl font-headline font-bold mb-4">Nuestro Compromiso con la Sostenibilidad</h2>
+            <h2 id="sustainability" className="text-3xl font-headline font-bold mb-4">Compromiso con la Calidad y el Planeta</h2>
             <p className="text-muted-foreground mb-6">
-              La salud del planeta es tan importante como la tuya. Por eso, nos esforzamos por tener un impacto positivo en cada paso de nuestro proceso.
+              La salud de nuestros clientes y la del planeta son nuestras máximas prioridades. Por eso cuidamos cada detalle, desde el origen de nuestros hongos hasta el packaging que llega a tus manos.
             </p>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Leaf className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
                 <div>
-                  <h3 className="font-semibold">Ingredientes de Origen Ético</h3>
-                  <p className="text-muted-foreground">Colaboramos con agricultores que practican la agricultura regenerativa y sostenible.</p>
+                  <h3 className="font-semibold">Cultivo Orgánico y Sostenible</h3>
+                  <p className="text-muted-foreground">Nuestros hongos crecen en un entorno controlado, libre de pesticidas y metales pesados, asegurando la máxima pureza.</p>
                 </div>
               </li>
               <li className="flex items-start">
                 <Heart className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
                 <div>
-                  <h3 className="font-semibold">Packaging Eco-Friendly</h3>
-                  <p className="text-muted-foreground">Utilizamos botellas de vidrio reciclable y materiales de envío compostables para minimizar nuestra huella.</p>
+                  <h3 className="font-semibold">Doble Extracción para Máxima Potencia</h3>
+                  <p className="text-muted-foreground">Utilizamos un método de doble extracción (agua y alcohol) para obtener todos los compuestos beneficiosos del hongo.</p>
                 </div>
               </li>
-              <li className="flex items-start">
-                <MapPin className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
+               <li className="flex items-start">
+                <Award className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
                 <div>
-                  <h3 className="font-semibold">Producción Local</h3>
-                  <p className="text-muted-foreground">Al producir en Barcelona, reducimos las emisiones del transporte y apoyamos la economía local.</p>
+                  <h3 className="font-semibold">Cuerpo Fructífero, Sin Rellenos</h3>
+                  <p className="text-muted-foreground">Solo usamos el cuerpo fructífero del hongo, la parte con mayor concentración de activos. Sin micelio, sin granos, sin aditivos.</p>
                 </div>
               </li>
             </ul>
@@ -88,14 +88,14 @@ export default function AboutPage() {
                   <Check className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold">Testado por Terceros</h3>
-                <p className="text-sm text-muted-foreground">Cada lote es verificado por laboratorios independientes.</p>
+                <p className="text-sm text-muted-foreground">Análisis de laboratorio independientes para cada lote.</p>
               </div>
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 rounded-full p-4 mb-4">
                   <Check className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold">Ingredientes Puros</h3>
-                <p className="text-sm text-muted-foreground">Sin rellenos, aditivos artificiales ni GMOs.</p>
+                <p className="text-sm text-muted-foreground">100% cuerpo fructífero de hongo. Sin aditivos.</p>
               </div>
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 rounded-full p-4 mb-4">
@@ -106,10 +106,10 @@ export default function AboutPage() {
               </div>
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 rounded-full p-4 mb-4">
-                  <MapPin className="w-8 h-8 text-primary" />
+                  <Leaf className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="font-semibold">Hecho en Barcelona</h3>
-                <p className="text-sm text-muted-foreground">Con orgullo, formulado y producido en nuestra ciudad.</p>
+                <h3 className="font-semibold">100% Orgánico</h3>
+                <p className="text-sm text-muted-foreground">Cultivado de forma sostenible y responsable.</p>
               </div>
             </div>
           </div>

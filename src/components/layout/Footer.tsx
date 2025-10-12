@@ -2,18 +2,17 @@ import Link from 'next/link';
 import { Brain, Twitter, Instagram, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Mushroom } from 'lucide-react';
 
 const footerLinks = {
   comprar: [
     { title: 'Todos los productos', href: '/collections/all' },
     { title: 'Por Beneficio', href: '#benefits' },
     { title: 'Packs', href: '/collections/bundles' },
-    { title: 'Suscripciones', href: '/subscribe' },
   ],
   nosotros: [
     { title: 'Nuestra Historia', href: '/about' },
-    { title: 'Sostenibilidad', href: '/about#sustainability' },
-    { title: 'Hecho en Barcelona', href: '/about#made-in-bcn' },
+    { title: 'Calidad', href: '/about#sustainability' },
     { title: 'Reseñas', href: '/#reviews' },
   ],
   ayuda: [
@@ -30,20 +29,20 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 pr-8">
             <Link href="/" className="inline-flex items-center space-x-2 mb-4">
-              <Brain className="h-7 w-7 text-primary" />
+              <Mushroom className="h-7 w-7 text-primary" />
               <span className="text-xl font-bold font-headline">
-                Herbolario Barcelona
+                Boulet
               </span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
-              Suplementos naturales para potenciar tu bienestar.
+              El poder ancestral de los hongos funcionales.
             </p>
             <form className="flex w-full max-w-sm items-center space-x-2">
               <Input type="email" placeholder="Tu email" className="bg-background"/>
               <Button type="submit" variant="default">Subscribirse</Button>
             </form>
             <p className="text-xs text-muted-foreground mt-2">
-              Recibe guías, ofertas y un 10% de descuento en tu primer pedido.
+              Recibe guías, ofertas y un 10% de descuento.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 col-span-1 md:col-span-2 lg:col-span-3">
@@ -87,7 +86,7 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Herbolario Barcelona. Todos los derechos reservados.
+            © {new Date().getFullYear()} Boulet. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-4">
             <Link href="#" aria-label="Twitter">

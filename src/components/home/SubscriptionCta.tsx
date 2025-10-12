@@ -6,7 +6,7 @@ export function SubscriptionCta() {
     <section className="bg-primary text-primary-foreground">
       <div className="container py-16 lg:py-20 px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
-          Únete a la comunidad de Herbolario
+          Únete a la comunidad Boulet
         </h2>
         <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8">
           Recibe guías de bienestar, acceso anticipado a productos y un 10% de descuento en tu primer pedido.
