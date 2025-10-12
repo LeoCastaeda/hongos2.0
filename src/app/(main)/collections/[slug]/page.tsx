@@ -3,7 +3,13 @@ import { ProductCard } from '@/components/products/ProductCard';
 
 export async function generateStaticParams() {
   const benefitSlugs = benefits.map(b => ({ slug: b.slug }));
-  const otherSlugs = [{ slug: 'all' }, { slug: 'bundles' }, { slug: 'tinctures' }];
+  const otherSlugs = [
+    { slug: 'all' }, 
+    { slug: 'bundles' }, 
+    { slug: 'tinctures' },
+    { slug: 'medicinal' },
+    { slug: 'comestible' },
+  ];
   return [...benefitSlugs, ...otherSlugs];
 }
 
@@ -27,6 +33,14 @@ export default function CollectionPage({ params }: { params: { slug: string } })
     filteredProducts = products.filter(p => p.type === 'tincture');
     title = 'Todas las Tincturas';
     description = 'Descubre nuestra colección de tincturas herbales.';
+  } else if (slug === 'medicinal') {
+    filteredProducts = products.filter(p => p.category === 'Medicinal');
+    title = 'Hongos Medicinales';
+    description = 'Extractos y packs centrados en los beneficios para la salud.';
+  } else if (slug === 'comestible') {
+    filteredProducts = products.filter(p => p.category === 'Comestible');
+    title = 'Productos Comestibles';
+    description = 'Disfruta de los beneficios de los hongos en tu día a día.';
   } else if (benefit) {
     filteredProducts = products.filter(p => p.benefitCategory === slug || p.type === 'bundle' && p.slug.includes(slug));
     title = `Productos para ${benefit.name}`;

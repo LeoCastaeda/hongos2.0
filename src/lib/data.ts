@@ -26,6 +26,7 @@ export const products: Product[] = [
     image: 'product-lions-mane',
     isBestSeller: true,
     type: 'tincture',
+    category: 'Medicinal',
     benefitCategory: 'enfoque'
   },
   {
@@ -43,6 +44,7 @@ export const products: Product[] = [
     image: 'product-cordyceps',
     isBestSeller: true,
     type: 'tincture',
+    category: 'Medicinal',
     benefitCategory: 'energia'
   },
   {
@@ -60,6 +62,7 @@ export const products: Product[] = [
     image: 'product-reishi',
     isBestSeller: true,
     type: 'tincture',
+    category: 'Medicinal',
     benefitCategory: 'calma'
   },
   {
@@ -76,7 +79,26 @@ export const products: Product[] = [
     ],
     image: 'product-turkey-tail',
     type: 'tincture',
+    category: 'Medicinal',
     benefitCategory: 'inmunidad'
+  },
+  {
+    id: 'prod-005',
+    name: 'Café Adaptogénico',
+    slug: 'cafe-adaptogenico',
+    price: 24.99,
+    description: 'Empieza tu día con energía y enfoque. Nuestro café orgánico está enriquecido con Melena de León y Cordyceps para un rendimiento mental y físico superior.',
+    benefits: ['Café de especialidad orgánico', 'Mejora el enfoque y la energía', 'Sin el "crash" de la cafeína'],
+    howToUse: 'Prepara una taza como lo harías con tu café habitual. Ideal para empezar la mañana o para una tarde productiva.',
+    labResults: 'Café arábica de tueste natural con extractos de Melena de León y Cordyceps. 100% orgánico y de comercio justo.',
+    faqs: [
+      { question: '¿A qué sabe?', answer: 'Sabe a un delicioso café de alta calidad. Los extractos de hongos no alteran significativamente el sabor, pero sí potencian sus beneficios.' }
+    ],
+    image: 'product-coffee',
+    isBestSeller: false,
+    type: 'coffee',
+    category: 'Comestible',
+    benefitCategory: 'energia'
   },
   {
     id: 'pack-001',
@@ -91,6 +113,7 @@ export const products: Product[] = [
     image: 'product-pack-mente-cuerpo',
     isBestSeller: true,
     type: 'bundle',
+    category: 'Medicinal',
     benefitCategory: 'enfoque'
   },
   {
@@ -105,6 +128,7 @@ export const products: Product[] = [
     faqs: [],
     image: 'product-pack-calma-defensa',
     type: 'bundle',
+    category: 'Medicinal',
     benefitCategory: 'calma'
   },
 ];

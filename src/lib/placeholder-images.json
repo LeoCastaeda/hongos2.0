@@ -31,6 +31,12 @@
       "imageHint": "product bottle"
     },
     {
+      "id": "product-coffee",
+      "description": "A bag of adaptogenic coffee.",
+      "imageUrl": "https://picsum.photos/seed/205/600/600",
+      "imageHint": "coffee bag"
+    },
+    {
       "id": "product-pack-mente-cuerpo",
       "description": "Product bundle for Mente y Cuerpo pack.",
       "imageUrl": "https://picsum.photos/seed/301/600/600",

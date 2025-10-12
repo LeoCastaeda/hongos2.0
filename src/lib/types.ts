@@ -10,7 +10,8 @@ export type Product = {
   faqs: { question: string; answer: string }[];
   image: string;
   isBestSeller?: boolean;
-  type: 'tincture' | 'bundle';
+  type: 'tincture' | 'bundle' | 'coffee';
+  category: 'Medicinal' | 'Comestible';
   benefitCategory: string;
 };
 

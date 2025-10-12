@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 const footerLinks = {
   comprar: [
     { title: 'Todos los productos', href: '/collections/all' },
-    { title: 'Por Beneficio', href: '#benefits' },
+    { title: 'Medicinales', href: '/collections/medicinal' },
+    { title: 'Comestibles', href: '/collections/comestible' },
     { title: 'Packs', href: '/collections/bundles' },
   ],
   nosotros: [

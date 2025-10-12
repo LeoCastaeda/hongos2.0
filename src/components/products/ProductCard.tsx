@@ -27,11 +27,14 @@ export function ProductCard({ product }: ProductCardProps) {
               className="object-cover"
               data-ai-hint={imageHint}
             />
-            {product.isBestSeller && (
-              <Badge variant="default" className="absolute top-3 right-3 bg-accent text-accent-foreground">
-                Best Seller
-              </Badge>
-            )}
+             <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
+                {product.isBestSeller && (
+                <Badge variant="default" className="bg-accent text-accent-foreground">
+                    Best Seller
+                </Badge>
+                )}
+                <Badge variant="secondary">{product.category}</Badge>
+            </div>
           </div>
         </Link>
       </CardHeader>
