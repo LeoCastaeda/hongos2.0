@@ -49,10 +49,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "isBestSeller": {
-          "type": "boolean",
-          "description": "Indicates if the product is a best seller."
         }
       },
       "required": [

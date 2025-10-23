@@ -9,7 +9,6 @@ export type Product = {
   labResults: string;
   faqs: { question: string; answer: string }[];
   image: string;
-  isBestSeller?: boolean;
   type: 'tincture' | 'bundle' | 'coffee';
   category: 'Medicinal' | 'Comestible';
   benefitCategory: string;

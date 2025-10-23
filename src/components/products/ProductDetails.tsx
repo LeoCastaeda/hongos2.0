@@ -54,11 +54,6 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
             data-ai-hint={imageHint}
           />
         </div>
-        {product.isBestSeller && (
-          <Badge variant="default" className="absolute top-4 left-4 bg-accent text-accent-foreground">
-            Best Seller
-          </Badge>
-        )}
       </div>
 
       {/* Product Info */}

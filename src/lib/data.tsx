@@ -29,7 +29,7 @@ const EnergiaIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const CalmaIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M4 10H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="2 4"/>
+    <path d="M4 10H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 4"/>
   </svg>
 );
 
@@ -71,7 +71,6 @@ export const products: Product[] = [
       { question: '¿Cuándo veré resultados?', answer: 'Los efectos pueden notarse en las primeras dos semanas de uso diario, con beneficios que se consolidan con el tiempo.' }
     ],
     image: 'product-lions-mane',
-    isBestSeller: true,
     type: 'tincture',
     category: 'Medicinal',
     benefitCategory: 'enfoque'
@@ -89,7 +88,6 @@ export const products: Product[] = [
       { question: '¿Puede sustituir mi bebida energética?', answer: 'Sí, muchos usuarios lo prefieren por ser una fuente de energía natural y sin el "crash" de las bebidas azucaradas.' }
     ],
     image: 'product-cordyceps',
-    isBestSeller: true,
     type: 'tincture',
     category: 'Medicinal',
     benefitCategory: 'energia'
@@ -107,7 +105,6 @@ export const products: Product[] = [
       { question: '¿Me dará sueño si lo tomo durante el día?', answer: 'No es un sedante. Simplemente ayuda a tu cuerpo a equilibrar su respuesta al estrés, promoviendo un estado de calma.' }
     ],
     image: 'product-reishi',
-    isBestSeller: true,
     type: 'tincture',
     category: 'Medicinal',
     benefitCategory: 'calma'
@@ -142,7 +139,6 @@ export const products: Product[] = [
       { question: '¿A qué sabe?', answer: 'Sabe a un delicioso café de alta calidad. Los extractos de hongos no alteran significativamente el sabor, pero sí potencian sus beneficios.' }
     ],
     image: 'product-coffee',
-    isBestSeller: false,
     type: 'coffee',
     category: 'Comestible',
     benefitCategory: 'energia'
@@ -158,7 +154,6 @@ export const products: Product[] = [
     labResults: 'Ambos productos han sido analizados por laboratorios independientes para garantizar su calidad y pureza.',
     faqs: [],
     image: 'product-pack-mente-cuerpo',
-    isBestSeller: true,
     type: 'bundle',
     category: 'Medicinal',
     benefitCategory: 'enfoque'
