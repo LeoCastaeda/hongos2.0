@@ -1,4 +1,3 @@
-
 import type { Product, Benefit, Article, Review, QuizQuestion } from '@/lib/types';
 import React from 'react';
 
@@ -217,8 +216,8 @@ export const quizQuestions: QuizQuestion[] = [
         type: 'multiple-choice',
         options: [
             { text: 'Raramente', value: 'calma_buena' },
-            { text: 'Varias veces por semana', value: 'calma' },
-            { text: 'Casi a diario', value: 'calma' },
+            { text: 'Varias veces por semana', value: 'calma_semanal' },
+            { text: 'Casi a diario', value: 'calma_diaria' },
             { text: 'Mi estrés afecta negativamente mi sueño', value: 'descanso' },
         ],
     },
@@ -229,7 +228,7 @@ export const quizQuestions: QuizQuestion[] = [
         options: [
             { text: 'Excelente, duermo profundo y me levanto renovado', value: 'sueno_bueno' },
             { text: 'Me cuesta quedarme dormido', value: 'descanso' },
-            { text: 'Me despierto durante la noche', value: 'descanso' },
+            { text: 'Me despierto durante la noche', value: 'descanso_interrumpido' },
             { text: 'Duermo las horas, pero me levanto cansado', value: 'energia' },
         ],
     },
@@ -240,7 +239,7 @@ export const quizQuestions: QuizQuestion[] = [
         options: [
             { text: 'En el trabajo o estudios, necesito más concentración', value: 'enfoque' },
             { text: 'En el deporte o actividad física, busco más resistencia', value: 'energia' },
-            { text: 'En mi día a día, para tener más vitalidad general', value: 'energia' },
+            { text: 'En mi día a día, para tener más vitalidad general', value: 'energia_diaria' },
             { text: 'En mi capacidad para relajarme y desconectar', value: 'calma' },
         ],
     },
