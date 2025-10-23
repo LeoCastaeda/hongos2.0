@@ -59,7 +59,7 @@ export function QuizForm() {
   return (
     <div className="container mx-auto max-w-2xl px-4 py-12">
       {currentStep < totalQuestions ? (
-        <Card>
+        <Card key={currentStep}>
           <CardHeader>
             <Progress value={progress} className="mb-4" />
             <p className="text-sm text-muted-foreground">Pregunta {currentStep + 1} de {totalQuestions}</p>
