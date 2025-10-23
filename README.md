@@ -1,6 +1,6 @@
 # Bouletmushrooms
 
-Bouletmushrooms es un storefront moderno construido con Next.js 15 para una marca ficticia de suplementos a base de hongos funcionales. El proyecto combina contenidos educativos, un cuestionario guiado y una experiencia de compra completa con autenticación en Firebase.
+Bouletmushrooms es un storefront moderno construido con Next.js 15 para una marca de suplementos a base de hongos funcionales. El proyecto combina contenidos educativos, un cuestionario guiado y una experiencia de compra completa con autenticación en Firebase.
 
 ## 🚀 Características principales
 
