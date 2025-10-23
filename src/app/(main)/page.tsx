@@ -5,6 +5,8 @@ import { Reviews } from "@/components/home/Reviews";
 import { SubscriptionCta } from "@/components/home/SubscriptionCta";
 import { products } from "@/lib/data";
 import { ProductCard } from "@/components/products/ProductCard";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HomePage() {
   const featuredProducts = products.slice(0, 4);
@@ -26,6 +28,11 @@ export default function HomePage() {
               {featuredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
+            </div>
+            <div className="mt-12 text-center">
+                <Button asChild size="lg" variant="outline">
+                    <Link href="/collections/all">Ver todos los productos</Link>
+                </Button>
             </div>
           </div>
       </section>
