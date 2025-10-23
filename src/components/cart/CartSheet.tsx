@@ -14,6 +14,7 @@ import { Separator } from '../ui/separator';
 import { useCart } from '@/context/CartContext';
 import { CartItemCard } from './CartItemCard';
 import { ScrollArea } from '../ui/scroll-area';
+import Link from 'next/link';
 
 interface CartSheetProps {
     children: React.ReactNode;
@@ -54,8 +55,8 @@ export function CartSheet({ children }: CartSheetProps) {
                             Proceder al Pago
                         </Button>
                          <SheetClose asChild>
-                            <Button variant="link" className="w-full">
-                                Continuar comprando
+                            <Button asChild variant="link" className="w-full">
+                                <Link href="/collections/all">Continuar comprando</Link>
                             </Button>
                         </SheetClose>
                     </div>
@@ -66,8 +67,8 @@ export function CartSheet({ children }: CartSheetProps) {
                 <p className="text-xl font-semibold">Tu carrito está vacío</p>
                 <p className="text-muted-foreground mt-2">¡Añade productos para empezar!</p>
                 <SheetClose asChild>
-                    <Button className="mt-4">
-                        Continuar Comprando
+                    <Button asChild className="mt-4">
+                        <Link href="/collections/all">Continuar Comprando</Link>
                     </Button>
                 </SheetClose>
             </div>
