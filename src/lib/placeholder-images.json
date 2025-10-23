@@ -3,86 +3,92 @@
     {
       "id": "hero-background",
       "description": "A mystical forest scene with sun rays filtering through the trees, suggesting the natural power of mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/100/1800/1000",
+      "imageUrl": "https://images.unsplash.com/photo-1667137242781-32ef4763964a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtdXNocm9vbSUyMGZvcmVzdHxlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mushroom forest"
     },
     {
       "id": "product-lions-mane",
       "description": "Product bottle for Lion's Mane tincture.",
-      "imageUrl": "https://picsum.photos/seed/201/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1628794577976-db3723221fff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bottle"
     },
     {
       "id": "product-cordyceps",
       "description": "Product bottle for Cordyceps tincture.",
-      "imageUrl": "https://picsum.photos/seed/202/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1702399129748-afb48d93ed67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bottle"
     },
     {
       "id": "product-reishi",
       "description": "Product bottle for Reishi tincture.",
-      "imageUrl": "https://picsum.photos/seed/203/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1717992411100-50402e0216fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bottle"
     },
     {
       "id": "product-turkey-tail",
       "description": "Product bottle for Turkey Tail tincture.",
-      "imageUrl": "https://picsum.photos/seed/204/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1702321807264-1f94d4322dae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bottle"
     },
     {
       "id": "product-coffee",
       "description": "A bag of adaptogenic coffee.",
-      "imageUrl": "https://picsum.photos/seed/205/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1610128880537-9b81f40733c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBiYWd8ZW58MHx8fHwxNzYxMTcwMDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "coffee bag"
     },
     {
       "id": "product-pack-mente-cuerpo",
       "description": "Product bundle for Mente y Cuerpo pack.",
-      "imageUrl": "https://picsum.photos/seed/301/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1642505171999-d704cd50f93c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYnVuZGxlfGVufDB8fHx8MTc2MTE1ODU3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bundle"
     },
     {
       "id": "product-pack-calma-defensa",
       "description": "Product bundle for Calma y Defensa pack.",
-      "imageUrl": "https://picsum.photos/seed/302/600/600",
+      "imageUrl": "https://images.unsplash.com/photo-1642505171999-d704cd50f93c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYnVuZGxlfGVufDB8fHx8MTc2MTE1ODU3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product bundle"
     },
     {
       "id": "educational-guides",
       "description": "Image for educational guides about functional mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/401/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1670617871787-b2596d4ecb86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bXVzaHJvb21zJTIwZ3VpZGV8ZW58MHx8fHwxNzYxMjMzNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mushrooms guide"
     },
     {
       "id": "educational-recipes",
       "description": "Image for healthy recipes with mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/402/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1730043033919-1066b2f9d16c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJlY2lwZXxlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mushroom recipe"
     },
     {
       "id": "educational-science",
       "description": "Image for science behind functional mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/403/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzY2llbmNlJTIwbGFifGVufDB8fHx8MTc2MTE4NDkyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "science lab"
     },
     {
       "id": "about-story",
       "description": "Image representing the brand's story, maybe a person foraging for mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/501/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1724751691410-5e7772ad116e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtdXNocm9vbSUyMGZvcmFnaW5nfGVufDB8fHx8MTc2MTIzMzcxM3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mushroom foraging"
     },
     {
       "id": "about-sustainability",
       "description": "Image representing sustainability, like hands holding a small mushroom sprout.",
-      "imageUrl": "https://picsum.photos/seed/502/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1738832168475-c2140c049a43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHNwcm91dHxlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mushroom sprout"
     },
     {
       "id": "quiz-background",
       "description": "A calming natural background for the quiz, with soft-focus mushrooms.",
-      "imageUrl": "https://picsum.photos/seed/601/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1758666227156-1440fa9ecaa4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FsbSUyMG11c2hyb29tc3xlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "calm mushrooms"
+    },
+    {
+      "id": "subscription-cta-background",
+      "description": "Bucolic mushrooms in a forest setting for the subscription CTA background.",
+      "imageUrl": "https://images.unsplash.com/photo-1601453344878-6b847db5ba8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxidWNvbGljJTIwbXVzaHJvb21zfGVufDB8fHx8MTc2MTIzMzcxM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bucolic mushrooms"
     }
   ]
 }

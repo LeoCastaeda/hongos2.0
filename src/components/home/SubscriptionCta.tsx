@@ -1,10 +1,24 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function SubscriptionCta() {
+  const ctaImage = PlaceHolderImages.find(p => p.id === 'subscription-cta-background');
+
   return (
-    <section className="bg-primary text-primary-foreground">
-      <div className="container py-16 lg:py-20 px-4 text-center">
+    <section className="relative bg-primary text-primary-foreground">
+      {ctaImage && (
+        <Image
+          src={ctaImage.imageUrl}
+          alt={ctaImage.description}
+          fill
+          className="object-cover"
+          data-ai-hint={ctaImage.imageHint}
+        />
+      )}
+      <div className="absolute inset-0 bg-black/50" />
+      <div className="relative z-10 container py-16 lg:py-20 px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
           Únete a la comunidad Boulet
         </h2>
@@ -15,9 +29,9 @@ export function SubscriptionCta() {
           <Input 
             type="email" 
             placeholder="Introduce tu dirección de email" 
-            className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:bg-background focus:text-foreground"
+            className="bg-background/80 border-border text-foreground placeholder:text-muted-foreground focus:bg-background focus:text-foreground"
           />
-          <Button type="submit" variant="secondary" className="w-full sm:w-auto">
+          <Button type="submit" variant="default" className="w-full sm:w-auto">
             Subscribirme
           </Button>
         </form>
