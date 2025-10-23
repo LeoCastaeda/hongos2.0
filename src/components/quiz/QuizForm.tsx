@@ -71,12 +71,15 @@ export function QuizForm() {
               onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
               className="space-y-4"
             >
-              {currentQuestion.options.map((option, index) => (
-                <Label key={index} htmlFor={`option-${index}`} className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-accent/50 has-[input:checked]:border-primary has-[input:checked]:ring-1 has-[input:checked]:ring-primary">
-                  <RadioGroupItem value={option.value} id={`option-${index}`} />
-                  <span>{option.text}</span>
-                </Label>
-              ))}
+              {currentQuestion.options.map((option, index) => {
+                const optionId = `q${currentQuestion.id}-option-${index}`;
+                return (
+                  <Label key={optionId} htmlFor={optionId} className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-accent/50 has-[input:checked]:border-primary has-[input:checked]:ring-1 has-[input:checked]:ring-primary">
+                    <RadioGroupItem value={option.value} id={optionId} />
+                    <span>{option.text}</span>
+                  </Label>
+                )
+              })}
             </RadioGroup>
           </CardContent>
           <CardFooter className="flex justify-between">
