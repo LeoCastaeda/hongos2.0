@@ -1,14 +1,14 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Product, CartItem, PurchaseType } from '@/lib/types';
+import { Product, CartItem } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product, quantity: number, purchaseType: PurchaseType) => void;
-  removeFromCart: (productId: string, purchaseType: PurchaseType) => void;
-  updateQuantity: (productId: string, purchaseType: PurchaseType, quantity: number) => void;
+  addToCart: (product: Product, quantity: number) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   cartTotal: number;
 }
@@ -30,20 +30,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product: Product, quantity: number, purchaseType: PurchaseType) => {
+  const addToCart = (product: Product, quantity: number) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(
-        item => item.product.id === product.id && item.purchaseType === purchaseType
+        item => item.product.id === product.id
       );
 
       if (existingItem) {
         return prevItems.map(item =>
-          item.product.id === product.id && item.purchaseType === purchaseType
+          item.product.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prevItems, { product, quantity, purchaseType }];
+      return [...prevItems, { product, quantity }];
     });
     toast({
         title: "Producto añadido",
@@ -51,19 +51,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     })
   };
 
-  const removeFromCart = (productId: string, purchaseType: PurchaseType) => {
+  const removeFromCart = (productId: string) => {
     setCartItems(prevItems =>
-      prevItems.filter(item => !(item.product.id === productId && item.purchaseType === purchaseType))
+      prevItems.filter(item => item.product.id !== productId)
     );
   };
 
-  const updateQuantity = (productId: string, purchaseType: PurchaseType, quantity: number) => {
+  const updateQuantity = (productId: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId, purchaseType);
+      removeFromCart(productId);
     } else {
       setCartItems(prevItems =>
         prevItems.map(item =>
-          item.product.id === productId && item.purchaseType === purchaseType ? { ...item, quantity } : item
+          item.product.id === productId ? { ...item, quantity } : item
         )
       );
     }
@@ -74,8 +74,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
   
   const cartTotal = cartItems.reduce((total, item) => {
-    const price = item.purchaseType === 'subscribe' ? item.product.price * 0.85 : item.product.price;
-    return total + price * item.quantity;
+    return total + item.product.price * item.quantity;
   }, 0);
 
   return (

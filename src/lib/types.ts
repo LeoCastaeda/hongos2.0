@@ -51,5 +51,4 @@ export type PurchaseType = 'onetime' | 'subscribe';
 export interface CartItem {
   product: Product;
   quantity: number;
-  purchaseType: PurchaseType;
 }

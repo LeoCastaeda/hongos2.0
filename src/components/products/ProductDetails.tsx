@@ -9,12 +9,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Star, CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import type { Product, Review, PurchaseType } from '@/lib/types';
+import type { Product, Review } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
 
 interface ProductDetailsProps {
@@ -24,20 +22,15 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product, reviews }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
-  const [purchaseType, setPurchaseType] = useState<PurchaseType>('onetime');
   const { addToCart } = useCart();
 
   const placeholder = PlaceHolderImages.find(p => p.id === product.image);
   const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
   const imageHint = placeholder?.imageHint || "product";
 
-  const originalPrice = product.price;
-  const subscriptionPrice = originalPrice * 0.85;
-  const displayPrice = purchaseType === 'subscribe' ? subscriptionPrice : originalPrice;
-
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();
-    addToCart(product, quantity, purchaseType);
+    addToCart(product, quantity);
   }
 
   return (
@@ -71,32 +64,10 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         </div>
         
         <p className="mt-4 text-3xl font-bold">
-          {displayPrice.toFixed(2)}€
-          {purchaseType === 'subscribe' && <span className="ml-2 text-base font-normal text-muted-foreground line-through">{originalPrice.toFixed(2)}€</span>}
+          {product.price.toFixed(2)}€
         </p>
         
         <form className="mt-8" onSubmit={handleAddToCart}>
-          <fieldset>
-            <legend className="mb-4 font-medium">Elige tu opción de compra:</legend>
-            <RadioGroup value={purchaseType} onValueChange={(value) => setPurchaseType(value as PurchaseType)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Label htmlFor="onetime" className={`flex cursor-pointer flex-col rounded-lg border p-4 hover:bg-accent/10 ${purchaseType === 'onetime' ? 'border-primary ring-2 ring-primary' : 'border-border'}`}>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Compra única</span>
-                  <RadioGroupItem value="onetime" id="onetime" />
-                </div>
-                <span className="mt-1 text-sm text-muted-foreground">{originalPrice.toFixed(2)}€</span>
-              </Label>
-              <Label htmlFor="subscribe" className={`flex cursor-pointer flex-col rounded-lg border p-4 hover:bg-accent/10 ${purchaseType === 'subscribe' ? 'border-primary ring-2 ring-primary' : 'border-border'}`}>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Subscríbete y ahorra</span>
-                  <RadioGroupItem value="subscribe" id="subscribe" />
-                </div>
-                <span className="mt-1 text-sm text-muted-foreground">{subscriptionPrice.toFixed(2)}€</span>
-                 <Badge variant="outline" className="mt-2 w-fit bg-green-100 text-green-800 border-green-300">Ahorra 15% + Envío Gratis</Badge>
-              </Label>
-            </RadioGroup>
-          </fieldset>
-
           <div className="mt-8 flex items-center gap-4">
             <div className="flex items-center rounded border border-gray-200">
               <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))} type="button">

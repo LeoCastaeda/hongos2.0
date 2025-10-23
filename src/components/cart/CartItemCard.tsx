@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { CartItem } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
-import { Badge } from '../ui/badge';
 
 interface CartItemCardProps {
   item: CartItem;
@@ -19,7 +18,7 @@ export function CartItemCard({ item }: CartItemCardProps) {
   const placeholder = PlaceHolderImages.find(p => p.id === item.product.image);
   const imageUrl = placeholder?.imageUrl || `https://picsum.photos/seed/${item.product.id}/100/100`;
 
-  const price = item.purchaseType === 'subscribe' ? item.product.price * 0.85 : item.product.price;
+  const price = item.product.price;
 
   return (
     <div className="flex items-start gap-4">
@@ -37,15 +36,12 @@ export function CartItemCard({ item }: CartItemCardProps) {
                 <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
                     {item.product.name}
                 </Link>
-                {item.purchaseType === 'subscribe' && (
-                    <Badge variant="secondary" className="w-fit">Suscripción</Badge>
-                )}
             </div>
             <Button
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 text-muted-foreground"
-                onClick={() => removeFromCart(item.product.id, item.purchaseType)}
+                onClick={() => removeFromCart(item.product.id)}
             >
                 <X className="h-4 w-4" />
                 <span className="sr-only">Remove</span>
@@ -58,7 +54,7 @@ export function CartItemCard({ item }: CartItemCardProps) {
               variant="ghost"
               size="icon"
               className="h-8 w-8"
-              onClick={() => updateQuantity(item.product.id, item.purchaseType, item.quantity - 1)}
+              onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
             >
               <Minus className="h-4 w-4" />
             </Button>
@@ -67,7 +63,7 @@ export function CartItemCard({ item }: CartItemCardProps) {
               variant="ghost"
               size="icon"
               className="h-8 w-8"
-              onClick={() => updateQuantity(item.product.id, item.purchaseType, item.quantity + 1)}
+              onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
             >
               <Plus className="h-4 w-4" />
             </Button>
