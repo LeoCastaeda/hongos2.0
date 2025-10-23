@@ -7,7 +7,6 @@ import {
   ShoppingCart,
   User,
   X,
-  type LucideIcon,
   LogOut,
   UserCircle,
 } from 'lucide-react';
@@ -170,7 +169,7 @@ export function Header() {
                     <h3 className="mb-4 font-semibold text-muted-foreground">Comprar por beneficio</h3>
                     <ul className="space-y-4">
                         {benefits.map((benefit) => {
-                            const Icon = benefit.icon as LucideIcon;
+                            const Icon = benefit.icon;
                             return (
                                 <li key={benefit.id}>
                                     <SheetClose asChild>

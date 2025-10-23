@@ -1,12 +1,59 @@
+
 import type { Product, Benefit, Article, Review, QuizQuestion } from '@/lib/types';
-import { Brain, Zap, HeartPulse, Moon, Shield } from 'lucide-react';
+import React from 'react';
+
+const EnfoqueIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21V19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 15V13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 9V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 5V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M19 12H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M13 12H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7 12H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 12H5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M17.6569 17.6569L16.2426 16.2426" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9.75736 9.75736L8.34315 8.34315" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6.34315 17.6569L7.75736 16.2426" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14.8284 9.75736L16.2426 8.34315" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const EnergiaIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13 3L6 14H12L11 21L18 10H12L13 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const CalmaIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4 10H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="2 4"/>
+  </svg>
+);
+
+const DescansoIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 12.79C20.79 12.92 20.59 13 20.37 13C16.92 13 14.12 10.45 14.01 7.03C13.93 4.14 16.03 1.73 18.84 1.13C18.92 1.11 19 1.1 19.07 1.1C13.03 1.1 8.37 6.11 8.37 12C8.37 17.89 13.03 22.9 19.07 22.9C20.65 22.9 22.14 22.5 23.47 21.82C22.46 22.46 21.28 22.9 20.01 22.9C15.42 22.9 11.63 18.88 11.63 14.01C11.63 13.56 11.67 13.12 11.75 12.69" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M21 12.79C21.93 12.2 22.68 11.4 23.21 10.49" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const InmunidadIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7V13C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 13V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12 11L15 14L12 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9 14H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
 
 export const benefits: Benefit[] = [
-  { id: '1', name: 'Enfoque', slug: 'enfoque', description: 'Mejora la función cognitiva y la memoria.', icon: Brain },
-  { id: '2', name: 'Energía', slug: 'energia', description: 'Aumenta tus niveles de energía y vitalidad.', icon: Zap },
-  { id: '3', name: 'Calma', slug: 'calma', description: 'Ayuda a calmar la mente y reducir el estrés.', icon: HeartPulse },
-  { id: '4', name: 'Descanso', slug: 'descanso', description: 'Promueve un sueño reparador y profundo.', icon: Moon },
-  { id: '5', name: 'Inmunidad', slug: 'inmunidad', description: 'Fortalece tu sistema inmunológico.', icon: Shield },
+  { id: '1', name: 'Enfoque', slug: 'enfoque', description: 'Mejora la función cognitiva y la memoria.', icon: EnfoqueIcon },
+  { id: '2', name: 'Energía', slug: 'energia', description: 'Aumenta tus niveles de energía y vitalidad.', icon: EnergiaIcon },
+  { id: '3', name: 'Calma', slug: 'calma', description: 'Ayuda a calmar la mente y reducir el estrés.', icon: CalmaIcon },
+  { id: '4', name: 'Descanso', slug: 'descanso', description: 'Promueve un sueño reparador y profundo.', icon: DescansoIcon },
+  { id: '5', name: 'Inmunidad', slug: 'inmunidad', description: 'Fortalece tu sistema inmunológico.', icon: InmunidadIcon },
 ];
 
 export const products: Product[] = [

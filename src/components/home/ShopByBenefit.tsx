@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { benefits } from '@/lib/data';
-import type { LucideIcon } from 'lucide-react';
 
 export function ShopByBenefit() {
   return (
@@ -15,9 +14,9 @@ export function ShopByBenefit() {
             Encuentra la solución natural perfecta para tus necesidades de bienestar.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {benefits.map((benefit) => {
-            const Icon = benefit.icon as LucideIcon;
+            const Icon = benefit.icon;
             return (
               <Link href={`/collections/${benefit.slug}`} key={benefit.id} className="group">
                 <Card className="text-center h-full flex flex-col items-center justify-center p-4 hover:bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
