@@ -31,7 +31,7 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center space-x-2 mb-4">
               <Leaf className="h-7 w-7 text-primary" />
               <span className="text-xl font-bold font-headline">
-                Boulet
+                Bouletmushrooms
               </span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
@@ -86,7 +86,7 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Boulet. Todos los derechos reservados.
+            © {new Date().getFullYear()} Bouletmushrooms. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-4">
             <Link href="#" aria-label="Twitter">

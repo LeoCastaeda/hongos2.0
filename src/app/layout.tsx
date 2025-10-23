@@ -6,7 +6,7 @@ import { CartProvider } from '@/context/CartContext';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'Boulet | Hongos Funcionales',
+  title: 'Bouletmushrooms | Hongos Funcionales',
   description: 'Suplementos naturales a base de hongos para una vida mejor.',
 };
 

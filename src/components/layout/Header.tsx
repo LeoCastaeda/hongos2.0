@@ -115,7 +115,7 @@ export function Header() {
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Leaf className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">
-              Boulet
+              Bouletmushrooms
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -144,7 +144,7 @@ export function Header() {
                 <div className="flex items-center justify-between border-b pb-4">
                     <Link href="/" className="flex items-center space-x-2">
                         <Leaf className="h-6 w-6 text-primary" />
-                        <span className="font-bold font-headline">Boulet</span>
+                        <span className="font-bold font-headline">Bouletmushrooms</span>
                     </Link>
                     <SheetClose asChild>
                         <Button variant="ghost" size="icon">
@@ -192,7 +192,7 @@ export function Header() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <Link href="/" className="flex items-center space-x-2 md:hidden">
             <Leaf className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">Boulet</span>
+            <span className="font-bold font-headline">Bouletmushrooms</span>
           </Link>
           <div className="flex items-center gap-2">
             <UserMenu />

@@ -36,7 +36,7 @@ export default function LoginPage() {
             <Link href="/" className="inline-flex items-center justify-center space-x-2 mb-4">
               <Leaf className="h-8 w-8 text-primary" />
             </Link>
-          <CardTitle className="text-2xl font-headline">Bienvenido a Boulet</CardTitle>
+          <CardTitle className="text-2xl font-headline">Bienvenido a Bouletmushrooms</CardTitle>
           <CardDescription>Inicia sesión para continuar</CardDescription>
         </CardHeader>
         <CardContent>
