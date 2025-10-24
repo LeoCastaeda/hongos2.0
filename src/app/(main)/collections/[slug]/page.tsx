@@ -19,7 +19,7 @@ export default function CollectionPage({ params }: { params: { slug: string } })
 
   const benefit = benefits.find(b => b.slug === slug);
 
-  let filteredProducts = [];
+  let filteredProducts: typeof products = [];
   let title = 'Nuestros Productos';
   let description = 'Explora nuestra gama completa de suplementos naturales.';
 

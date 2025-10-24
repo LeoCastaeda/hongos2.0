@@ -9,19 +9,19 @@
     {
       "id": "product-lions-mane",
       "description": "Product bottle for Lion's Mane tincture.",
-      "imageUrl": "https://images.unsplash.com/photo-1628794577976-db3723221fff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/LionsMane.png",
       "imageHint": "product bottle"
     },
     {
       "id": "product-cordyceps",
       "description": "Product bottle for Cordyceps tincture.",
-      "imageUrl": "https://images.unsplash.com/photo-1702399129748-afb48d93ed67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl":"/images/Cordyceps.png",
       "imageHint": "product bottle"
     },
     {
       "id": "product-reishi",
       "description": "Product bottle for Reishi tincture.",
-      "imageUrl": "https://images.unsplash.com/photo-1717992411100-50402e0216fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/Reishi.jpg",
       "imageHint": "product bottle"
     },
     {
