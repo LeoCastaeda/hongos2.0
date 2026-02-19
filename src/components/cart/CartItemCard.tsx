@@ -27,25 +27,26 @@ export function CartItemCard({ item }: CartItemCardProps) {
           src={imageUrl}
           alt={item.product.name}
           fill
+          sizes="96px"
           className="object-cover"
         />
       </div>
       <div className="flex-grow">
         <div className="flex justify-between">
-            <div className="flex flex-col gap-1">
-                <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
-                    {item.product.name}
-                </Link>
-            </div>
-            <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-muted-foreground"
-                onClick={() => removeFromCart(item.product.id)}
-            >
-                <X className="h-4 w-4" />
-                <span className="sr-only">Remove</span>
-            </Button>
+          <div className="flex flex-col gap-1">
+            <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
+              {item.product.name}
+            </Link>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground"
+            onClick={() => removeFromCart(item.product.id)}
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Remove</span>
+          </Button>
         </div>
 
         <div className="mt-2 flex items-center justify-between">

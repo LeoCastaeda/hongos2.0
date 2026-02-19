@@ -60,6 +60,23 @@ El archivo `src/firebase/config.ts` incluye credenciales de ejemplo. Sustitúyel
 
 Si utilizas variables de entorno en local, crea un `.env.local` en la raíz con los valores estándar de Firebase (`NEXT_PUBLIC_FIREBASE_API_KEY`, etc.) y adapta `firebaseConfig` según corresponda.
 
+## 🤖 Configuración del Chat con IA
+
+El asistente virtual del chat utiliza [Genkit](https://firebase.google.com/docs/genkit) con Google AI (Gemini 2.5 Flash). Para habilitar esta funcionalidad:
+
+1. Obtén una API key de Google AI desde [Google AI Studio](https://makersuite.google.com/app/apikey).
+2. Copia el archivo `.env.example` a `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+3. Edita `.env.local` y reemplaza `your_google_ai_api_key_here` con tu API key real:
+   ```
+   GOOGLE_GENAI_API_KEY=tu_api_key_aqui
+   ```
+4. Reinicia el servidor de desarrollo para que Next.js cargue las nuevas variables de entorno.
+
+> **Nota**: El archivo `.env.local` está en `.gitignore` y no se subirá al repositorio.
+
 ## 🛠️ Scripts disponibles
 
 - `npm run dev`: servidor Next.js con Turbopack.

@@ -13,6 +13,7 @@ export function SubscriptionCta() {
           src={ctaImage.imageUrl}
           alt={ctaImage.description}
           fill
+          sizes="100vw"
           className="object-cover"
           data-ai-hint={ctaImage.imageHint}
         />
@@ -26,9 +27,9 @@ export function SubscriptionCta() {
           Recibe guías de bienestar, acceso anticipado a productos y un 10% de descuento en tu primer pedido.
         </p>
         <form className="flex flex-col sm:flex-row w-full max-w-md mx-auto items-center space-y-2 sm:space-y-0 sm:space-x-2">
-          <Input 
-            type="email" 
-            placeholder="Introduce tu dirección de email" 
+          <Input
+            type="email"
+            placeholder="Introduce tu dirección de email"
             className="bg-background/80 border-border text-foreground placeholder:text-muted-foreground focus:bg-background focus:text-foreground"
           />
           <Button type="submit" variant="default" className="w-full sm:w-auto">

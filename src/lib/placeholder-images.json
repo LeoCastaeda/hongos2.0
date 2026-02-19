@@ -3,7 +3,7 @@
     {
       "id": "hero-background",
       "description": "A mystical forest scene with sun rays filtering through the trees, suggesting the natural power of mushrooms.",
-      "imageUrl": "https://images.unsplash.com/photo-1667137242781-32ef4763964a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtdXNocm9vbSUyMGZvcmVzdHxlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/portada3.png",
       "imageHint": "mushroom forest"
     },
     {
@@ -87,7 +87,7 @@
     {
       "id": "subscription-cta-background",
       "description": "Bucolic mushrooms in a forest setting for the subscription CTA background.",
-      "imageUrl": "https://images.unsplash.com/photo-1601453344878-6b847db5ba8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxidWNvbGljJTIwbXVzaHJvb21zfGVufDB8fHx8MTc2MTIzMzcxM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/images/footer1.png",
       "imageHint": "bucolic mushrooms"
     }
   ]

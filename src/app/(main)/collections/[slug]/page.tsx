@@ -4,8 +4,8 @@ import { ProductCard } from '@/components/products/ProductCard';
 export async function generateStaticParams() {
   const benefitSlugs = benefits.map(b => ({ slug: b.slug }));
   const otherSlugs = [
-    { slug: 'all' }, 
-    { slug: 'bundles' }, 
+    { slug: 'all' },
+    { slug: 'bundles' },
     { slug: 'tinctures' },
     { slug: 'medicinal' },
     { slug: 'comestible' },

@@ -10,7 +10,7 @@ export type Product = {
   faqs: { question: string; answer: string }[];
   image: string;
   type: 'tincture' | 'bundle' | 'coffee';
-  category: 'Medicinal' | 'Comestible';
+  category: 'Medicinal' | 'Comestible' | 'Edible';
   benefitCategory: string;
 };
 

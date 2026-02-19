@@ -31,7 +31,14 @@ export function CheckoutForm() {
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
     defaultValues: {
+      email: '',
+      firstName: '',
+      lastName: '',
+      address: '',
+      apartment: '',
+      city: '',
       country: 'España',
+      postalCode: '',
     },
   });
 
@@ -58,99 +65,99 @@ export function CheckoutForm() {
           )}
         />
         <div className="grid grid-cols-2 gap-4">
-            <FormField
+          <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
-                <FormItem>
+              <FormItem>
                 <FormLabel>Nombre</FormLabel>
                 <FormControl>
-                    <Input placeholder="Tu nombre" {...field} />
+                  <Input placeholder="Tu nombre" {...field} />
                 </FormControl>
                 <FormMessage />
-                </FormItem>
+              </FormItem>
             )}
-            />
-            <FormField
+          />
+          <FormField
             control={form.control}
             name="lastName"
             render={({ field }) => (
-                <FormItem>
+              <FormItem>
                 <FormLabel>Apellidos</FormLabel>
                 <FormControl>
-                    <Input placeholder="Tus apellidos" {...field} />
+                  <Input placeholder="Tus apellidos" {...field} />
                 </FormControl>
                 <FormMessage />
-                </FormItem>
+              </FormItem>
             )}
-            />
+          />
         </div>
         <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Dirección</FormLabel>
-                <FormControl>
-                    <Input placeholder="Calle, número, etc." {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Dirección</FormLabel>
+              <FormControl>
+                <Input placeholder="Calle, número, etc." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-         <FormField
-            control={form.control}
-            name="apartment"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Apartamento, piso, etc. (opcional)</FormLabel>
-                <FormControl>
-                    <Input placeholder="Ej: Piso 3, Puerta A" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
+        <FormField
+          control={form.control}
+          name="apartment"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Apartamento, piso, etc. (opcional)</FormLabel>
+              <FormControl>
+                <Input placeholder="Ej: Piso 3, Puerta A" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Ciudad</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Tu ciudad" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>País</FormLabel>
-                    <FormControl>
-                        <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="postalCode"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Código Postal</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Ej: 28001" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Ciudad</FormLabel>
+                <FormControl>
+                  <Input placeholder="Tu ciudad" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>País</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="postalCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Código Postal</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ej: 28001" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <Button type="submit" className="w-full mt-6" size="lg">

@@ -16,7 +16,7 @@ export function OrderSummary() {
         {cartItems.map(item => {
           const placeholder = PlaceHolderImages.find(p => p.id === item.product.image);
           const imageUrl = placeholder?.imageUrl || `https://picsum.photos/seed/${item.product.id}/100/100`;
-          
+
           return (
             <div key={item.product.id} className="flex items-center gap-4">
               <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
@@ -24,11 +24,12 @@ export function OrderSummary() {
                   src={imageUrl}
                   alt={item.product.name}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
-                 <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                    {item.quantity}
-                  </span>
+                <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                  {item.quantity}
+                </span>
               </div>
               <div className="flex-grow">
                 <p className="font-semibold">{item.product.name}</p>

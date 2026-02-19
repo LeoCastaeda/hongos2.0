@@ -24,11 +24,12 @@ export function ProductCard({ product }: ProductCardProps) {
               src={imageUrl}
               alt={product.name}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
               data-ai-hint={imageHint}
             />
-             <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
-                <Badge variant="secondary">{product.category}</Badge>
+            <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
+              <Badge variant="secondary">{product.category}</Badge>
             </div>
           </div>
         </Link>

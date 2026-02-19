@@ -6,8 +6,46 @@ import { CartProvider } from '@/context/CartContext';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'Bouletmushrooms | Hongos Funcionales',
-  description: 'Suplementos naturales a base de hongos para una vida mejor.',
+  title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
+  description: '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and supercharge your immunity with functional mushrooms extracted using ultrasonic-assisted extraction (UAE) technology.',
+  keywords: ['functional mushrooms', 'mushroom extracts', 'Lion\'s Mane', 'Reishi', 'Cordyceps', 'Turkey Tail', 'Barcelona', 'UAE extraction', 'double extract', 'adaptogenic'],
+  authors: [{ name: 'Boulet Mushrooms' }],
+  creator: 'Boulet Mushrooms',
+  publisher: 'Boulet Mushrooms',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://bouletmushrooms.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
+    description: '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and supercharge your immunity.',
+    url: 'https://bouletmushrooms.com',
+    siteName: 'Boulet Mushrooms',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
+    description: '100% locally sourced mushroom fruiting body double extracts.',
+    creator: '@bouletmushrooms',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
