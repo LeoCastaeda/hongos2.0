@@ -22,10 +22,25 @@ const footerLinks = {
   ],
 };
 
-export function Footer() {
+export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
   return (
-    <footer className="bg-secondary text-secondary-foreground">
-      <div className="container py-12 lg:py-16">
+    <footer className={`relative ${hideVideo ? 'bg-secondary text-secondary-foreground' : 'bg-secondary text-white'} overflow-hidden`}>
+      {/* Background Video - only show if hideVideo is false */}
+      {!hideVideo && (
+        <>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            <source src="/videos/abajo.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/60 z-[1]" />
+        </>
+      )}
+      <div className={`container py-12 lg:py-16 ${hideVideo ? '' : 'relative z-10'}`}>
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 pr-8">
             <Link href="/" className="inline-flex items-center space-x-2 mb-4">
@@ -34,14 +49,14 @@ export function Footer() {
                 Bouletmushrooms
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} mb-4`}>
               El poder ancestral de los hongos funcionales.
             </p>
             <form className="flex w-full max-w-sm items-center space-x-2">
               <Input type="email" placeholder="Tu email" className="bg-background"/>
               <Button type="submit" variant="default">Subscribirse</Button>
             </form>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className={`text-xs ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} mt-2`}>
               Recibe guías, ofertas y un 10% de descuento.
             </p>
           </div>
@@ -51,7 +66,7 @@ export function Footer() {
                 <ul className="space-y-2">
                   {footerLinks.comprar.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                      <Link href={link.href} className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} hover:text-primary`}>
                         {link.title}
                       </Link>
                     </li>
@@ -63,7 +78,7 @@ export function Footer() {
                 <ul className="space-y-2">
                   {footerLinks.nosotros.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                      <Link href={link.href} className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} hover:text-primary`}>
                         {link.title}
                       </Link>
                     </li>
@@ -75,7 +90,7 @@ export function Footer() {
                 <ul className="space-y-2">
                   {footerLinks.ayuda.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                      <Link href={link.href} className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} hover:text-primary`}>
                         {link.title}
                       </Link>
                     </li>
@@ -84,19 +99,19 @@ export function Footer() {
               </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">
+        <div className={`mt-8 pt-8 border-t ${hideVideo ? 'border-border' : 'border-white/20'} flex flex-col sm:flex-row justify-between items-center gap-4`}>
+          <p className={`text-xs ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'}`}>
             © {new Date().getFullYear()} Bouletmushrooms. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-4">
             <Link href="#" aria-label="Twitter">
-              <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
+              <Twitter className={`h-5 w-5 ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} hover:text-primary`} />
             </Link>
             <Link href="#" aria-label="Instagram">
-              <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary" />
+              <Instagram className={`h-5 w-5 ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} hover:text-primary`} />
             </Link>
             <Link href="#" aria-label="Facebook">
-              <Facebook className="h-5 w-5 text-muted-foreground hover:text-primary" />
+              <Facebook className={`h-5 w-5 ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} hover:text-primary`} />
             </Link>
           </div>
         </div>
