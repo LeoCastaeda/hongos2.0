@@ -41,21 +41,32 @@ export function CartSheet({ children }: CartSheetProps) {
                         ))}
                     </div>
                 </ScrollArea>
-                <SheetFooter className="mt-auto">
-                    <div className="w-full space-y-4">
+                <SheetFooter className="mt-auto relative">
+                    {/* Background Video */}
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover z-0 rounded-lg"
+                    >
+                        <source src="/videos/abajo.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-black/60 z-[1] rounded-lg" />
+                    <div className="w-full space-y-4 relative z-10">
                         <Separator />
-                        <div className="flex justify-between items-center font-bold text-lg">
+                        <div className="flex justify-between items-center font-bold text-lg text-white">
                             <p>Subtotal</p>
                             <p>{cartTotal.toFixed(2)}€</p>
                         </div>
-                        <p className="text-sm text-muted-foreground text-center">
+                        <p className="text-sm text-gray-200 text-center">
                             El envío y los impuestos se calculan en la pantalla de pago.
                         </p>
                         <Button className="w-full" size="lg" asChild>
                             <Link href="/checkout">Proceder al Pago</Link>
                         </Button>
                          <SheetClose asChild>
-                            <Button asChild variant="link" className="w-full">
+                            <Button asChild variant="link" className="w-full text-white hover:text-white/80">
                                 <Link href="/collections/all">Continuar comprando</Link>
                             </Button>
                         </SheetClose>
