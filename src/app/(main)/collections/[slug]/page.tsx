@@ -14,8 +14,8 @@ export async function generateStaticParams() {
 }
 
 
-export default function CollectionPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   const benefit = benefits.find(b => b.slug === slug);
 
