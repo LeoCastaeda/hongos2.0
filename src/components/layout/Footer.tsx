@@ -52,9 +52,9 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
             <p className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} mb-4`}>
               El poder ancestral de los hongos funcionales.
             </p>
-            <form className="flex w-full max-w-sm items-center space-x-2">
-              <Input type="email" placeholder="Tu email" className="bg-background"/>
-              <Button type="submit" variant="default">Subscribirse</Button>
+            <form className="flex flex-col sm:flex-row w-full max-w-sm items-start sm:items-center gap-2">
+              <Input type="email" placeholder="Tu email" className="bg-background w-full"/>
+              <Button type="submit" variant="default" className="w-full sm:w-auto">Subscribirse</Button>
             </form>
             <p className={`text-xs ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} mt-2`}>
               Recibe guías, ofertas y un 10% de descuento.

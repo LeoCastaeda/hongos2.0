@@ -68,17 +68,17 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         </p>
         
         <form className="mt-8" onSubmit={handleAddToCart}>
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex items-center rounded border border-gray-200">
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))} type="button">
+          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="flex items-center justify-center rounded border border-gray-200 h-11 sm:h-auto">
+              <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))} type="button" className="h-full px-4">
                 <Minus className="h-4 w-4" />
               </Button>
               <span className="w-12 text-center text-sm">{quantity}</span>
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(quantity + 1)} type="button">
+              <Button variant="ghost" size="icon" onClick={() => setQuantity(quantity + 1)} type="button" className="h-full px-4">
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
-            <Button type="submit" size="lg" className="flex-1">
+            <Button type="submit" size="lg" className="flex-1 w-full sm:w-auto h-11 sm:h-auto">
               <ShoppingCart className="mr-2 h-5 w-5" />
               Añadir al carrito
             </Button>

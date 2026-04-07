@@ -42,10 +42,10 @@ export function Hero() {
           Descubre el poder ancestral de los hongos con nuestras tinturas de doble extracción. Potencia tu mente, energía y bienestar de forma natural.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in">
-          <Button asChild size="lg" className="text-xl px-10 py-7 h-auto bg-primary hover:bg-primary/90 transition-all transform hover:scale-105 shadow-2xl border-none text-white">
+          <Button asChild size="lg" className="w-full sm:w-auto text-xl px-10 py-7 h-auto bg-primary hover:bg-primary/90 transition-all transform hover:scale-105 shadow-2xl border-none text-white">
             <Link href="/collections/all">Comprar Ahora</Link>
           </Button>
-          <Button asChild size="lg" className="text-xl px-10 py-7 h-auto bg-primary hover:bg-primary/90 transition-all transform hover:scale-105 shadow-2xl border-none text-white">
+          <Button asChild size="lg" className="w-full sm:w-auto text-xl px-10 py-7 h-auto bg-primary hover:bg-primary/90 transition-all transform hover:scale-105 shadow-2xl border-none text-white">
             <Link href="/quiz">Hacer el Quiz</Link>
           </Button>
         </div>

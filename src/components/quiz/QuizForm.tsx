@@ -82,12 +82,12 @@ export function QuizForm() {
               })}
             </RadioGroup>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={handleBack} disabled={currentStep === 0}>
+          <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-3">
+            <Button variant="outline" onClick={handleBack} disabled={currentStep === 0} className="w-full sm:w-auto">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Anterior
             </Button>
-            <Button onClick={handleNext} disabled={!answers[currentQuestion.id]}>
+            <Button onClick={handleNext} disabled={!answers[currentQuestion.id]} className="w-full sm:w-auto">
               {currentStep === totalQuestions - 1 ? 'Ver mis resultados' : 'Siguiente'}
             </Button>
           </CardFooter>

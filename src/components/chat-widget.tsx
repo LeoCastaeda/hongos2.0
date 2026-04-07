@@ -69,7 +69,7 @@ export function ChatWidget() {
             )}
 
             {isOpen && (
-                <Card className="w-[350px] sm:w-[400px] h-[500px] shadow-xl flex flex-col animate-in fade-in slide-in-from-bottom-5 duration-300">
+                <Card className="w-[calc(100vw-2rem)] sm:w-[400px] h-[500px] max-h-[80vh] shadow-xl flex flex-col animate-in fade-in slide-in-from-bottom-5 duration-300">
                     <CardHeader className="p-4 border-b flex flex-row items-center justify-between space-y-0 bg-primary text-primary-foreground rounded-t-lg">
                         <CardTitle className="text-base font-bold flex items-center gap-2">
                             <MessageCircle size={20} />
