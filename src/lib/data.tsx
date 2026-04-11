@@ -110,15 +110,15 @@ export const products: Product[] = [
   },
   {
     id: 'prod-004',
-    name: 'Pack de 3 Productos',
-    slug: 'pack-3-productos',
+    name: '3-Product Bundle',
+    slug: '3-product-bundle',
     price: 99.99,
-    description: 'El pack más completo. Incluye Melena de León para la concentración, Cordyceps para la energía y Reishi para el estrés y descanso.',
-    benefits: ['Rendimiento mental', 'Energía física', 'Calma y defensa inmunológica'],
-    howToUse: 'Toma Cordyceps y Melena de León por la mañana para empezar el día con energía y claridad, y Reishi por la noche para descansar.',
-    labResults: 'Triple poder de extracción de cuerpos fructíferos orgánicos. Calidad avalada por laboratorios independientes.',
+    description: 'The most complete bundle. Includes Lion\'s Mane for focus, Cordyceps for energy, and Reishi for stress relief and rest.',
+    benefits: ['Mental performance', 'Physical energy', 'Calm and immune defense'],
+    howToUse: 'Take Cordyceps and Lion\'s Mane in the morning to start the day with energy and clarity, and Reishi at night to rest.',
+    labResults: 'Triple extraction power from organic fruiting bodies. Quality backed by independent laboratories.',
     faqs: [
-      { question: '¿Puedo tomarlos juntos?', answer: 'Sí, puedes combinarlos según tus necesidades durante el día.' }
+      { question: 'Can I take them together?', answer: 'Yes, you can combine them according to your needs throughout the day.' }
     ],
     image: 'product-pack-3',
     type: 'bundle',
