@@ -25,10 +25,10 @@
       "imageHint": "product bottle"
     },
     {
-      "id": "product-turkey-tail",
-      "description": "Product bottle for Turkey Tail tincture.",
-      "imageUrl": "https://images.unsplash.com/photo-1702321807264-1f94d4322dae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9kdWN0JTIwYm90dGxlfGVufDB8fHx8MTc2MTE4MjE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "product bottle"
+      "id": "product-pack-3",
+      "description": "Pack of 3 products.",
+      "imageUrl": "/images/Pack3.jpg",
+      "imageHint": "product pack"
     },
     {
       "id": "product-coffee",

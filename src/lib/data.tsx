@@ -110,18 +110,18 @@ export const products: Product[] = [
   },
   {
     id: 'prod-004',
-    name: 'Turkey Tail Double Extract 30ml',
-    slug: 'turkey-tail-tincture',
-    price: 34.99,
-    description: 'Strengthen your natural defenses. Turkey Tail (Trametes versicolor) is one of the most researched mushrooms for its powerful immune system support.',
-    benefits: ['Strengthens the immune system', 'Rich in antioxidants and prebiotics', 'Supports gut health'],
-    howToUse: 'Take 1 full dropper (1ml) daily for maintenance. Can be taken at any time of day.',
-    labResults: 'Double extraction of 100% organic fruiting body. Verified to contain high levels of Polysaccharide-K (PSK).',
+    name: 'Pack de 3 Productos',
+    slug: 'pack-3-productos',
+    price: 99.99,
+    description: 'El pack más completo. Incluye Melena de León para la concentración, Cordyceps para la energía y Reishi para el estrés y descanso.',
+    benefits: ['Rendimiento mental', 'Energía física', 'Calma y defensa inmunológica'],
+    howToUse: 'Toma Cordyceps y Melena de León por la mañana para empezar el día con energía y claridad, y Reishi por la noche para descansar.',
+    labResults: 'Triple poder de extracción de cuerpos fructíferos orgánicos. Calidad avalada por laboratorios independientes.',
     faqs: [
-      { question: 'Can I take it if I have a cold?', answer: 'Yes, it can help your body recover. You can increase the dose to 2-3 times daily during periods of illness.' }
+      { question: '¿Puedo tomarlos juntos?', answer: 'Sí, puedes combinarlos según tus necesidades durante el día.' }
     ],
-    image: 'product-turkey-tail',
-    type: 'tincture',
+    image: 'product-pack-3',
+    type: 'bundle',
     category: 'Medicinal',
     benefitCategory: 'immunity'
   },
