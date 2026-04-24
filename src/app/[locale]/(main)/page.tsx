@@ -6,7 +6,7 @@ import { SubscriptionCta } from "@/components/home/SubscriptionCta";
 import { products } from "@/lib/data";
 import { ProductCard } from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export default function HomePage() {
   const featuredProducts = products.slice(0, 4);
