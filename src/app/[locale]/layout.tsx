@@ -9,6 +9,10 @@ import { cn } from '@/lib/utils';
 import { CartProvider } from '@/context/CartContext';
 import { FirebaseClientProvider } from '@/firebase';
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
 export const metadata: Metadata = {
   title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
   description: '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and supercharge your immunity with functional mushrooms extracted using ultrasonic-assisted extraction (UAE) technology.',
