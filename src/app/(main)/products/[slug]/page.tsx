@@ -47,7 +47,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         {/* Cross-sell Section */}
         <div className="mt-16">
             <h2 className="text-2xl font-bold font-headline text-center lg:text-3xl">Stack Recomendado</h2>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <ProductCard product={product} />
                 {recommendedStack.map(recProduct => (
                     <ProductCard key={recProduct.id} product={recProduct} />

@@ -15,7 +15,7 @@ export function BestSellers() {
             Los favoritos de nuestra comunidad para empezar tu camino hacia el bienestar.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {bestSellers.slice(0, 4).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

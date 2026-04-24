@@ -1,0 +1,46 @@
+{
+  "products": {
+    "lions-mane-tincture": {
+      "name": "Lion's Mane Double Extract 30ml",
+      "description": "Boost your mental clarity and focus. Our Lion's Mane (Hericium erinaceus) tincture is ideal for work, study, and creativity.",
+      "habitat": "Grows mainly on dead or dying hardwood trees such as oak, beech, and maple.",
+      "howToUse": "Take 1 full dropper (1ml) once or twice daily. Can be mixed with your favorite beverage."
+    },
+    "cordyceps-tincture": {
+      "name": "Cordyceps double extract 30ml",
+      "description": "Increase your energy and physical endurance. Cordyceps (Cordyceps militaris) is the perfect ally for athletes and people with an active lifestyle.",
+      "habitat": "Originally found at high altitudes in the Himalayas, now sustainably cultivated on organic substrates.",
+      "howToUse": "Take 1 full dropper (1ml) in the morning or before physical activity."
+    },
+    "reishi-tincture": {
+      "name": "Reishi double extract 30ml",
+      "description": "Find your center and calm your mind. Reishi (Ganoderma lucidum), known as the 'mushroom of immortality', is an adaptogen that helps manage stress.",
+      "habitat": "Grows at the base and stumps of deciduous trees, especially maple.",
+      "howToUse": "Take 1 full dropper (1ml) in the afternoon or evening to help you relax."
+    },
+    "3-product-bundle": {
+      "name": "3-Product Bundle",
+      "description": "The most complete bundle. Includes Lion's Mane for focus, Cordyceps for energy, and Reishi for stress relief and rest.",
+      "habitat": "Multiple habitats",
+      "howToUse": "Take Cordyceps and Lion's Mane in the morning, and Reishi at night."
+    },
+    "adaptogenic-coffee": {
+      "name": "Adaptogenic Coffee",
+      "description": "Start your day with energy and focus. Our organic coffee is enriched with Lion's Mane and Cordyceps for superior mental and physical performance.",
+      "habitat": "Coffee grown in the highlands combined with cultivated mushrooms.",
+      "howToUse": "Brew a cup as you would with your regular coffee."
+    },
+    "mind-body-bundle": {
+      "name": "Wellness Bundle",
+      "description": "The ultimate bundle for optimal performance. Combines the mental clarity of Lion's Mane with the physical energy of Cordyceps.",
+      "habitat": "Multiple habitats",
+      "howToUse": "Take Cordyceps in the morning and Lion's Mane when you need a cognitive boost."
+    },
+    "calm-defense-bundle": {
+      "name": "Calm & Defense Bundle",
+      "description": "Strengthen your body and calm your mind. Reishi helps you manage stress while Turkey Tail reinforces your immune system.",
+      "habitat": "Multiple habitats",
+      "howToUse": "Take Turkey Tail in the morning and Reishi in the afternoon/evening."
+    }
+  }
+}
