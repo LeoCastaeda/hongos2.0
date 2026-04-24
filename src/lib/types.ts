@@ -12,6 +12,7 @@ export type Product = {
   type: 'tincture' | 'bundle' | 'coffee';
   category: 'Medicinal' | 'Comestible' | 'Edible';
   benefitCategory: string;
+  isBestSeller?: boolean;
 };
 
 export type Benefit = {
