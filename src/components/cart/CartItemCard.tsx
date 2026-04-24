@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Minus, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SheetClose } from '@/components/ui/sheet';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { CartItem } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
@@ -34,9 +35,11 @@ export function CartItemCard({ item }: CartItemCardProps) {
       <div className="flex-grow">
         <div className="flex justify-between">
           <div className="flex flex-col gap-1">
-            <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
-              {item.product.name}
-            </Link>
+            <SheetClose asChild>
+              <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
+                {item.product.name}
+              </Link>
+            </SheetClose>
           </div>
           <Button
             variant="ghost"

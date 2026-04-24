@@ -62,9 +62,11 @@ export function CartSheet({ children }: CartSheetProps) {
                         <p className="text-sm text-gray-200 text-center">
                             El envío y los impuestos se calculan en la pantalla de pago.
                         </p>
-                        <Button className="w-full" size="lg" asChild>
-                            <Link href="/checkout">Proceder al Pago</Link>
-                        </Button>
+                        <SheetClose asChild>
+                            <Button className="w-full" size="lg" asChild>
+                                <Link href="/checkout">Proceder al Pago</Link>
+                            </Button>
+                        </SheetClose>
                          <SheetClose asChild>
                             <Button asChild variant="link" className="w-full text-white hover:text-white/80">
                                 <Link href="/collections/all">Continuar comprando</Link>
