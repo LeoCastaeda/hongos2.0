@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useTranslations } from 'next-intl';
 import type { Product } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
@@ -15,6 +16,10 @@ export function ProductCard({ product }: ProductCardProps) {
   const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
   const imageHint = placeholder?.imageHint || "product";
 
+  const t = useTranslations('products');
+  const productName = t(`${product.slug}.name`);
+  const productDescription = t(`${product.slug}.description`);
+
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-shadow duration-300 hover:shadow-xl">
       <CardHeader className="p-0 relative">
@@ -22,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="aspect-square w-full relative">
             <Image
               src={imageUrl}
-              alt={product.name}
+              alt={productName}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
@@ -37,11 +42,11 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardContent className="p-4 flex-grow">
         <Link href={`/products/${product.slug}`}>
           <CardTitle className="text-lg font-headline leading-tight mb-2 hover:text-primary transition-colors">
-            {product.name}
+            {productName}
           </CardTitle>
         </Link>
         <p className="text-sm text-muted-foreground">
-          {product.description.substring(0, 70)}...
+          {productDescription.substring(0, 70)}...
         </p>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">

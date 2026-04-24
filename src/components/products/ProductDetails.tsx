@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
+import { useTranslations } from 'next-intl';
 import { Star, CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Product, Review } from '@/lib/types';
@@ -33,6 +34,12 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
     addToCart(product, quantity);
   }
 
+  const t = useTranslations('products');
+  const productName = t(`${product.slug}.name`);
+  const productDescription = t(`${product.slug}.description`);
+  const productHabitat = t(`${product.slug}.habitat`);
+  const productHowToUse = t(`${product.slug}.howToUse`);
+
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
       {/* Image Gallery */}
@@ -40,7 +47,7 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         <div className="aspect-square w-full overflow-hidden rounded-lg">
           <Image
             src={imageUrl}
-            alt={product.name}
+            alt={productName}
             width={600}
             height={600}
             className="h-full w-full object-cover"
@@ -51,8 +58,8 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
 
       {/* Product Info */}
       <div>
-        <h1 className="text-3xl font-bold font-headline lg:text-4xl">{product.name}</h1>
-        <p className="mt-2 text-lg text-muted-foreground">{product.description}</p>
+        <h1 className="text-3xl font-bold font-headline lg:text-4xl">{productName}</h1>
+        <p className="mt-2 text-lg text-muted-foreground">{productDescription}</p>
         
         <div className="mt-4 flex items-center gap-2">
           <div className="flex items-center">
@@ -97,9 +104,13 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         <Separator className="my-8" />
         
         <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="habitat">
+            <AccordionTrigger>Hábitat / Habitat</AccordionTrigger>
+            <AccordionContent>{productHabitat}</AccordionContent>
+          </AccordionItem>
           <AccordionItem value="how-to-use">
-            <AccordionTrigger>Dosis y cómo tomarlo</AccordionTrigger>
-            <AccordionContent>{product.howToUse}</AccordionContent>
+            <AccordionTrigger>Uso / How to use</AccordionTrigger>
+            <AccordionContent>{productHowToUse}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="lab-results">
             <AccordionTrigger>Resultados de laboratorio</AccordionTrigger>
