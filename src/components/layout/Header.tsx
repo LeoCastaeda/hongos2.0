@@ -39,7 +39,14 @@ const navLinks = [
   { href: '/quiz', label: 'Quiz' },
 ];
 
+import { useState, useEffect } from 'react';
+
 export function Header() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const { user, isUserLoading } = useUser();
@@ -54,10 +61,10 @@ export function Header() {
   };
 
   const UserMenu = () => {
-    if (isUserLoading) {
+    if (!mounted || isUserLoading) {
       return (
         <Button variant="ghost" size="icon">
-          <div className="h-5 w-5 animate-pulse bg-muted rounded-full" />
+          <User className="h-5 w-5 opacity-20" />
         </Button>
       );
     }
@@ -198,7 +205,7 @@ export function Header() {
             <UserMenu />
             <CartSheet>
                 <Button variant="ghost" size="icon" className="relative">
-                {itemCount > 0 && (
+                {mounted && itemCount > 0 && (
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
                     {itemCount}
                     </span>

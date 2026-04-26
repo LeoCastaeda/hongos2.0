@@ -93,7 +93,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500" suppressHydrationWarning>
             © {new Date().getFullYear()} Bouletmushrooms. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-4">
