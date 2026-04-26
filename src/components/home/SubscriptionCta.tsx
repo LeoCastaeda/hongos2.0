@@ -1,12 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-
 import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
 
 export function SubscriptionCta() {
-  const ctaImage = PlaceHolderImages.find(p => p.id === 'subscription-cta-background');
 
   return (
     <section className="relative text-white overflow-hidden bg-[#1E2420] py-20 lg:py-32">
@@ -17,20 +13,8 @@ export function SubscriptionCta() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
-        poster={ctaImage?.imageUrl}
       >
         <source src="/videos/abajo.mp4" type="video/mp4" />
-        {/* Fallback Image if video fails or is not supported */}
-        {ctaImage && (
-          <Image
-            src={ctaImage.imageUrl}
-            alt={ctaImage.description}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            data-ai-hint={ctaImage.imageHint}
-          />
-        )}
       </video>
       <div className="absolute inset-0 bg-black/60 z-[1]" />
       <div className="relative z-10 container py-24 lg:py-32 px-4 text-center max-w-4xl mx-auto">
