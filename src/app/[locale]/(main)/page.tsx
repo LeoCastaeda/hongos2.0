@@ -13,7 +13,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ShopByBenefit />
        <section className="py-24 lg:py-32 bg-[#F0E8D8]">
           <div className="container px-4">
             <div className="text-center mb-16">

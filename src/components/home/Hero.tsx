@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { BenefitIcons } from './BenefitIcons';
 
 export function Hero() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-background');
@@ -43,7 +44,7 @@ export function Hero() {
           EXTRACTOS DOBLES DE CUERPO FRUCTÍFERO. <br className="hidden md:block" />
           POTENCIA TU MENTE, ENERGÍA Y BIENESTAR DE FORMA NATURAL.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in mb-16">
           <Button asChild size="lg" className="w-full sm:w-auto text-sm uppercase tracking-widest px-12 py-8 h-auto bg-primary hover:bg-primary/90 transition-all rounded-none text-white border-none shadow-xl">
             <Link href="/collections/all">Comprar Ahora</Link>
           </Button>
@@ -51,6 +52,8 @@ export function Hero() {
             <Link href="/quiz">Hacer el Quiz</Link>
           </Button>
         </div>
+
+        <BenefitIcons />
       </div>
 
       {/* Subtle fade to bottom section */}

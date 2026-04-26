@@ -25,18 +25,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="relative bg-[#0A0A0A] text-white overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="/videos/abajo.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-black/60 z-[1]" />
+    <footer className="relative bg-[#0A0A0A] text-white overflow-hidden border-t border-white/5">
       <div className="container py-12 lg:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 pr-8">

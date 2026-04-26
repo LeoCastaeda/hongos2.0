@@ -48,26 +48,26 @@ const InmunidadIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export const benefits: Benefit[] = [
-  { id: '1', name: 'Focus', slug: 'focus', description: 'Enhance cognitive function and memory.', icon: EnfoqueIcon },
-  { id: '2', name: 'Energy', slug: 'energy', description: 'Boost your energy levels and vitality.', icon: EnergiaIcon },
-  { id: '3', name: 'Calm', slug: 'calm', description: 'Help calm the mind and reduce stress.', icon: CalmaIcon },
-  { id: '4', name: 'Rest', slug: 'rest', description: 'Promote restorative and deep sleep.', icon: DescansoIcon },
-  { id: '5', name: 'Immunity', slug: 'immunity', description: 'Strengthen your immune system.', icon: InmunidadIcon },
+  { id: '1', name: 'Enfoque', slug: 'focus', description: 'Mejora la función cognitiva y la memoria.', icon: EnfoqueIcon },
+  { id: '2', name: 'Energía', slug: 'energy', description: 'Aumenta tus niveles de energía y vitalidad.', icon: EnergiaIcon },
+  { id: '3', name: 'Calma', slug: 'calm', description: 'Ayuda a calmar la mente y reducir el estrés.', icon: CalmaIcon },
+  { id: '4', name: 'Descanso', slug: 'rest', description: 'Promueve un sueño reparador y profundo.', icon: DescansoIcon },
+  { id: '5', name: 'Inmunidad', slug: 'immunity', description: 'Fortalece tu sistema inmunológico.', icon: InmunidadIcon },
 ];
 
 export const products: Product[] = [
   {
     id: 'prod-001',
-    name: 'Lion\'s Mane Double Extract 30ml',
+    name: 'Extracto Doble de Melena de León 30ml',
     slug: 'lions-mane-tincture',
     price: 34.99,
-    description: 'Boost your mental clarity and focus. Our Lion\'s Mane (Hericium erinaceus) tincture is ideal for work, study, and creativity.',
-    benefits: ['Improves memory and focus', 'Stimulates neuronal regeneration', 'Supports cognitive health'],
-    howToUse: 'Take 1 full dropper (1ml) once or twice daily. Can be mixed with your favorite beverage (coffee, tea, smoothie) or taken directly.',
-    labResults: 'Double extraction of 100% organic fruiting body. Third-party tested to guarantee >25% Beta-glucans and purity.',
+    description: 'Potencia tu claridad mental y enfoque. Nuestra tintura de Melena de León (Hericium erinaceus) es ideal para trabajar, estudiar y la creatividad.',
+    benefits: ['Mejora la memoria y el enfoque', 'Estimula la regeneración neuronal', 'Apoya la salud cognitiva'],
+    howToUse: 'Toma 1 pipeta llena (1ml) una o dos veces al día. Se puede mezclar con tu bebida favorita o tomar directamente.',
+    labResults: 'Extracción doble de cuerpo fructífero 100% orgánico. Testado por terceros para garantizar >25% de Beta-glucanos y pureza.',
     faqs: [
-      { question: 'Is it a stimulant?', answer: 'No, Lion\'s Mane enhances cognition without being a stimulant like caffeine. It provides clear, sustained focus.' },
-      { question: 'When will I see results?', answer: 'Effects can be noticed within the first two weeks of daily use, with benefits consolidating over time.' }
+      { question: '¿Es un estimulante?', answer: 'No, la Melena de León mejora la cognición sin ser un estimulante como la cafeína. Proporciona un enfoque claro y sostenido.' },
+      { question: '¿Cuándo veré resultados?', answer: 'Los efectos pueden notarse en las primeras dos semanas de uso diario, consolidándose con el tiempo.' }
     ],
     image: 'product-lions-mane',
     type: 'tincture',
@@ -76,15 +76,15 @@ export const products: Product[] = [
   },
   {
     id: 'prod-002',
-    name: 'Cordyceps double extract 30ml',
+    name: 'Extracto Doble de Cordyceps 30ml',
     slug: 'cordyceps-tincture',
     price: 34.99,
-    description: 'Increase your energy and physical endurance. Cordyceps (Cordyceps militaris) is the perfect ally for athletes and people with an active lifestyle.',
-    benefits: ['Boosts energy and vitality', 'Improves athletic performance', 'Reduces fatigue'],
-    howToUse: 'Take 1 full dropper (1ml) in the morning or before physical activity. Not recommended for use close to bedtime.',
-    labResults: 'Double extraction of 100% organic fruiting body. Third-party tested to guarantee purity and potency.',
+    description: 'Aumenta tu energía y resistencia física. El Cordyceps (Cordyceps militaris) es el aliado perfecto para deportistas y personas con un estilo de vida activo.',
+    benefits: ['Aumenta la energía y vitalidad', 'Mejora el rendimiento deportivo', 'Reduce la fatiga'],
+    howToUse: 'Toma 1 pipeta llena (1ml) por la mañana o antes de la actividad física. No se recomienda su uso cerca de la hora de dormir.',
+    labResults: 'Extracción doble de cuerpo fructífero 100% orgánico. Testado por terceros para garantizar pureza y potencia.',
     faqs: [
-      { question: 'Can it replace my energy drink?', answer: 'Yes, many users prefer it as a natural energy source without the "crash" of sugary drinks.' }
+      { question: '¿Puede reemplazar mi bebida energética?', answer: 'Sí, muchos usuarios lo prefieren como una fuente natural de energía sin el "bajón" de las bebidas azucaradas.' }
     ],
     image: 'product-cordyceps',
     type: 'tincture',
@@ -93,32 +93,32 @@ export const products: Product[] = [
   },
   {
     id: 'prod-003',
-    name: 'Reishi double extract 30ml',
+    name: 'Extracto Doble de Reishi 30ml',
     slug: 'reishi-tincture',
     price: 34.99,
-    description: 'Find your center and calm your mind. Reishi (Ganoderma lucidum), known as the "mushroom of immortality", is an adaptogen that helps manage stress.',
-    benefits: ['Reduces stress and anxiety', 'Promotes relaxation', 'Supports the immune system'],
-    howToUse: 'Take 1 full dropper (1ml) in the afternoon or evening to help you relax and disconnect from the day.',
-    labResults: 'Double extraction of 100% organic fruiting body. High content of triterpenes and beta-glucans, laboratory verified.',
+    description: 'Encuentra tu centro y mejora tu descanso. El Reishi (Ganoderma lucidum) es el aliado perfecto para reducir el cortisol y mejorar la calidad del sueño profundo.',
+    benefits: ['Mejora la calidad del sueño', 'Promueve la relajación profunda', 'Apoya el sistema inmunológico'],
+    howToUse: 'Toma 1 pipeta llena (1ml) por la tarde o noche para ayudarte a desconectar y entrar en un sueño reparador.',
+    labResults: 'Extracción doble de cuerpo fructífero 100% orgánico. Alto contenido en triterpenos y beta-glucanos, verificado por laboratorio.',
     faqs: [
-      { question: 'Will it make me sleepy if I take it during the day?', answer: 'It\'s not a sedative. It simply helps your body balance its stress response, promoting a state of calm.' }
+      { question: '¿Me dará sueño si lo tomo durante el día?', answer: 'No es un sedante inmediato. Ayuda a equilibrar el sistema nervioso, facilitando un descanso natural al llegar la noche.' }
     ],
     image: 'product-reishi',
     type: 'tincture',
     category: 'Medicinal',
-    benefitCategory: 'calm'
+    benefitCategory: 'rest'
   },
   {
     id: 'prod-004',
-    name: '3-Product Bundle',
+    name: 'Pack de 3 Productos',
     slug: '3-product-bundle',
     price: 99.99,
-    description: 'The most complete bundle. Includes Lion\'s Mane for focus, Cordyceps for energy, and Reishi for stress relief and rest.',
-    benefits: ['Mental performance', 'Physical energy', 'Calm and immune defense'],
-    howToUse: 'Take Cordyceps and Lion\'s Mane in the morning to start the day with energy and clarity, and Reishi at night to rest.',
-    labResults: 'Triple extraction power from organic fruiting bodies. Quality backed by independent laboratories.',
+    description: 'El pack más completo. Incluye Melena de León para el enfoque, Cordyceps para la energía y Reishi para el alivio del estrés y el descanso.',
+    benefits: ['Rendimiento mental', 'Energía física', 'Calma y defensa inmunológica'],
+    howToUse: 'Toma Cordyceps y Melena de León por la mañana para empezar el día con energía y claridad, y Reishi por la noche para descansar.',
+    labResults: 'Poder de triple extracción de cuerpos fructíferos orgánicos. Calidad respaldada por laboratorios independientes.',
     faqs: [
-      { question: 'Can I take them together?', answer: 'Yes, you can combine them according to your needs throughout the day.' }
+      { question: '¿Puedo tomarlos juntos?', answer: 'Sí, puedes combinarlos según tus necesidades a lo largo del día.' }
     ],
     image: 'product-pack-3',
     type: 'bundle',
@@ -127,30 +127,30 @@ export const products: Product[] = [
   },
   {
     id: 'prod-005',
-    name: 'Adaptogenic Coffee',
+    name: 'Café Adaptógeno',
     slug: 'adaptogenic-coffee',
     price: 24.99,
-    description: 'Start your day with energy and focus. Our organic coffee is enriched with Lion\'s Mane and Cordyceps for superior mental and physical performance.',
-    benefits: ['Organic specialty coffee', 'Improves focus and energy', 'No caffeine "crash"'],
-    howToUse: 'Brew a cup as you would with your regular coffee. Ideal for starting the morning or for a productive afternoon.',
-    labResults: 'Naturally roasted arabica coffee with Lion\'s Mane and Cordyceps extracts. 100% organic and fair trade.',
+    description: 'Comienza tu día con energía y enfoque. Nuestro café orgánico está enriquecido con Melena de León y Cordyceps para un rendimiento superior.',
+    benefits: ['Café de especialidad orgánico', 'Mejora el enfoque y la energía', 'Sin "bajón" de cafeína'],
+    howToUse: 'Prepara una taza como lo harías con tu café habitual. Ideal para empezar la mañana o para una tarde productiva.',
+    labResults: 'Café arábica tostado naturalmente con extractos de Melena de León y Cordyceps. 100% orgánico y de comercio justo.',
     faqs: [
-      { question: 'What does it taste like?', answer: 'It tastes like delicious high-quality coffee. The mushroom extracts don\'t significantly alter the flavor, but they do enhance its benefits.' }
+      { question: '¿A qué sabe?', answer: 'Sabe a delicioso café de alta calidad. Los extractos de hongos no alteran significativamente el sabor, pero sí potencian sus beneficios.' }
     ],
     image: 'product-coffee',
     type: 'coffee',
-    category: 'Edible',
+    category: 'Comestible',
     benefitCategory: 'energy'
   },
   {
     id: 'pack-001',
-    name: 'Wellness Bundle',
+    name: 'Pack Bienestar',
     slug: 'mind-body-bundle',
     price: 62.99,
-    description: 'The ultimate bundle for optimal performance. Combines the mental clarity of Lion\'s Mane with the physical energy of Cordyceps.',
-    benefits: ['Maximum mental and physical performance', 'Sustained focus and vitality', '10% savings'],
-    howToUse: 'Take Cordyceps in the morning and Lion\'s Mane when you need a cognitive boost.',
-    labResults: 'Both products have been tested by independent laboratories to guarantee their quality and purity.',
+    description: 'El pack definitivo para un rendimiento óptimo. Combina la claridad mental de la Melena de León con la energía física del Cordyceps.',
+    benefits: ['Máximo rendimiento mental y físico', 'Enfoque sostenido y vitalidad', 'Ahorro del 10%'],
+    howToUse: 'Toma Cordyceps por la mañana y Melena de León cuando necesites un impulso cognitivo.',
+    labResults: 'Ambos productos han sido testados por laboratorios independientes para garantizar su calidad y pureza.',
     faqs: [],
     image: 'product-pack-mente-cuerpo',
     type: 'bundle',
@@ -159,13 +159,13 @@ export const products: Product[] = [
   },
   {
     id: 'pack-002',
-    name: 'Calm & Defense Bundle',
+    name: 'Pack Calma y Defensa',
     slug: 'calm-defense-bundle',
     price: 62.99,
-    description: 'Strengthen your body and calm your mind. Reishi helps you manage stress while Turkey Tail reinforces your immune system.',
-    benefits: ['Reduces stress', 'Strengthens defenses', '10% savings'],
-    howToUse: 'Take Turkey Tail in the morning and Reishi in the afternoon/evening for comprehensive wellness.',
-    labResults: 'Both products have been tested by independent laboratories to guarantee their quality and purity.',
+    description: 'Fortalece tu cuerpo y calma tu mente. El Reishi te ayuda a gestionar el estrés mientras la Cola de Pavo refuerza tu sistema inmunológico.',
+    benefits: ['Reduce el estrés', 'Fortalece las defensas', 'Ahorro del 10%'],
+    howToUse: 'Toma Cola de Pavo por la mañana y Reishi por la tarde/noche para un bienestar integral.',
+    labResults: 'Ambos productos han sido testados por laboratorios independientes para garantizar su calidad y pureza.',
     faqs: [],
     image: 'product-pack-calma-defensa',
     type: 'bundle',
@@ -175,73 +175,72 @@ export const products: Product[] = [
 ];
 
 export const articles: Article[] = [
-  { id: '1', title: 'What are functional mushrooms?', slug: 'what-are-functional-mushrooms', content: 'Complete content about functional mushrooms...', image: 'educational-guides', category: 'guides' },
-  { id: '2', title: 'Recipe: Bulletproof Coffee with Lion\'s Mane', slug: 'bulletproof-coffee-lions-mane', content: 'Prepare this delicious beverage to power your morning...', image: 'educational-recipes', category: 'recipes' },
-  { id: '3', title: 'The science of double extraction', slug: 'science-double-extraction', content: 'Discover why our extraction method is superior...', image: 'educational-science', category: 'science' },
+  { id: '1', title: '¿Qué son los hongos funcionales?', slug: 'what-are-functional-mushrooms', content: 'Contenido completo sobre hongos funcionales...', image: 'educational-guides', category: 'guías' },
+  { id: '2', title: 'Receta: Café Bulletproof con Melena de León', slug: 'bulletproof-coffee-lions-mane', content: 'Prepara esta deliciosa bebida para potenciar tu mañana...', image: 'educational-recipes', category: 'recetas' },
+  { id: '3', title: 'La ciencia de la doble extracción', slug: 'science-double-extraction', content: 'Descubre por qué nuestro método de extracción es superior...', image: 'educational-science', category: 'ciencia' },
 ];
 
 export const reviews: Review[] = [
-  { id: '1', author: 'Elena V.', rating: 5, text: 'Lion\'s Mane tincture has been a game-changer for my productivity. Maximum concentration!', product_id: 'prod-001' },
-  { id: '2', author: 'Marcus L.', rating: 5, text: 'I use Cordyceps before going to the gym and the difference in my endurance is brutal. Clean energy!', product_id: 'prod-002' },
-  { id: '3', author: 'Sofia P.', rating: 5, text: 'Reishi helps me wind down after a crazy day. I sleep much better. Highly recommend.', product_id: 'prod-003' },
-  { id: '4', author: 'Javier G.', rating: 4, text: 'The Mind & Body bundle is the perfect combination for my long work and study days. Very happy.', product_id: 'pack-001' },
+  { id: '1', author: 'Elena V.', rating: 5, text: 'La tintura de Melena de León ha cambiado mi productividad. ¡Concentración máxima!', product_id: 'prod-001' },
+  { id: '2', author: 'Marcus L.', rating: 5, text: 'Uso Cordyceps antes de ir al gimnasio y la diferencia en mi resistencia es brutal. ¡Energía limpia!', product_id: 'prod-002' },
+  { id: '3', author: 'Sofia P.', rating: 5, text: 'El Reishi me ayuda a bajar revoluciones después de un día loco. Duermo mucho mejor. Recomendado.', product_id: 'prod-003' },
+  { id: '4', author: 'Javier G.', rating: 4, text: 'El pack Bienestar es la combinación perfecta para mis largos días de trabajo y estudio. Muy contento.', product_id: 'pack-001' },
 ];
 
 export const quizQuestions: QuizQuestion[] = [
   {
     id: 1,
-    question: 'What is your main wellness goal?',
+    question: '¿Cuál es tu principal objetivo de bienestar?',
     type: 'multiple-choice',
     options: [
-      { text: 'Improve my focus and mental clarity', value: 'focus' },
-      { text: 'Increase my energy levels and vitality', value: 'energy' },
-      { text: 'Manage stress and feel calmer', value: 'calm' },
-      { text: 'Improve the quality of my rest', value: 'rest' },
+      { text: 'Mejorar mi enfoque y claridad mental', value: 'focus' },
+      { text: 'Aumentar mis niveles de energía y vitalidad', value: 'energy' },
+      { text: 'Gestionar el estrés y sentirme más tranquilo', value: 'calm' },
+      { text: 'Mejorar la calidad de mi descanso', value: 'rest' },
     ],
   },
   {
     id: 2,
-    question: 'How do you normally feel mid-afternoon?',
+    question: '¿Cómo te sientes normalmente a media tarde?',
     type: 'multiple-choice',
     options: [
-      { text: 'Energetic and productive', value: 'high_energy' },
-      { text: 'I notice a significant energy drop', value: 'energy' },
-      { text: 'Mentally tired, hard to concentrate', value: 'focus' },
-      { text: 'Somewhat anxious or stressed about the rest of the day', value: 'calm' },
+      { text: 'Enérgico y productivo', value: 'high_energy' },
+      { text: 'Noto una caída significativa de energía', value: 'energy' },
+      { text: 'Cansado mentalmente, me cuesta concentrarme', value: 'focus' },
+      { text: 'Algo ansioso o estresado por el resto del día', value: 'calm' },
     ],
   },
   {
     id: 3,
-    question: 'How often do you feel stressed or overwhelmed?',
+    question: '¿Con qué frecuencia te sientes estresado o abrumado?',
     type: 'multiple-choice',
     options: [
-      { text: 'Rarely', value: 'good_calm' },
-      { text: 'Several times a week', value: 'weekly_calm' },
-      { text: 'Almost daily', value: 'daily_calm' },
-      { text: 'My stress negatively affects my sleep', value: 'rest' },
+      { text: 'Raramente', value: 'good_calm' },
+      { text: 'Varias veces por semana', value: 'weekly_calm' },
+      { text: 'Casi a diario', value: 'daily_calm' },
+      { text: 'Mi estrés afecta negativamente mi sueño', value: 'rest' },
     ],
   },
   {
     id: 4,
-    question: 'Describe your sleep quality:',
+    question: 'Describe tu calidad de sueño:',
     type: 'multiple-choice',
     options: [
-      { text: 'Excellent, I sleep deeply and wake up refreshed', value: 'good_sleep' },
-      { text: 'I have trouble falling asleep', value: 'rest' },
-      { text: 'I wake up during the night', value: 'interrupted_rest' },
-      { text: 'I sleep the hours, but wake up tired', value: 'energy' },
+      { text: 'Excelente, duermo profundamente y me despierto renovado', value: 'good_sleep' },
+      { text: 'Tengo problemas para conciliar el sueño', value: 'rest' },
+      { text: 'Me despierto durante la noche', value: 'interrupted_rest' },
+      { text: 'Duermo las horas, pero me despierto cansado', value: 'energy' },
     ],
   },
   {
     id: 5,
-    question: 'In which area are you looking for greater performance?',
+    question: '¿En qué área buscas un mayor rendimiento?',
     type: 'multiple-choice',
     options: [
-      { text: 'At work or studies, I need more concentration', value: 'focus' },
-      { text: 'In sports or physical activity, looking for more endurance', value: 'energy' },
-      { text: 'In my daily life, to have more general vitality', value: 'daily_energy' },
-      { text: 'In my ability to relax and disconnect', value: 'calm' },
+      { text: 'En el trabajo o estudios, necesito más concentración', value: 'focus' },
+      { text: 'En el deporte o actividad física, busco más resistencia', value: 'energy' },
+      { text: 'En mi vida diaria, para tener más vitalidad general', value: 'daily_energy' },
+      { text: 'En mi capacidad para relajarme y desconectar', value: 'calm' },
     ],
   },
 ];
-
