@@ -6,12 +6,12 @@ export function Reviews() {
   return (
     <section id="reviews" className="py-16 lg:py-24">
       <div className="container px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 tracking-tighter">
             Lo que dice nuestra comunidad
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Opiniones reales de personas que han integrado Boulet en su rutina.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+            OPINIONES REALES DE PERSONAS QUE HAN INTEGRADO BOULET EN SU RUTINA.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

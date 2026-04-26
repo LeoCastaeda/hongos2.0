@@ -3,11 +3,13 @@ import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
+
 export function SubscriptionCta() {
   const ctaImage = PlaceHolderImages.find(p => p.id === 'subscription-cta-background');
 
   return (
-    <section className="relative text-white overflow-hidden">
+    <section className="relative text-white overflow-hidden bg-[#1E2420] py-20 lg:py-32">
       {/* Background Video */}
       <video
         autoPlay
@@ -31,23 +33,20 @@ export function SubscriptionCta() {
         )}
       </video>
       <div className="absolute inset-0 bg-black/60 z-[1]" />
-      <div className="relative z-10 container py-16 lg:py-24 px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
-          Únete a la comunidad Boulet
+      <div className="relative z-10 container py-24 lg:py-32 px-4 text-center max-w-4xl mx-auto">
+        <h2 className="text-5xl md:text-7xl font-headline font-bold mb-6 uppercase tracking-tighter leading-none">
+          Únete a la <br /> <span className="text-primary">Comunidad Boulet</span>
         </h2>
-        <p className="text-lg text-gray-100 max-w-2xl mx-auto mb-8 font-light">
-          Recibe guías de bienestar, acceso anticipado a productos y un 10% de descuento en tu primer pedido.
+        <p className="text-xl md:text-2xl text-gray-100 max-w-2xl mx-auto mb-12 font-light tracking-wide">
+          RECIBE GUÍAS DE BIENESTAR, ACCESO ANTICIPADO A PRODUCTOS Y UN <span className="font-bold">10% DE DESCUENTO</span> EN TU PRIMER PEDIDO.
         </p>
-        <form className="flex flex-col sm:flex-row w-full max-w-md mx-auto items-center space-y-2 sm:space-y-0 sm:space-x-2">
-          <Input
-            type="email"
-            placeholder="Introduce tu dirección de email"
-            className="bg-background/80 border-border text-foreground placeholder:text-muted-foreground focus:bg-background focus:text-foreground"
+        <div className="max-w-xl mx-auto">
+          <SubscriptionForm 
+            className="flex flex-col sm:flex-row w-full items-center gap-0 shadow-2xl"
+            inputClassName="h-16 text-lg px-6 rounded-none border-none bg-white text-black"
+            buttonClassName="h-16 px-10 rounded-none bg-primary hover:bg-primary/90 text-white uppercase tracking-widest text-sm font-bold"
           />
-          <Button type="submit" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white border-none shadow-lg transition-transform hover:scale-105">
-            Subscribirme
-          </Button>
-        </form>
+        </div>
       </div>
     </section>
   );

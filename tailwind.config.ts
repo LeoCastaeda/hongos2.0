@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Lato', 'sans-serif'],
-        headline: ['Playfair Display', 'serif'],
+        body: ['Inter', 'sans-serif'],
+        headline: ['Oswald', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

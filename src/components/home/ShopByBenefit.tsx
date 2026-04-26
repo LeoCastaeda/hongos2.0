@@ -4,10 +4,10 @@ import { benefits } from '@/lib/data';
 
 export function ShopByBenefit() {
   return (
-    <section id="benefits" className="py-16 lg:py-24 bg-secondary">
+    <section id="benefits" className="py-24 bg-[#1E2420] text-white">
       <div className="container px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 uppercase tracking-tighter">
             Comprar por Beneficio
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

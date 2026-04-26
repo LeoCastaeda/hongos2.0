@@ -21,7 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const productDescription = t(`${product.slug}.description`);
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+    <Card className="flex flex-col h-full overflow-hidden bg-transparent border-none shadow-none group">
       <CardHeader className="p-0 relative">
         <Link href={`/products/${product.slug}`}>
           <div className="aspect-square w-full relative">
@@ -50,8 +50,8 @@ export function ProductCard({ product }: ProductCardProps) {
         </p>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-        <p className="text-lg font-semibold">{product.price.toFixed(2)}€</p>
-        <Button asChild className="w-full sm:w-auto">
+        <p className="text-xl font-bold">{product.price.toFixed(2)}€</p>
+        <Button asChild className="w-full sm:w-auto rounded-none uppercase tracking-widest text-xs px-6">
           <Link href={`/products/${product.slug}`}>Ver Producto</Link>
         </Button>
       </CardFooter>

@@ -9,24 +9,24 @@ export function EducationalBlock() {
   const featuredArticles = articles.slice(0, 3);
 
   return (
-    <section className="py-16 lg:py-24 bg-secondary">
+    <section className="py-24 bg-[#1E2420] text-white">
       <div className="container px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 tracking-tighter">
             Aprende con Nosotros
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Guías, recetas y la ciencia detrás de nuestros productos para que tomes decisiones informadas.
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto font-light">
+            GUÍAS, RECETAS Y LA CIENCIA DETRÁS DE NUESTROS PRODUCTOS.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredArticles.map((article) => {
             const placeholder = PlaceHolderImages.find(p => p.id === article.image);
             const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder-edu/600/400";
             const imageHint = placeholder?.imageHint || "education";
 
             return (
-              <Card key={article.id} className="overflow-hidden group">
+              <Card key={article.id} className="overflow-hidden bg-[#F0E8D8] text-black border-none shadow-none group rounded-none">
                 <Link href={`/learn/${article.slug}`} className="block">
                   <div className="relative aspect-video">
                     <Image
@@ -38,10 +38,10 @@ export function EducationalBlock() {
                       data-ai-hint={imageHint}
                     />
                   </div>
-                  <CardContent className="p-6">
-                    <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">{article.category}</p>
-                    <h3 className="text-xl font-headline font-bold mb-4">{article.title}</h3>
-                    <div className="flex items-center text-sm font-semibold text-primary group-hover:underline">
+                  <CardContent className="p-8">
+                    <p className="text-xs font-headline uppercase tracking-widest text-primary mb-3">{article.category}</p>
+                    <h3 className="text-2xl font-headline font-bold mb-4 leading-tight">{article.title}</h3>
+                    <div className="flex items-center text-xs font-headline uppercase tracking-widest text-primary group-hover:underline">
                       Leer más <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
                   </CardContent>

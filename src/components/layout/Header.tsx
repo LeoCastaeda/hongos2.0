@@ -109,21 +109,21 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-[#0A0A0A] text-white">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Leaf className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block font-headline">
+            <span className="hidden font-bold sm:inline-block font-headline uppercase tracking-wider text-xl">
               Bouletmushrooms
             </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav className="flex items-center space-x-8 text-xs font-headline uppercase tracking-widest">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                className="transition-colors hover:text-primary text-white/80"
               >
                 {link.label}
               </Link>

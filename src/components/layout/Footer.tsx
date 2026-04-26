@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Twitter, Instagram, Facebook, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
 
 const footerLinks = {
   comprar: [
@@ -24,7 +25,7 @@ const footerLinks = {
 
 export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
   return (
-    <footer className={`relative ${hideVideo ? 'bg-secondary text-secondary-foreground' : 'bg-secondary text-white'} overflow-hidden`}>
+    <footer className="relative bg-[#0A0A0A] text-white overflow-hidden">
       {/* Background Video - only show if hideVideo is false */}
       {!hideVideo && (
         <>
@@ -52,12 +53,8 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
             <p className={`text-sm ${hideVideo ? 'text-muted-foreground' : 'text-gray-200'} mb-4`}>
               El poder ancestral de los hongos funcionales.
             </p>
-            <form className="flex flex-col sm:flex-row w-full max-w-sm items-start sm:items-center gap-2">
-              <Input type="email" placeholder="Tu email" className="bg-background w-full"/>
-              <Button type="submit" variant="default" className="w-full sm:w-auto">Subscribirse</Button>
-            </form>
-            <p className={`text-xs ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} mt-2`}>
-              Recibe guías, ofertas y un 10% de descuento.
+            <p className={`text-xs ${hideVideo ? 'text-muted-foreground' : 'text-gray-300'} mt-2 uppercase tracking-widest`}>
+              Inspirando bienestar natural desde Barcelona.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 col-span-1 md:col-span-2 lg:col-span-3">

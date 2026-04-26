@@ -1,5 +1,6 @@
 import { products, benefits } from '@/lib/data';
 import { ProductCard } from '@/components/products/ProductCard';
+import { Link } from '@/i18n/routing';
 
 export async function generateStaticParams() {
   const benefitSlugs = benefits.map(b => ({ slug: b.slug }));
@@ -48,27 +49,47 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
   }
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8 sm:py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold mb-4">
-          {title}
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          {description}
-        </p>
-      </div>
+    <div className="bg-[#F0E8D8] min-h-screen">
+      <div className="container mx-auto max-w-7xl px-4 py-20 lg:py-32">
+        <div className="text-center mb-20">
+          <h1 className="text-5xl md:text-7xl font-headline font-bold mb-6 uppercase tracking-tighter">
+            {title}
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light tracking-wide">
+            {description.toUpperCase()}
+          </p>
+        </div>
 
-      {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+        {/* Filters / Navigation */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16 border-b border-black/10 pb-8">
+          {[
+            { name: 'Todos', slug: 'all' },
+            { name: 'Packs', slug: 'bundles' },
+            { name: 'Medicinal', slug: 'medicinal' },
+            { name: 'Comestible', slug: 'comestible' }
+          ].map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/collections/${cat.slug}`}
+              className={`text-xs font-headline uppercase tracking-widest px-6 py-2 border border-black/20 hover:bg-black hover:text-white transition-all ${slug === cat.slug ? 'bg-black text-white' : ''}`}
+            >
+              {cat.name}
+            </Link>
           ))}
         </div>
-      ) : (
-        <div className="text-center py-16">
-          <p className="text-xl text-muted-foreground">No se encontraron productos en esta colección.</p>
-        </div>
-      )}
+
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-xl font-headline uppercase tracking-widest text-muted-foreground">No se encontraron productos.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
