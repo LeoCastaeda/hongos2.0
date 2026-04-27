@@ -3,20 +3,25 @@
 import { useState } from 'react';
 import { quizQuestions, products } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
 import { ProductCard } from '../products/ProductCard';
 import { ArrowLeft } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+import { useRouter } from 'next/navigation';
 
 export function QuizForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [recommendedProducts, setRecommendedProducts] = useState<typeof products>([]);
+  const router = useRouter();
 
   const totalQuestions = quizQuestions.length;
   const progress = ((currentStep) / totalQuestions) * 100;
+
+  const handleActivateSubscription = () => {
+    router.push('/#subscribe');
+  };
 
   const handleAnswerChange = (questionId: number, value: string) => {
     setAnswers({ ...answers, [questionId]: value });
@@ -57,67 +62,129 @@ export function QuizForm() {
   const currentQuestion = quizQuestions[currentStep];
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-12">
+    <div className="container mx-auto max-w-3xl px-4 py-20 min-h-[calc(100vh-80px)] flex flex-col justify-center">
       {currentStep < totalQuestions ? (
-        <Card key={currentStep}>
-          <CardHeader>
-            <Progress value={progress} className="mb-4" />
-            <p className="text-sm text-muted-foreground">Pregunta {currentStep + 1} de {totalQuestions}</p>
-            <CardTitle className="text-2xl font-headline">{currentQuestion.question}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RadioGroup
-              value={answers[currentQuestion.id] || ''}
-              onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-              className="space-y-4"
+        <div key={currentStep} className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="mb-12">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-medium text-[#7A9E7E] uppercase tracking-widest">
+                Pregunta {currentStep + 1} de {totalQuestions}
+              </span>
+              <span className="text-sm font-medium text-white/40">
+                {Math.round(progress)}%
+              </span>
+            </div>
+            <Progress value={progress} className="h-1 bg-white/10" />
+          </div>
+
+          <h2 className="text-3xl md:text-5xl font-headline font-bold mb-12 text-white leading-tight">
+            {currentQuestion.question}
+          </h2>
+
+          <div className="grid gap-4">
+            {currentQuestion.options.map((option, index) => {
+              const isSelected = answers[currentQuestion.id] === option.value;
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    handleAnswerChange(currentQuestion.id, option.value);
+                    // Automatically go to next after a small delay for better UX
+                    setTimeout(handleNext, 300);
+                  }}
+                  className={cn(
+                    "w-full text-left p-6 rounded-xl transition-all duration-300 border-2 flex items-center justify-between group",
+                    isSelected 
+                      ? "bg-[#0A0A0A] border-[#7A9E7E] shadow-[0_0_20px_rgba(122,158,126,0.2)]" 
+                      : "bg-[#0A0A0A] border-transparent hover:border-[#7A9E7E]/50"
+                  )}
+                >
+                  <span className={cn(
+                    "text-lg md:text-xl font-medium transition-colors",
+                    isSelected ? "text-white" : "text-white/70 group-hover:text-white"
+                  )}>
+                    {option.text}
+                  </span>
+                  <div className={cn(
+                    "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                    isSelected ? "border-[#7A9E7E] bg-[#7A9E7E]" : "border-white/20 group-hover:border-[#7A9E7E]/50"
+                  )}>
+                    {isSelected && (
+                      <div className="w-2 h-2 rounded-full bg-black" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-12 flex items-center justify-between">
+            <Button 
+              variant="ghost" 
+              onClick={handleBack} 
+              disabled={currentStep === 0}
+              className="text-white/50 hover:text-white hover:bg-white/5"
             >
-              {currentQuestion.options.map((option, index) => {
-                const optionId = `q${currentQuestion.id}-option-${index}`;
-                return (
-                  <Label key={optionId} htmlFor={optionId} className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-accent/50 has-[input:checked]:border-primary has-[input:checked]:ring-1 has-[input:checked]:ring-primary">
-                    <RadioGroupItem value={option.value} id={optionId} />
-                    <span>{option.text}</span>
-                  </Label>
-                )
-              })}
-            </RadioGroup>
-          </CardContent>
-          <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-3">
-            <Button variant="outline" onClick={handleBack} disabled={currentStep === 0} className="w-full sm:w-auto">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Anterior
             </Button>
-            <Button onClick={handleNext} disabled={!answers[currentQuestion.id]} className="w-full sm:w-auto">
-              {currentStep === totalQuestions - 1 ? 'Ver mis resultados' : 'Siguiente'}
+            
+            <Button 
+              variant="ghost" 
+              asChild
+              className="text-white/30 hover:text-white hover:bg-white/5"
+            >
+              <a href="/">Cerrar</a>
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       ) : (
-        <Card className="text-center">
-          <CardHeader>
-            <CardTitle className="text-3xl font-headline">Tu Stack Personalizado</CardTitle>
-            <CardDescription>
-              Basado en tus respuestas, te recomendamos estos productos para empezar tu viaje hacia el bienestar.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {recommendedProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+        <div className="animate-in fade-in zoom-in duration-700">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 text-white uppercase tracking-tighter">
+              Tu Stack <span className="text-[#7A9E7E]">Personalizado</span>
+            </h2>
+            <p className="text-xl text-white/60 max-w-2xl mx-auto font-light">
+              Basado en tus respuestas, hemos seleccionado los extractos ideales para potenciar tu bienestar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-16">
+            {recommendedProducts.map(product => (
+              <div key={product.id} className="bg-[#0A0A0A] p-2 rounded-2xl border border-white/5 hover:border-[#7A9E7E]/30 transition-colors">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-[#0A0A0A] p-10 rounded-3xl border border-[#7A9E7E]/20 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#7A9E7E]/5 blur-3xl rounded-full -mr-32 -mt-32 transition-all group-hover:bg-[#7A9E7E]/10" />
+            
+            <div className="relative z-10 text-center">
+              <h3 className="text-2xl md:text-3xl font-bold font-headline mb-4 uppercase tracking-tight">Subscríbete y Ahorra un 10%</h3>
+              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+                Recibe tu stack personalizado automáticamente cada mes. Envío gratuito y flexibilidad total para pausar o cancelar.
+              </p>
+              <Button 
+                size="lg" 
+                onClick={handleActivateSubscription}
+                className="bg-[#7A9E7E] hover:bg-[#688a6b] text-black font-bold px-12 py-7 rounded-full text-lg shadow-xl"
+              >
+                Activar mi Suscripción
+              </Button>
             </div>
-            <div className="mt-8 p-6 bg-secondary rounded-lg">
-                <h3 className="text-xl font-bold font-headline">Subscríbete y Ahorra</h3>
-                <p className="mt-2 text-muted-foreground">Recibe tu stack personalizado cada mes con un 15% de descuento y envío gratuito. ¡Cancela cuando quieras!</p>
-                <Button size="lg" className="mt-4">Subscribirme al Stack</Button>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button variant="link" onClick={() => { setCurrentStep(0); setAnswers({}); }}>
-              Volver a hacer el quiz
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button 
+              variant="link" 
+              onClick={() => { setCurrentStep(0); setAnswers({}); }}
+              className="text-white/40 hover:text-[#7A9E7E]"
+            >
+              Reiniciar cuestionario
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );

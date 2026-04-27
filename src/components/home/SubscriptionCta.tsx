@@ -5,7 +5,7 @@ import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
 export function SubscriptionCta() {
 
   return (
-    <section className="relative text-white overflow-hidden bg-[#1E2420] py-20 lg:py-32">
+    <section id="subscribe" className="relative text-white overflow-hidden bg-[#1E2420] py-20 lg:py-32">
       {/* Background Video */}
       <video
         autoPlay

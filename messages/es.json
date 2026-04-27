@@ -1,46 +1,46 @@
 {
   "products": {
     "lions-mane-tincture": {
-      "name": "Extracto Doble de Melena de León 30ml",
-      "description": "Potencia tu claridad mental y enfoque. Nuestra tintura de Melena de León (Hericium erinaceus) es ideal para trabajar, estudiar y fomentar la creatividad.",
-      "habitat": "Crece principalmente sobre troncos muertos de árboles de madera dura como robles y hayas.",
-      "howToUse": "Toma 1 pipeta llena (1ml) una o dos veces al día. Se puede mezclar con tu bebida favorita."
+      "name": "Extracto Doble de Melena de Leon 30ml",
+      "description": "Potencia tu claridad mental y enfoque. Nuestra tintura de Melena de Leon (Hericium erinaceus) es ideal para trabajar, estudiar y fomentar la creatividad.",
+      "habitat": "Crece principalmente sobre troncos muertos de arboles de madera dura como robles y hayas.",
+      "howToUse": "Toma 1 pipeta llena (1ml) una o dos veces al dia. Se puede mezclar con tu bebida favorita."
     },
     "cordyceps-tincture": {
       "name": "Extracto Doble de Cordyceps 30ml",
-      "description": "Aumenta tu energía y resistencia física. El Cordyceps (Cordyceps militaris) es el aliado perfecto para deportistas y personas con un estilo de vida activo.",
+      "description": "Aumenta tu energia y resistencia fisica. El Cordyceps (Cordyceps militaris) es el aliado perfecto para deportistas y personas con un estilo de vida activo.",
       "habitat": "Originalmente se encuentra en altas altitudes en el Himalaya, hoy se cultiva de manera sostenible.",
-      "howToUse": "Toma 1 pipeta (1ml) por la mañana o antes de la actividad física."
+      "howToUse": "Toma 1 pipeta (1ml) por la manana o antes de la actividad fisica."
     },
     "reishi-tincture": {
       "name": "Extracto Doble de Reishi 30ml",
-      "description": "Encuentra tu centro y calma tu mente. El Reishi (Ganoderma lucidum), conocido como el 'hongo de la inmortalidad', ayuda a gestionar el estrés.",
-      "habitat": "Crece en la base y tocones de árboles caducifolios, especialmente de arce.",
+      "description": "Encuentra tu centro y calma tu mente. El Reishi (Ganoderma lucidum), conocido como el 'hongo de la inmortalidad', ayuda a gestionar el estres.",
+      "habitat": "Crece en la base y tocones de arboles caducifolios, especialmente de arce.",
       "howToUse": "Toma 1 pipeta (1ml) por la tarde o noche para relajarte."
     },
     "3-product-bundle": {
       "name": "Pack de 3 Productos",
-      "description": "El pack más completo. Incluye Melena de León para enfoque, Cordyceps para energía y Reishi para combatir el estrés.",
-      "habitat": "Diversos hábitats",
-      "howToUse": "Toma Cordyceps y Melena de León por la mañana, y Reishi por la noche."
+      "description": "El pack mas completo. Incluye Melena de Leon para enfoque, Cordyceps para energia y Reishi para combatir el estres.",
+      "habitat": "Diversos habitats",
+      "howToUse": "Toma Cordyceps y Melena de Leon por la manana, y Reishi por la noche."
     },
     "adaptogenic-coffee": {
-      "name": "Café Adaptógeno",
-      "description": "Comienza tu día con energía y enfoque. Nuestro café orgánico está enriquecido con Melena de León y Cordyceps.",
-      "habitat": "Café de altura combinado con hongos cultivados orgánicamente.",
-      "howToUse": "Prepara una taza como lo harías con tu café habitual."
+      "name": "Cafe Adaptogeno",
+      "description": "Comienza tu dia con energia y enfoque. Nuestro cafe organico esta enriquecido con Melena de Leon y Cordyceps.",
+      "habitat": "Cafe de altura combinado con hongos cultivados organicamente.",
+      "howToUse": "Prepara una taza como lo harias con tu cafe habitual."
     },
     "mind-body-bundle": {
       "name": "Pack Bienestar",
-      "description": "El pack definitivo para un rendimiento óptimo. Combina la claridad mental de la Melena de León con la energía del Cordyceps.",
-      "habitat": "Diversos hábitats",
-      "howToUse": "Toma Cordyceps por la mañana y Melena de León cuando necesites un impulso cognitivo."
+      "description": "El pack definitivo para un rendimiento optimo. Combina la claridad mental de la Melena de Leon con la energia del Cordyceps.",
+      "habitat": "Diversos habitats",
+      "howToUse": "Toma Cordyceps por la manana y Melena de Leon cuando necesites un impulso cognitivo."
     },
     "calm-defense-bundle": {
       "name": "Pack Calma y Defensa",
-      "description": "Fortalece tu cuerpo y calma tu mente. El Reishi ayuda con el estrés mientras la Cola de Pavo refuerza tu sistema inmunológico.",
-      "habitat": "Diversos hábitats",
-      "howToUse": "Toma Cola de Pavo por la mañana y Reishi por la tarde o noche."
+      "description": "Fortalece tu cuerpo y calma tu mente. El Reishi ayuda con el estres mientras la Cola de Pavo refuerza tu sistema inmunologico.",
+      "habitat": "Diversos habitats",
+      "howToUse": "Toma Cola de Pavo por la manana y Reishi por la tarde o noche."
     }
   }
 }

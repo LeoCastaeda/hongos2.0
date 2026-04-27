@@ -11,14 +11,15 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === '/' || pathname === '/es' || pathname === '/en';
+  const isQuizPage = pathname?.includes('/quiz');
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      {!isQuizPage && <Header />}
       <main className="flex-grow">{children}</main>
-      <Footer hideVideo={isHomePage} />
-      <ChatWidget />
+      {!isQuizPage && <Footer hideVideo={isHomePage} />}
+      {/* <ChatWidget /> */}
     </div>
   );
 }
