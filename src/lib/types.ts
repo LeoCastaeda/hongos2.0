@@ -29,7 +29,7 @@ export type Article = {
   slug: string;
   content: string;
   image: string;
-  category: 'guides' | 'recipes' | 'science';
+  category: 'guides' | 'recipes' | 'science' | 'guías' | 'recetas' | 'ciencia';
 };
 
 export type Review = {

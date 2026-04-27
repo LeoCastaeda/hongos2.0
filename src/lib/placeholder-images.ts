@@ -9,7 +9,7 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   {
     id: "hero-background",
     description: "A mystical forest scene with sun rays filtering through the trees, suggesting the natural power of mushrooms.",
-    imageUrl: "/images/portada3.png",
+    imageUrl: "/images/portada2.png",
     imageHint: "mushroom forest"
   },
   {

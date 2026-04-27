@@ -23,7 +23,7 @@ const footerLinks = {
   ],
 };
 
-export function Footer() {
+export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
   return (
     <footer className="relative bg-[#0A0A0A] text-white overflow-hidden border-t border-white/5">
       <div className="container py-12 lg:py-16 relative z-10">
