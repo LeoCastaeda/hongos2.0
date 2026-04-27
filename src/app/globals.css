@@ -65,12 +65,32 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground font-body;
     line-height: 1.7;
     letter-spacing: 0.01em;
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline uppercase tracking-tight;
   }
 }
+
+/* Fluid Typography Utilities */
+@layer utilities {
+  .text-fluid-h1 {
+    font-size: clamp(2.5rem, 8vw + 1rem, 6rem);
+    line-height: 0.9;
+  }
+  .text-fluid-h2 {
+    font-size: clamp(2rem, 5vw + 1rem, 4rem);
+    line-height: 1;
+  }
+  .text-fluid-p {
+    font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  }
+}
+

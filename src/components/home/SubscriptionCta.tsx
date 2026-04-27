@@ -18,10 +18,10 @@ export function SubscriptionCta() {
       </video>
       <div className="absolute inset-0 bg-black/60 z-[1]" />
       <div className="relative z-10 container py-24 lg:py-32 px-4 text-center max-w-4xl mx-auto">
-        <h2 className="text-5xl md:text-7xl font-headline font-bold mb-6 uppercase tracking-tighter leading-none">
+        <h2 className="text-fluid-h1 font-headline font-bold mb-6 uppercase tracking-tighter leading-none">
           Únete a la <br /> <span className="text-primary">Comunidad Boulet</span>
         </h2>
-        <p className="text-xl md:text-2xl text-gray-100 max-w-2xl mx-auto mb-12 font-light tracking-wide">
+        <p className="text-fluid-p text-gray-100 max-w-2xl mx-auto mb-12 font-light tracking-wide">
           RECIBE GUÍAS DE BIENESTAR, ACCESO ANTICIPADO A PRODUCTOS Y UN <span className="font-bold">10% DE DESCUENTO</span> EN TU PRIMER PEDIDO.
         </p>
         <div className="max-w-xl mx-auto">

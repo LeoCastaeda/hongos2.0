@@ -24,11 +24,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-black/40 z-[1]" />
 
       <div className="relative z-10 container max-w-5xl px-4">
-        <h1 className="text-6xl md:text-8xl font-headline font-bold mb-6 text-shadow-2xl animate-fade-in-down tracking-tighter leading-[0.9] uppercase">
+        <h1 className="text-fluid-h1 font-headline font-bold mb-6 text-shadow-2xl animate-fade-in-down tracking-tighter uppercase">
           El Poder de los <br />
           <span className="text-primary">Hongos Funcionales</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto text-shadow-lg animate-fade-in-up font-light text-gray-200 tracking-wide">
+        <p className="text-fluid-p mb-12 max-w-2xl mx-auto text-shadow-lg animate-fade-in-up font-light text-gray-200 tracking-wide">
           EXTRACTOS DOBLES DE CUERPO FRUCTÍFERO. <br className="hidden md:block" />
           POTENCIA TU MENTE, ENERGÍA Y BIENESTAR DE FORMA NATURAL.
         </p>

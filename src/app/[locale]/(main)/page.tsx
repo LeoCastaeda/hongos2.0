@@ -16,10 +16,10 @@ export default function HomePage() {
        <section className="py-24 lg:py-32 bg-[#F0E8D8]">
           <div className="container px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 uppercase tracking-tighter">
+              <h2 className="text-fluid-h2 font-headline font-bold mb-4 uppercase tracking-tighter">
                 Nuestros Productos
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+              <p className="text-fluid-p text-muted-foreground max-w-2xl mx-auto font-light">
                 FAVORITOS DE NUESTRA COMUNIDAD PARA EMPEZAR TU CAMINO HACIA EL BIENESTAR.
               </p>
             </div>
