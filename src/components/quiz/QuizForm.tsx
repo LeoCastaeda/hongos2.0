@@ -62,26 +62,26 @@ export function QuizForm() {
   const currentQuestion = quizQuestions[currentStep];
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-20 min-h-[calc(100vh-80px)] flex flex-col justify-center">
+    <div className="container mx-auto max-w-3xl px-4 py-10 md:py-20 min-h-[calc(100vh-64px)] flex flex-col justify-center relative z-10">
       {currentStep < totalQuestions ? (
         <div key={currentStep} className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-[#7A9E7E] uppercase tracking-widest">
+              <span className="text-xs md:text-sm font-medium text-[#7A9E7E] uppercase tracking-widest">
                 Pregunta {currentStep + 1} de {totalQuestions}
               </span>
-              <span className="text-sm font-medium text-white/40">
+              <span className="text-xs md:text-sm font-medium text-white/40">
                 {Math.round(progress)}%
               </span>
             </div>
             <Progress value={progress} className="h-1 bg-white/10" />
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-headline font-bold mb-12 text-white leading-tight">
+          <h2 className="text-fluid-h2 font-headline font-bold mb-8 md:mb-12 text-white leading-tight">
             {currentQuestion.question}
           </h2>
 
-          <div className="grid gap-4">
+          <div className="grid gap-3 md:gap-4">
             {currentQuestion.options.map((option, index) => {
               const isSelected = answers[currentQuestion.id] === option.value;
               return (
@@ -93,24 +93,24 @@ export function QuizForm() {
                     setTimeout(handleNext, 300);
                   }}
                   className={cn(
-                    "w-full text-left p-6 rounded-xl transition-all duration-300 border-2 flex items-center justify-between group",
+                    "w-full text-left p-5 md:p-6 rounded-xl transition-all duration-300 border-2 flex items-center justify-between group",
                     isSelected 
                       ? "bg-[#0A0A0A] border-[#7A9E7E] shadow-[0_0_20px_rgba(122,158,126,0.2)]" 
                       : "bg-[#0A0A0A] border-transparent hover:border-[#7A9E7E]/50"
                   )}
                 >
                   <span className={cn(
-                    "text-lg md:text-xl font-medium transition-colors",
+                    "text-base md:text-xl font-medium transition-colors",
                     isSelected ? "text-white" : "text-white/70 group-hover:text-white"
                   )}>
                     {option.text}
                   </span>
                   <div className={cn(
-                    "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                    "w-5 h-5 md:w-6 md:h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-4",
                     isSelected ? "border-[#7A9E7E] bg-[#7A9E7E]" : "border-white/20 group-hover:border-[#7A9E7E]/50"
                   )}>
                     {isSelected && (
-                      <div className="w-2 h-2 rounded-full bg-black" />
+                      <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black" />
                     )}
                   </div>
                 </button>
@@ -118,12 +118,12 @@ export function QuizForm() {
             })}
           </div>
 
-          <div className="mt-12 flex items-center justify-between">
+          <div className="mt-8 md:mt-12 flex items-center justify-between">
             <Button 
               variant="ghost" 
               onClick={handleBack} 
               disabled={currentStep === 0}
-              className="text-white/50 hover:text-white hover:bg-white/5"
+              className="text-white/50 hover:text-white hover:bg-white/5 p-0 h-auto"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Anterior
@@ -132,24 +132,24 @@ export function QuizForm() {
             <Button 
               variant="ghost" 
               asChild
-              className="text-white/30 hover:text-white hover:bg-white/5"
+              className="text-white/30 hover:text-white hover:bg-white/5 p-0 h-auto"
             >
               <a href="/">Cerrar</a>
             </Button>
           </div>
         </div>
       ) : (
-        <div className="animate-in fade-in zoom-in duration-700">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 text-white uppercase tracking-tighter">
+        <div className="animate-in fade-in zoom-in duration-700 py-10">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-fluid-h1 font-headline font-bold mb-4 text-white uppercase tracking-tighter">
               Tu Stack <span className="text-[#7A9E7E]">Personalizado</span>
             </h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto font-light">
+            <p className="text-fluid-p text-white/60 max-w-2xl mx-auto font-light">
               Basado en tus respuestas, hemos seleccionado los extractos ideales para potenciar tu bienestar.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
             {recommendedProducts.map(product => (
               <div key={product.id} className="bg-[#0A0A0A] p-2 rounded-2xl border border-white/5 hover:border-[#7A9E7E]/30 transition-colors">
                 <ProductCard product={product} />
@@ -157,25 +157,25 @@ export function QuizForm() {
             ))}
           </div>
 
-          <div className="bg-[#0A0A0A] p-10 rounded-3xl border border-[#7A9E7E]/20 relative overflow-hidden group">
+          <div className="bg-[#0A0A0A] p-6 md:p-10 rounded-3xl border border-[#7A9E7E]/20 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#7A9E7E]/5 blur-3xl rounded-full -mr-32 -mt-32 transition-all group-hover:bg-[#7A9E7E]/10" />
             
             <div className="relative z-10 text-center">
-              <h3 className="text-2xl md:text-3xl font-bold font-headline mb-4 uppercase tracking-tight">Subscríbete y Ahorra un 10%</h3>
-              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+              <h3 className="text-xl md:text-3xl font-bold font-headline mb-4 uppercase tracking-tight">Subscríbete y Ahorra un 10%</h3>
+              <p className="text-sm md:text-base text-white/60 mb-8 max-w-xl mx-auto">
                 Recibe tu stack personalizado automáticamente cada mes. Envío gratuito y flexibilidad total para pausar o cancelar.
               </p>
               <Button 
                 size="lg" 
                 onClick={handleActivateSubscription}
-                className="bg-[#7A9E7E] hover:bg-[#688a6b] text-black font-bold px-12 py-7 rounded-full text-lg shadow-xl"
+                className="w-full md:w-auto bg-[#7A9E7E] hover:bg-[#688a6b] text-black font-bold px-12 py-7 rounded-full text-base md:text-lg shadow-xl"
               >
                 Activar mi Suscripción
               </Button>
             </div>
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-8 md:mt-12 text-center">
             <Button 
               variant="link" 
               onClick={() => { setCurrentStep(0); setAnswers({}); }}
