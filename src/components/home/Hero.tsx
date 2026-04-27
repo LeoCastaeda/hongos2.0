@@ -16,20 +16,8 @@ export function Hero() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
-        poster={heroImage?.imageUrl}
       >
         <source src="/videos/videocabecera.mp4" type="video/mp4" />
-        {/* Fallback Image if video fails or is not supported */}
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-        )}
       </video>
 
       {/* Premium Overlay - Solid black if video doesn't cover everything or as requested */}

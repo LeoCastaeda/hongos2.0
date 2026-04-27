@@ -1,9 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
-
-// Para evitar múltiples instancias de Prisma en desarrollo
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export async function subscribeToNewsletter(formData: FormData) {
   const email = formData.get('email');
