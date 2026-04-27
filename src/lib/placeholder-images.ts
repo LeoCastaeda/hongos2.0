@@ -57,7 +57,7 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   {
     id: "educational-guides",
     description: "Image for educational guides about functional mushrooms.",
-    imageUrl: "https://images.unsplash.com/photo-1670617871787-b2596d4ecb86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bXVzaHJvb21zJTIwZ3VpZGV8ZW58MHx8fHwxNzYxMjMzNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "/images/hongos_funcionales.jpeg",
     imageHint: "mushrooms guide"
   },
   {

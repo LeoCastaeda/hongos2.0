@@ -168,7 +168,7 @@ export function QuizForm() {
               <Button 
                 size="lg" 
                 onClick={handleActivateSubscription}
-                className="w-full md:w-auto bg-[#7A9E7E] hover:bg-[#688a6b] text-black font-bold px-12 py-7 rounded-full text-base md:text-lg shadow-xl"
+                className="w-full md:w-auto bg-[#7A9E7E] hover:bg-[#688a6b] text-black font-extrabold px-16 py-10 rounded-full text-lg md:text-xl shadow-2xl transition-all hover:scale-105"
               >
                 Activar mi Suscripción
               </Button>

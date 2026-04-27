@@ -35,20 +35,20 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
                 Bouletmushrooms
               </span>
             </Link>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-white/80 mb-4">
               El poder ancestral de los hongos funcionales.
             </p>
-            <p className="text-xs text-gray-500 mt-2 uppercase tracking-widest">
+            <p className="text-xs text-white/60 mt-2 uppercase tracking-widest">
               Inspirando bienestar natural desde Barcelona.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 col-span-1 md:col-span-2 lg:col-span-3">
               <div>
-                <h3 className="font-semibold mb-4">Comprar</h3>
+                <h3 className="font-semibold text-white mb-4">Comprar</h3>
                 <ul className="space-y-2">
                   {footerLinks.comprar.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-gray-400 hover:text-primary transition-colors">
+                      <Link href={link.href} className="text-sm text-white/70 hover:text-primary transition-colors">
                         {link.title}
                       </Link>
                     </li>
@@ -56,11 +56,11 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-4">Nosotros</h3>
+                <h3 className="font-semibold text-white mb-4">Nosotros</h3>
                 <ul className="space-y-2">
                   {footerLinks.nosotros.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-gray-400 hover:text-primary transition-colors">
+                      <Link href={link.href} className="text-sm text-white/70 hover:text-primary transition-colors">
                         {link.title}
                       </Link>
                     </li>
@@ -68,11 +68,11 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-4">Ayuda</h3>
+                <h3 className="font-semibold text-white mb-4">Ayuda</h3>
                 <ul className="space-y-2">
                   {footerLinks.ayuda.map((link) => (
                     <li key={link.title}>
-                      <Link href={link.href} className="text-sm text-gray-400 hover:text-primary transition-colors">
+                      <Link href={link.href} className="text-sm text-white/70 hover:text-primary transition-colors">
                         {link.title}
                       </Link>
                     </li>
@@ -82,7 +82,7 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-gray-500" suppressHydrationWarning>
+          <p className="text-xs text-white/60" suppressHydrationWarning>
             © {new Date().getFullYear()} Bouletmushrooms. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-6">
@@ -92,7 +92,7 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
               rel="noopener noreferrer" 
               aria-label="Instagram"
             >
-              <Instagram className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
+              <Instagram className="h-5 w-5 text-white/60 hover:text-primary transition-colors" />
             </Link>
             <Link 
               href="https://www.linkedin.com/company/boulet-mushrooms/" 
@@ -100,7 +100,7 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
               rel="noopener noreferrer" 
               aria-label="LinkedIn"
             >
-              <Linkedin className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
+              <Linkedin className="h-5 w-5 text-white/60 hover:text-primary transition-colors" />
             </Link>
           </div>
         </div>

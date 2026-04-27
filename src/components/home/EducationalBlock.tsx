@@ -9,13 +9,27 @@ export function EducationalBlock() {
   const featuredArticles = articles.slice(0, 3);
 
   return (
-    <section className="py-24 bg-[#1E2420] text-white">
-      <div className="container px-4">
+    <section className="relative py-24 bg-[#1E2420] text-white overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+      >
+        <source src="/videos/aprende_con_nosotros.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark Overlay for better contrast */}
+      <div className="absolute inset-0 bg-black/40 z-[1]" />
+
+      <div className="relative z-10 container px-4">
         <div className="text-center mb-16">
           <h2 className="text-fluid-h2 font-headline font-bold mb-4 tracking-tighter">
             Aprende con Nosotros
           </h2>
-          <p className="text-fluid-p text-gray-300 max-w-2xl mx-auto font-light">
+          <p className="text-fluid-p text-gray-100 max-w-2xl mx-auto font-light">
             GUÍAS, RECETAS Y LA CIENCIA DETRÁS DE NUESTROS PRODUCTOS.
           </p>
         </div>

@@ -85,8 +85,8 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
-            <Button type="submit" size="lg" className="flex-1 w-full sm:w-auto h-11 sm:h-auto">
-              <ShoppingCart className="mr-2 h-5 w-5" />
+            <Button type="submit" size="lg" className="flex-1 w-full sm:w-auto h-14 text-lg font-bold uppercase tracking-wider">
+              <ShoppingCart className="mr-2 h-6 w-6" />
               Añadir al carrito
             </Button>
           </div>
