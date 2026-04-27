@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Twitter, Instagram, Facebook, Leaf } from 'lucide-react';
+import { Linkedin, Instagram, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
@@ -85,15 +85,22 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
           <p className="text-xs text-gray-500" suppressHydrationWarning>
             © {new Date().getFullYear()} Bouletmushrooms. Todos los derechos reservados.
           </p>
-          <div className="flex items-center space-x-4">
-            <Link href="#" aria-label="Twitter">
-              <Twitter className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
-            </Link>
-            <Link href="#" aria-label="Instagram">
+          <div className="flex items-center space-x-6">
+            <Link 
+              href="https://www.instagram.com/bouletmushrooms" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Instagram"
+            >
               <Instagram className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
             </Link>
-            <Link href="#" aria-label="Facebook">
-              <Facebook className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
+            <Link 
+              href="https://www.linkedin.com/company/boulet-mushrooms/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
             </Link>
           </div>
         </div>
