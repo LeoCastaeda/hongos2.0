@@ -1,120 +1,181 @@
 import Image from 'next/image';
-import { Check, Leaf, Heart, MapPin, Award } from 'lucide-react';
+import { Leaf, Heart, Award, Check, FlaskConical, ShieldCheck } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+const guarantees = [
+  {
+    icon: FlaskConical,
+    title: 'Testado por Terceros',
+    desc: 'Análisis de laboratorio independientes para cada lote de producción.',
+  },
+  {
+    icon: Leaf,
+    title: '100% Orgánico',
+    desc: 'Cultivado de forma sostenible. Sin pesticidas ni metales pesados.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Garantía de Satisfacción',
+    desc: 'Si no estás satisfecho en 30 días, te devolvemos tu dinero sin preguntas.',
+  },
+  {
+    icon: Check,
+    title: 'Sólo Cuerpo Fructífero',
+    desc: 'Sin micelio, sin granos, sin rellenos. Máxima concentración de activos.',
+  },
+];
+
 export default function AboutPage() {
-    const storyImage = PlaceHolderImages.find(p => p.id === 'about-story');
-    const sustainabilityImage = PlaceHolderImages.find(p => p.id === 'about-sustainability');
+  const storyImage = PlaceHolderImages.find(p => p.id === 'about-story');
+  const sustainabilityImage = PlaceHolderImages.find(p => p.id === 'about-sustainability');
 
   return (
-    <div className="bg-background">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center max-w-3xl mx-auto">
-          <p className="text-primary font-semibold">Nuestra Historia</p>
-          <h1 className="text-4xl md:text-6xl font-headline font-bold my-4">
-            Volviendo a lo natural, potenciando el futuro.
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            En Boulet, creemos que el bienestar es un equilibrio entre cuerpo y mente. Nuestra misión es reconectar a las personas con el poder de la naturaleza a través de suplementos a base de hongos funcionales, cultivados con respeto y procesados con ciencia.
-          </p>
-        </div>
-        
-        {storyImage && (
-            <div className="my-16 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                    src={storyImage.imageUrl}
-                    alt={storyImage.description}
-                    width={1200}
-                    height={800}
-                    className="w-full h-auto object-cover"
-                    data-ai-hint={storyImage.imageHint}
-                />
-            </div>
-        )}
+    <div className="bg-[#0A0A0A] text-white">
 
-        <div className="grid md:grid-cols-2 gap-16 items-center my-16">
-          <div>
-            <h2 id="sustainability" className="text-3xl font-headline font-bold mb-4">Compromiso con la Calidad y el Planeta</h2>
-            <p className="text-muted-foreground mb-6">
-              La salud de nuestros clientes y la del planeta son nuestras máximas prioridades. Por eso cuidamos cada detalle, desde el origen de nuestros hongos hasta el packaging que llega a tus manos.
+      {/* ─── HERO ─────────────────────────────────────────────── */}
+      <section className="relative h-[85vh] min-h-[600px] flex items-end overflow-hidden">
+        {storyImage && (
+          <Image
+            src={storyImage.imageUrl}
+            alt={storyImage.description}
+            fill
+            className="object-cover object-center"
+            priority
+            data-ai-hint={storyImage.imageHint}
+          />
+        )}
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-black/50 to-black/20 z-[1]" />
+
+        <div className="relative z-10 container px-4 pb-16 md:pb-24">
+          <p className="text-xs uppercase tracking-[0.5em] text-[#7A9E7E] mb-6 font-medium">
+            Nuestra Historia
+          </p>
+          <h1 className="font-headline font-bold uppercase tracking-tighter leading-none text-[clamp(3rem,10vw,9rem)] max-w-5xl">
+            Volviendo<br />
+            <span className="text-[#7A9E7E]">a lo natural.</span>
+          </h1>
+        </div>
+      </section>
+
+      {/* ─── INTRO TEXT ────────────────────────────────────────── */}
+      <section className="container px-4 py-20 lg:py-28 max-w-3xl">
+        <p className="text-xl md:text-2xl font-light text-white/70 leading-relaxed">
+          En Boulet, creemos que el bienestar es un equilibrio entre cuerpo y mente. 
+          Nuestra misión es reconectar a las personas con el poder de la naturaleza 
+          a través de extractos de hongos funcionales —cultivados con respeto y 
+          procesados con ciencia.
+        </p>
+      </section>
+
+      {/* ─── ASYMMETRIC BLOCK 1: Texto izquierda / Imagen derecha ─ */}
+      <section className="container px-4 py-10 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+          <div className="bg-[#1E2420] p-10 lg:p-16 flex flex-col justify-center">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-6">
+              Proceso
             </p>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <Leaf className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
-                <div>
-                  <h3 className="font-semibold">Cultivo Orgánico y Sostenible</h3>
-                  <p className="text-muted-foreground">Nuestros hongos crecen en un entorno controlado, libre de pesticidas y metales pesados, asegurando la máxima pureza.</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <Heart className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
-                <div>
-                  <h3 className="font-semibold">Doble Extracción para Máxima Potencia</h3>
-                  <p className="text-muted-foreground">Utilizamos un método de doble extracción (agua y alcohol) para obtener todos los compuestos beneficiosos del hongo.</p>
-                </div>
-              </li>
-               <li className="flex items-start">
-                <Award className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
-                <div>
-                  <h3 className="font-semibold">Cuerpo Fructífero, Sin Rellenos</h3>
-                  <p className="text-muted-foreground">Solo usamos el cuerpo fructífero del hongo, la parte con mayor concentración de activos. Sin micelio, sin granos, sin aditivos.</p>
-                </div>
-              </li>
-            </ul>
+            <h2 id="sustainability" className="font-headline font-bold uppercase text-4xl md:text-5xl tracking-tighter mb-8 leading-none">
+              Doble Extracción.<br />Máxima Potencia.
+            </h2>
+            <p className="text-white/60 font-light leading-relaxed mb-6">
+              Utilizamos un método de doble extracción —agua caliente y alcohol— 
+              para liberar todos los compuestos bioactivos del hongo: polisacáridos, 
+              beta-glucanos y triterpenos. El resultado es un extracto completo, 
+              no un simple polvo.
+            </p>
+            <p className="text-white/60 font-light leading-relaxed">
+              La extracción dura semanas. No días. La paciencia es parte 
+              de nuestra fórmula.
+            </p>
           </div>
           {sustainabilityImage && (
-              <div className="rounded-lg overflow-hidden aspect-square">
-                <Image
-                    src={sustainabilityImage.imageUrl}
-                    alt={sustainabilityImage.description}
-                    width={600}
-                    height={600}
-                    className="w-full h-full object-cover"
-                    data-ai-hint={sustainabilityImage.imageHint}
-                />
-              </div>
+            <div className="relative min-h-[400px] lg:min-h-0">
+              <Image
+                src={sustainabilityImage.imageUrl}
+                alt={sustainabilityImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={sustainabilityImage.imageHint}
+              />
+            </div>
           )}
         </div>
+      </section>
 
-        <div id="made-in-bcn" className="bg-secondary rounded-lg p-8 lg:p-12 my-16">
-          <div className="text-center">
-            <h2 className="text-3xl font-headline font-bold mb-4">Nuestras Garantías</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Tu confianza es nuestra prioridad. Por eso te ofrecemos total transparencia y calidad.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="flex flex-col items-center">
-                <div className="bg-primary/10 rounded-full p-4 mb-4">
-                  <Check className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Testado por Terceros</h3>
-                <p className="text-sm text-muted-foreground">Análisis de laboratorio independientes para cada lote.</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary/10 rounded-full p-4 mb-4">
-                  <Check className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Ingredientes Puros</h3>
-                <p className="text-sm text-muted-foreground">100% cuerpo fructífero de hongo. Sin aditivos.</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary/10 rounded-full p-4 mb-4">
-                  <Check className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Garantía de Satisfacción</h3>
-                <p className="text-sm text-muted-foreground">Si no estás satisfecho, te devolvemos tu dinero.</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary/10 rounded-full p-4 mb-4">
-                  <Leaf className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">100% Orgánico</h3>
-                <p className="text-sm text-muted-foreground">Cultivado de forma sostenible y responsable.</p>
-              </div>
+      {/* ─── ASYMMETRIC BLOCK 2: Imagen izquierda / Texto derecha ─ */}
+      <section className="container px-4 py-10 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+          {storyImage && (
+            <div className="relative min-h-[400px] lg:min-h-0 order-2 lg:order-1">
+              <Image
+                src={storyImage.imageUrl}
+                alt={storyImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={storyImage.imageHint}
+              />
             </div>
+          )}
+          <div className="bg-[#F0E8D8] text-[#0A0A0A] p-10 lg:p-16 flex flex-col justify-center order-1 lg:order-2">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-6">
+              Origen
+            </p>
+            <h2 className="font-headline font-bold uppercase text-4xl md:text-5xl tracking-tighter mb-8 leading-none">
+              Barcelona.<br />De la fuente<br />a tu rutina.
+            </h2>
+            <p className="text-[#0A0A0A]/60 font-light leading-relaxed mb-4">
+              Seleccionamos los hongos de cultivos locales certificados, 
+              cultivados en condiciones controladas sin pesticidas ni metales pesados. 
+              Solo usamos el cuerpo fructífero — la parte del hongo con mayor 
+              densidad de compuestos activos.
+            </p>
+            <p className="text-[#0A0A0A]/60 font-light leading-relaxed">
+              Sin micelio de relleno. Sin granos. Sin trampa.
+            </p>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ─── GARANTÍAS ─────────────────────────────────────────── */}
+      <section id="made-in-bcn" className="py-24 lg:py-32 bg-[#1E2420]">
+        <div className="container px-4">
+          <div className="text-center mb-16">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-4">Transparencia total</p>
+            <h2 className="font-headline font-bold uppercase text-4xl md:text-6xl tracking-tighter">
+              Nuestras Garantías
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
+            {guarantees.map(({ icon: Icon, title, desc }) => (
+              <div
+                key={title}
+                className="group bg-[#1E2420] hover:bg-[#0A0A0A] transition-colors duration-300 p-10 flex flex-col gap-6"
+              >
+                <div className="w-12 h-12 border border-[#7A9E7E]/40 rounded-full flex items-center justify-center group-hover:border-[#7A9E7E] group-hover:bg-[#7A9E7E]/10 transition-all duration-300">
+                  <Icon className="w-5 h-5 text-[#7A9E7E]" />
+                </div>
+                <div>
+                  <h3 className="font-headline font-bold text-xl uppercase tracking-tight mb-3">{title}</h3>
+                  <p className="text-sm text-white/50 font-light leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CIERRE ────────────────────────────────────────────── */}
+      <section className="py-24 lg:py-32">
+        <div className="container px-4 text-center max-w-3xl mx-auto">
+          <p className="font-headline italic text-2xl md:text-4xl text-white/60 font-light leading-relaxed">
+            "La naturaleza tiene respuestas que la ciencia solo está empezando a comprender."
+          </p>
+          <p className="mt-6 text-xs uppercase tracking-[0.4em] text-[#7A9E7E]">— Equipo Boulet</p>
+        </div>
+      </section>
+
     </div>
   );
 }
