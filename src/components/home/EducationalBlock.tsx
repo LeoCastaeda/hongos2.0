@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import { articles } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { AutoplayVideo } from '@/components/ui/AutoplayVideo';
 
 export function EducationalBlock() {
   const featuredArticles = articles.slice(0, 3);
@@ -11,15 +12,10 @@ export function EducationalBlock() {
   return (
     <section className="relative py-24 bg-[#1E2420] text-white overflow-hidden">
       {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
+      <AutoplayVideo
+        src="/videos/aprende_con_nosotros.mp4"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
-      >
-        <source src="/videos/aprende_con_nosotros.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Dark Overlay for better contrast */}
       <div className="absolute inset-0 bg-black/40 z-[1]" />

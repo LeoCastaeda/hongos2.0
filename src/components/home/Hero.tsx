@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { BenefitIcons } from './BenefitIcons';
+import { AutoplayVideo } from '@/components/ui/AutoplayVideo';
 
 export function Hero() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-background');
@@ -10,15 +11,10 @@ export function Hero() {
   return (
     <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center text-center text-white overflow-hidden bg-[#0A0A0A]">
       {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
+      <AutoplayVideo
+        src="/videos/videocabecera.mp4"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
-      >
-        <source src="/videos/videocabecera.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Premium Overlay - Solid black if video doesn't cover everything or as requested */}
       <div className="absolute inset-0 bg-black/40 z-[1]" />

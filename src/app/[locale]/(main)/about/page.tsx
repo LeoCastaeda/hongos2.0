@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Leaf, Heart, Award, Check, FlaskConical, ShieldCheck } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { AutoplayVideo } from '@/components/ui/AutoplayVideo';
 
 const guarantees = [
   {
@@ -32,28 +33,23 @@ export default function AboutPage() {
   return (
     <div className="bg-[#0A0A0A] text-white">
 
-      {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-end overflow-hidden">
-        {storyImage && (
-          <Image
-            src={storyImage.imageUrl}
-            alt={storyImage.description}
-            fill
-            className="object-cover object-center"
-            priority
-            data-ai-hint={storyImage.imageHint}
-          />
-        )}
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-black/50 to-black/20 z-[1]" />
+      {/* ─── HERO CON VIDEO ────────────────────────────────────── */}
+      <section className="relative h-[85vh] min-h-[600px] flex items-start overflow-hidden">
+        <AutoplayVideo
+          src="/videos/boulet_nosotros.mp4"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
 
-        <div className="relative z-10 container px-4 pb-16 md:pb-24">
-          <p className="text-xs uppercase tracking-[0.5em] text-[#7A9E7E] mb-6 font-medium">
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/45 z-[1]" />
+
+        <div className="relative z-10 container px-6 md:px-10 pt-10 md:pt-16 text-left">
+          <p className="text-xs uppercase tracking-[0.5em] text-white/50 mb-3 font-medium">
             Nuestra Historia
           </p>
-          <h1 className="font-headline font-bold uppercase tracking-tighter leading-none text-[clamp(3rem,10vw,9rem)] max-w-5xl">
+          <h1 className="font-headline font-bold uppercase tracking-tighter leading-none text-white text-[clamp(1.8rem,4.5vw,4.5rem)] max-w-lg">
             Volviendo<br />
-            <span className="text-[#7A9E7E]">a lo natural.</span>
+            a lo natural.
           </h1>
         </div>
       </section>
