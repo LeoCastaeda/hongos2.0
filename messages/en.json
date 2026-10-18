@@ -75,10 +75,7 @@
     "checkout": "Proceed to Checkout",
     "continue": "Continue shopping",
     "empty": "Your cart is empty",
-    "emptyHint": "Add products to get started!",
-    "addedTitle": "Added to cart",
-    "addedDesc": "{name} has been added to your cart.",
-    "viewCart": "View cart"
+    "emptyHint": "Add products to get started!"
   },
   "Product": {
     "viewProduct": "View Product",

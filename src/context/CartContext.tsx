@@ -1,10 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useTranslations } from 'next-intl';
 import { Product, CartItem } from '@/lib/types';
-import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '@/components/ui/toast';
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -21,8 +18,6 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartReady, setIsCartReady] = useState(false);
-  const { toast } = useToast();
-  const t = useTranslations('Cart');
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
@@ -55,18 +50,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         );
       }
       return [...prevItems, { product, quantity }];
-    });
-    toast({
-      title: t('addedTitle'),
-      description: t('addedDesc', { name: product.name }),
-      action: (
-        <ToastAction
-          altText={t('viewCart')}
-          onClick={() => document.getElementById('cart-icon')?.click()}
-        >
-          {t('viewCart')}
-        </ToastAction>
-      ),
     });
   };
 

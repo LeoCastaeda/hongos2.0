@@ -75,10 +75,7 @@
     "checkout": "Proceder al Pago",
     "continue": "Continuar comprando",
     "empty": "Tu carrito está vacío",
-    "emptyHint": "¡Añade productos para empezar!",
-    "addedTitle": "Producto añadido",
-    "addedDesc": "{name} se ha añadido al carrito.",
-    "viewCart": "Ver carrito"
+    "emptyHint": "¡Añade productos para empezar!"
   },
   "Product": {
     "viewProduct": "Ver Producto",
