@@ -39,6 +39,9 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
                 Bouletmushrooms
               </span>
             </Link>
+            <p className="text-sm font-headline uppercase tracking-[0.2em] text-white mb-3">
+              {t('motto')}
+            </p>
             <p className="text-sm text-white/80 mb-4">{t('tagline')}</p>
             <p className="text-xs text-white/60 mt-2 uppercase tracking-widest">
               {t('location')}

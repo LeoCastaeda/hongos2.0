@@ -22,12 +22,24 @@
     "hint_immunity": "Sugerencia: Pack 3"
   },
   "Hero": {
+    "eyebrow": "Extracción lenta en Barcelona",
     "titleBefore": "El Poder de los",
     "titleHighlight": "Hongos Funcionales",
-    "subtitle1": "EXTRACTOS DOBLES DE CUERPO FRUCTÍFERO.",
+    "subtitle1": "EXTRACTOS DOBLES DE CUERPO FRUCTÍFERO 100% LOCAL.",
     "subtitle2": "POTENCIA TU MENTE, ENERGÍA Y BIENESTAR DE FORMA NATURAL.",
     "ctaShop": "Comprar Ahora",
     "ctaQuiz": "Hacer el Quiz"
+  },
+  "BrandStory": {
+    "eyebrow": "Desde Barcelona",
+    "title": "Extracción lenta. Máxima potencia.",
+    "lead": "100% cuerpo fructífero de hongos locales. Doble extracto asistido por ultrasonidos.",
+    "whyTitle": "¿Por qué hongos?",
+    "whyBody": "Potencian la mente, combaten la fatiga y refuerzan la inmunidad. Desbloquea el poder conectivo de la naturaleza con hongos funcionales.",
+    "uaeTitle": "Extracción ultrasónica (UAE)",
+    "uaeBody": "Usamos tecnología UAE de última generación para liberar los compuestos activos atrapados en las paredes de quitina del hongo — compuestos que, sin extracción, nuestro sistema digestivo no podría aprovechar.",
+    "uaeNote": "La extracción asistida por ultrasonidos es más segura y eficaz que las técnicas convencionales para recuperar los compuestos de interés.",
+    "motto": "Cool. Calm. Connected."
   },
   "Home": {
     "productsTitle": "Nuestros Productos",
@@ -51,8 +63,9 @@
     "unexpected": "Ha ocurrido un error inesperado"
   },
   "Footer": {
+    "motto": "Cool. Calm. Connected.",
     "tagline": "El poder ancestral de los hongos funcionales.",
-    "location": "Inspirando bienestar natural desde Barcelona.",
+    "location": "Extracción lenta en Barcelona.",
     "shop": "Comprar",
     "about": "Nosotros",
     "help": "Ayuda",
@@ -176,8 +189,8 @@
     "processEyebrow": "Proceso",
     "processTitle1": "Doble Extracción.",
     "processTitle2": "Máxima Potencia.",
-    "processP1": "Utilizamos un método de doble extracción —agua caliente y alcohol— para liberar todos los compuestos bioactivos del hongo: polisacáridos, beta-glucanos y triterpenos. El resultado es un extracto completo, no un simple polvo.",
-    "processP2": "La extracción dura semanas. No días. La paciencia es parte de nuestra fórmula.",
+    "processP1": "Utilizamos un método de doble extracción —agua caliente y alcohol— reforzado con tecnología ultrasónica (UAE) para liberar todos los compuestos bioactivos del hongo: polisacáridos, beta-glucanos y triterpenos. El resultado es un extracto completo, no un simple polvo.",
+    "processP2": "La extracción dura semanas. No días. La paciencia es parte de nuestra fórmula — extracción lenta en Barcelona.",
     "originEyebrow": "Origen",
     "originTitle1": "Barcelona.",
     "originTitle2": "De la fuente",

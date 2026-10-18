@@ -22,12 +22,24 @@
     "hint_immunity": "Try: Bundle"
   },
   "Hero": {
+    "eyebrow": "Slowly extracted in Barcelona",
     "titleBefore": "The Power of",
     "titleHighlight": "Functional Mushrooms",
-    "subtitle1": "FRUITING BODY DOUBLE EXTRACTS.",
+    "subtitle1": "100% LOCALLY SOURCED FRUITING BODY DOUBLE EXTRACTS.",
     "subtitle2": "BOOST YOUR MIND, ENERGY AND WELLBEING — NATURALLY.",
     "ctaShop": "Shop Now",
     "ctaQuiz": "Take the Quiz"
+  },
+  "BrandStory": {
+    "eyebrow": "From Barcelona",
+    "title": "Slowly extracted. Maximum potency.",
+    "lead": "100% locally sourced mushroom fruiting body double extracts. Ultrasonic-assisted.",
+    "whyTitle": "Why mushrooms?",
+    "whyBody": "They boost your brain, beat fatigue, and supercharge your immunity. Unlock nature’s connective power with functional mushrooms.",
+    "uaeTitle": "Ultrasonic Assisted Extraction (UAE)",
+    "uaeBody": "We use cutting-edge UAE technology to retrieve the valuable compounds trapped within the mushroom’s chitin walls — compounds that would otherwise bypass our digestive system.",
+    "uaeNote": "Ultrasonic-assisted extraction provides a more secure and effective approach than conventional techniques to retrieve compounds of interest.",
+    "motto": "Cool. Calm. Connected."
   },
   "Home": {
     "productsTitle": "Our Products",
@@ -51,8 +63,9 @@
     "unexpected": "Something went wrong"
   },
   "Footer": {
+    "motto": "Cool. Calm. Connected.",
     "tagline": "The ancestral power of functional mushrooms.",
-    "location": "Inspiring natural wellbeing from Barcelona.",
+    "location": "Slowly extracted in Barcelona.",
     "shop": "Shop",
     "about": "About",
     "help": "Help",
@@ -176,8 +189,8 @@
     "processEyebrow": "Process",
     "processTitle1": "Double Extraction.",
     "processTitle2": "Maximum Potency.",
-    "processP1": "We use a double-extraction method — hot water and alcohol — to release all the mushroom’s bioactive compounds: polysaccharides, beta-glucans and triterpenes. The result is a complete extract, not a simple powder.",
-    "processP2": "Extraction takes weeks. Not days. Patience is part of our formula.",
+    "processP1": "We use a double-extraction method — hot water and alcohol — reinforced with ultrasonic-assisted extraction (UAE) to release all the mushroom’s bioactive compounds: polysaccharides, beta-glucans and triterpenes. The result is a complete extract, not a simple powder.",
+    "processP2": "Extraction takes weeks. Not days. Patience is part of our formula — slowly extracted in Barcelona.",
     "originEyebrow": "Origin",
     "originTitle1": "Barcelona.",
     "originTitle2": "From the source",

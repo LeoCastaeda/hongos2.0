@@ -18,6 +18,9 @@ export function Hero() {
       <div className="absolute inset-0 bg-black/40 z-[1]" />
 
       <div className="relative z-10 container max-w-5xl px-4">
+        <p className="mb-5 text-xs md:text-sm font-headline uppercase tracking-[0.35em] text-[#7A9E7E] animate-fade-in">
+          {t('eyebrow')}
+        </p>
         <h1 className="text-fluid-h1 font-headline font-bold mb-6 text-shadow-2xl animate-fade-in-down tracking-tighter uppercase">
           {t('titleBefore')} <br />
           <span className="text-primary">{t('titleHighlight')}</span>

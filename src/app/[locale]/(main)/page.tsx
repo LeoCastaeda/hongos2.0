@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/home/Hero';
+import { BrandStory } from '@/components/home/BrandStory';
 import { EducationalBlock } from '@/components/home/EducationalBlock';
 import { Reviews } from '@/components/home/Reviews';
 import { SubscriptionCta } from '@/components/home/SubscriptionCta';
@@ -15,7 +16,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <section className="py-24 lg:py-32 bg-[#F0E8D8]">
+      <BrandStory />
+      <section className="py-24 lg:py-32 bg-[#E8DFD0]">
         <div className="container px-4">
           <div className="text-center mb-16">
             <h2 className="text-fluid-h2 font-headline font-bold mb-4 uppercase tracking-tighter">
