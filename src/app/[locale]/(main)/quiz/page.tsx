@@ -1,5 +1,23 @@
+import type { Metadata } from 'next';
 import { QuizForm } from "@/components/quiz/QuizForm";
 import { AutoplayVideo } from '@/components/ui/AutoplayVideo';
+import { buildPageMetadata } from '@/lib/seo';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata({
+    locale,
+    path: '/quiz',
+    title: 'Quiz de Bienestar',
+    description:
+      'Descubre qué hongo funcional encaja mejor contigo según tus objetivos de enfoque, energía, calma o descanso.',
+    image: 'quiz-background',
+  });
+}
 
 export default function QuizPage() {
   return (

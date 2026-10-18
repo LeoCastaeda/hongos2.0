@@ -1,30 +1,49 @@
+'use client';
+
+import { useRef } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useTranslations } from 'next-intl';
+import { ShoppingCart } from 'lucide-react';
+import { useMessages, useTranslations } from 'next-intl';
 import type { Product } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useCart } from '@/context/CartContext';
+import { flyToCart } from '@/lib/fly-to-cart';
+import { getProductCopy } from '@/lib/product-messages';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const imageRef = useRef<HTMLDivElement>(null);
+  const { addToCart } = useCart();
+  const t = useTranslations('Product');
   const placeholder = PlaceHolderImages.find(p => p.id === product.image);
   const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
   const imageHint = placeholder?.imageHint || "product";
 
-  const t = useTranslations('products');
-  const productName = t(`${product.slug}.name`);
-  const productDescription = t(`${product.slug}.description`);
+  const messages = useMessages();
+  const { name: productName, description: productDescription } = getProductCopy(
+    (messages as { products?: unknown }).products,
+    product
+  );
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    flyToCart(imageRef.current, imageUrl);
+    addToCart(product, 1);
+  };
 
   return (
     <Card className="flex flex-col h-full overflow-hidden bg-transparent border-none shadow-none group">
       <CardHeader className="p-0 relative">
         <Link href={`/products/${product.slug}`}>
-          <div className="aspect-square w-full relative">
+          <div ref={imageRef} className="aspect-square w-full relative">
             <Image
               src={imageUrl}
               alt={productName}
@@ -51,9 +70,21 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
       <CardFooter className="p-4 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <p className="text-xl font-bold">{product.price.toFixed(2)}€</p>
-        <Button asChild className="w-full sm:w-auto rounded-none uppercase tracking-widest text-xs px-6">
-          <Link href={`/products/${product.slug}`}>Ver Producto</Link>
-        </Button>
+        <div className="flex w-full sm:w-auto gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="rounded-none shrink-0"
+            onClick={handleAddToCart}
+            aria-label={t('addAria', { name: productName })}
+          >
+            <ShoppingCart className="h-4 w-4" />
+          </Button>
+          <Button asChild className="flex-1 sm:flex-none rounded-none uppercase tracking-widest text-xs px-6">
+            <Link href={`/products/${product.slug}`}>{t('viewProduct')}</Link>
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

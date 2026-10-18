@@ -1,7 +1,6 @@
 'use client';
 
 import { Header } from "@/components/layout/Header";
-import { ChatWidget } from "@/components/chat-widget";
 import { Footer } from "@/components/layout/Footer";
 import { usePathname } from "next/navigation";
 
@@ -19,7 +18,6 @@ export default function MainLayout({
       {!isQuizPage && <Header />}
       <main className="flex-grow">{children}</main>
       {!isQuizPage && <Footer hideVideo={isHomePage} />}
-      {/* <ChatWidget /> */}
     </div>
   );
 }

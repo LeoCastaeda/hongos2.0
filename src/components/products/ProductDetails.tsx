@@ -1,8 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Accordion,
   AccordionContent,
@@ -10,11 +9,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
-import { useTranslations } from 'next-intl';
+import { useMessages, useTranslations } from 'next-intl';
 import { Star, CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Product, Review } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
+import { flyToCart } from '@/lib/fly-to-cart';
+import { getProductCopy } from '@/lib/product-messages';
 
 interface ProductDetailsProps {
     product: Product;
@@ -24,6 +25,7 @@ interface ProductDetailsProps {
 export function ProductDetails({ product, reviews }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  const imageRef = useRef<HTMLDivElement>(null);
 
   const placeholder = PlaceHolderImages.find(p => p.id === product.image);
   const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
@@ -31,20 +33,24 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
 
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();
+    flyToCart(imageRef.current, imageUrl);
     addToCart(product, quantity);
   }
 
-  const t = useTranslations('products');
-  const productName = t(`${product.slug}.name`);
-  const productDescription = t(`${product.slug}.description`);
-  const productHabitat = t(`${product.slug}.habitat`);
-  const productHowToUse = t(`${product.slug}.howToUse`);
+  const messages = useMessages();
+  const tp = useTranslations('Product');
+  const {
+    name: productName,
+    description: productDescription,
+    habitat: productHabitat,
+    howToUse: productHowToUse,
+  } = getProductCopy((messages as { products?: unknown }).products, product);
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
       {/* Image Gallery */}
       <div className="relative">
-        <div className="aspect-square w-full overflow-hidden rounded-lg">
+        <div ref={imageRef} className="aspect-square w-full overflow-hidden rounded-lg">
           <Image
             src={imageUrl}
             alt={productName}
@@ -62,12 +68,38 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         <p className="mt-2 text-lg text-muted-foreground">{productDescription}</p>
         
         <div className="mt-4 flex items-center gap-2">
-          <div className="flex items-center">
-              {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-accent fill-accent" />
-              ))}
-          </div>
-          <p className="text-sm text-muted-foreground">({reviews.length} reseñas)</p>
+          {(() => {
+            const average =
+              reviews.length > 0
+                ? reviews.reduce((sum, review) => sum + review.rating, 0) /
+                  reviews.length
+                : 0;
+            const rounded = Math.round(average);
+            return (
+              <>
+                <div className="flex items-center" aria-label={reviews.length ? `${average.toFixed(1)} de 5` : 'Sin valoraciones'}>
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-5 w-5 ${
+                        reviews.length > 0 && i < rounded
+                          ? 'text-accent fill-accent'
+                          : 'text-muted-foreground/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {reviews.length > 0
+                    ? tp(reviews.length === 1 ? 'reviews' : 'reviews_plural', {
+                        rating: average.toFixed(1),
+                        count: reviews.length,
+                      })
+                    : tp('noReviews')}
+                </p>
+              </>
+            );
+          })()}
         </div>
         
         <p className="mt-4 text-3xl font-bold">
@@ -87,7 +119,7 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
             </div>
             <Button type="submit" size="lg" className="flex-1 w-full sm:w-auto h-14 text-lg font-bold uppercase tracking-wider">
               <ShoppingCart className="mr-2 h-6 w-6" />
-              Añadir al carrito
+              {tp('addToCart')}
             </Button>
           </div>
         </form>
@@ -105,19 +137,19 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
         
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="habitat">
-            <AccordionTrigger>Hábitat / Habitat</AccordionTrigger>
+            <AccordionTrigger>{tp('habitat')}</AccordionTrigger>
             <AccordionContent>{productHabitat}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="how-to-use">
-            <AccordionTrigger>Uso / How to use</AccordionTrigger>
+            <AccordionTrigger>{tp('howToUse')}</AccordionTrigger>
             <AccordionContent>{productHowToUse}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="lab-results">
-            <AccordionTrigger>Resultados de laboratorio</AccordionTrigger>
+            <AccordionTrigger>{tp('labResults')}</AccordionTrigger>
             <AccordionContent>{product.labResults}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="faq">
-            <AccordionTrigger>Preguntas frecuentes</AccordionTrigger>
+            <AccordionTrigger>{tp('faq')}</AccordionTrigger>
             <AccordionContent>
               <div className="space-y-4">
                 {product.faqs.map((faq, index) => (

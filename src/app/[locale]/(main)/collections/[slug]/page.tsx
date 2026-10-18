@@ -1,50 +1,74 @@
-import { products, benefits } from '@/lib/data';
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { ProductCard } from '@/components/products/ProductCard';
 import { Link } from '@/i18n/routing';
+import {
+  buildPageMetadata,
+  COLLECTION_SLUGS,
+  getCollectionContent,
+} from '@/lib/seo';
 
 export async function generateStaticParams() {
-  const benefitSlugs = benefits.map(b => ({ slug: b.slug }));
-  const otherSlugs = [
-    { slug: 'all' },
-    { slug: 'bundles' },
-    { slug: 'tinctures' },
-    { slug: 'medicinal' },
-    { slug: 'comestible' },
-  ];
-  return [...benefitSlugs, ...otherSlugs];
+  return COLLECTION_SLUGS.map((slug) => ({ slug }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: 'Collections' });
+  const { benefit } = getCollectionContent(slug);
 
-export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-
-  const benefit = benefits.find(b => b.slug === slug);
-
-  let filteredProducts: typeof products = [];
-  let title = 'Nuestros Productos';
-  let description = 'Explora nuestra gama completa de suplementos naturales.';
-
-  if (slug === 'all') {
-    filteredProducts = products;
-  } else if (slug === 'bundles') {
-    filteredProducts = products.filter(p => p.type === 'bundle');
-    title = 'Packs y Bundles';
-    description = 'Ahorra con nuestros packs predefinidos para objetivos específicos.';
+  let title = t('all');
+  let description = t('allDesc');
+  if (slug === 'bundles') {
+    title = t('bundles');
+    description = t('bundlesDesc');
   } else if (slug === 'tinctures') {
-    filteredProducts = products.filter(p => p.type === 'tincture');
-    title = 'Todas las Tincturas';
-    description = 'Descubre nuestra colección de tincturas herbales.';
+    title = t('tinctures');
+    description = t('tincturesDesc');
   } else if (slug === 'medicinal') {
-    filteredProducts = products.filter(p => p.category === 'Medicinal');
-    title = 'Hongos Medicinales';
-    description = 'Extractos y packs centrados en los beneficios para la salud.';
-  } else if (slug === 'comestible') {
-    filteredProducts = products.filter(p => p.category === 'Comestible');
-    title = 'Productos Comestibles';
-    description = 'Disfruta de los beneficios de los hongos en tu día a día.';
+    title = t('medicinal');
+    description = t('medicinalDesc');
   } else if (benefit) {
-    filteredProducts = products.filter(p => p.benefitCategory === slug || p.type === 'bundle' && p.slug.includes(slug));
-    title = `Productos para ${benefit.name}`;
+    const benefitName = await getTranslations({ locale, namespace: 'Benefits' });
+    title = t('benefitTitle', { name: benefitName(benefit.slug) });
+    description = benefit.description;
+  }
+
+  return buildPageMetadata({
+    locale,
+    path: `/collections/${slug}`,
+    title,
+    description,
+  });
+}
+
+export default async function CollectionPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const t = await getTranslations('Collections');
+  const tb = await getTranslations('Benefits');
+  const { filteredProducts, benefit } = getCollectionContent(slug);
+
+  let title = t('all');
+  let description = t('allDesc');
+  if (slug === 'bundles') {
+    title = t('bundles');
+    description = t('bundlesDesc');
+  } else if (slug === 'tinctures') {
+    title = t('tinctures');
+    description = t('tincturesDesc');
+  } else if (slug === 'medicinal') {
+    title = t('medicinal');
+    description = t('medicinalDesc');
+  } else if (benefit) {
+    title = t('benefitTitle', { name: tb(benefit.slug) });
     description = benefit.description;
   }
 
@@ -60,13 +84,12 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
           </p>
         </div>
 
-        {/* Filters / Navigation */}
         <div className="flex flex-wrap justify-center gap-4 mb-16 border-b border-black/10 pb-8">
           {[
-            { name: 'Todos', slug: 'all' },
-            { name: 'Packs', slug: 'bundles' },
-            { name: 'Medicinal', slug: 'medicinal' },
-            { name: 'Comestible', slug: 'comestible' }
+            { name: t('filterAll'), slug: 'all' },
+            { name: t('filterTinctures'), slug: 'tinctures' },
+            { name: t('filterPacks'), slug: 'bundles' },
+            { name: t('filterMedicinal'), slug: 'medicinal' },
           ].map((cat) => (
             <Link
               key={cat.slug}
@@ -86,7 +109,9 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
           </div>
         ) : (
           <div className="text-center py-20">
-            <p className="text-xl font-headline uppercase tracking-widest text-muted-foreground">No se encontraron productos.</p>
+            <p className="text-xl font-headline uppercase tracking-widest text-muted-foreground">
+              {t('empty')}
+            </p>
           </div>
         )}
       </div>

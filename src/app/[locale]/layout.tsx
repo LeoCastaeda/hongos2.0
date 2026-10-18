@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, Oswald } from 'next/font/google';
 import '../globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -7,54 +8,90 @@ import { routing } from '@/i18n/routing';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { CartProvider } from '@/context/CartContext';
-import { FirebaseClientProvider } from '@/firebase';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+  buildPageMetadata,
+  DEFAULT_OG_IMAGE,
+  getSiteUrl,
+  organizationJsonLd,
+  SITE_NAME,
+  websiteJsonLd,
+} from '@/lib/seo';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-headline',
+  display: 'swap',
+});
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({locale}));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
-  description: '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and supercharge your immunity with functional mushrooms extracted using ultrasonic-assisted extraction (UAE) technology.',
-  keywords: ['functional mushrooms', 'mushroom extracts', 'Lion\'s Mane', 'Reishi', 'Cordyceps', 'Turkey Tail', 'Barcelona', 'UAE extraction', 'double extract', 'adaptogenic'],
-  authors: [{ name: 'Boulet Mushrooms' }],
-  creator: 'Boulet Mushrooms',
-  publisher: 'Boulet Mushrooms',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://bouletmushrooms.com'),
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
-    description: '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and supercharge your immunity.',
-    url: 'https://bouletmushrooms.com',
-    siteName: 'Boulet Mushrooms',
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Boulet Mushrooms – Slowly extracted functional mushrooms from Barcelona',
-    description: '100% locally sourced mushroom fruiting body double extracts.',
-    creator: '@bouletmushrooms',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+
+  const base = buildPageMetadata({
+    locale,
+    path: '',
+    title: isEn
+      ? 'Boulet Mushrooms – Functional mushroom extracts from Barcelona'
+      : 'Boulet Mushrooms – Extractos de hongos funcionales desde Barcelona',
+    description: isEn
+      ? '100% locally sourced mushroom fruiting body double extracts. Boost your brain, beat fatigue, and support immunity with ultrasonic-assisted extraction (UAE).'
+      : 'Extractos dobles de cuerpo fructífero de hongos 100% locales. Potencia tu mente, reduce la fatiga y refuerza tu inmunidad con extracción ultrasónica (UAE).',
+    image: DEFAULT_OG_IMAGE,
+  });
+
+  return {
+    ...base,
+    metadataBase: new URL(getSiteUrl()),
+    keywords: isEn
+      ? [
+          'functional mushrooms',
+          'mushroom extracts',
+          "Lion's Mane",
+          'Reishi',
+          'Cordyceps',
+          'Barcelona',
+          'double extract',
+        ]
+      : [
+          'hongos funcionales',
+          'extractos de hongos',
+          'Melena de León',
+          'Reishi',
+          'Cordyceps',
+          'Barcelona',
+          'doble extracción',
+        ],
+    authors: [{ name: SITE_NAME }],
+    creator: SITE_NAME,
+    publisher: SITE_NAME,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
     },
-  },
-};
+    icons: {
+      icon: DEFAULT_OG_IMAGE,
+      apple: DEFAULT_OG_IMAGE,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -66,34 +103,35 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
   const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
-      </head>
       <body
         className={cn(
+          inter.variable,
+          oswald.variable,
           'min-h-screen bg-background font-body antialiased'
         )}
       >
-        <FirebaseClientProvider>
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@graph': [organizationJsonLd(), websiteJsonLd()],
+          }}
+        />
+        <NextIntlClientProvider messages={messages}>
           <CartProvider>
-            <NextIntlClientProvider messages={messages}>
-              {children}
-            </NextIntlClientProvider>
+            {children}
             <Toaster />
           </CartProvider>
-        </FirebaseClientProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

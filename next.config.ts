@@ -1,5 +1,6 @@
 import type {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { getLegacyRedirects } from './src/lib/legacy-redirects';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig: NextConfig = {
@@ -9,6 +10,9 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  async redirects() {
+    return getLegacyRedirects();
   },
   images: {
     remotePatterns: [
@@ -29,6 +33,12 @@ const nextConfig: NextConfig = {
         hostname: 'picsum.photos',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'bouletmushrooms.com',
+        port: '',
+        pathname: '/wp-content/**',
       },
     ],
   },

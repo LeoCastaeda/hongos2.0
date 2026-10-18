@@ -37,22 +37,16 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
     imageHint: "product pack"
   },
   {
-    id: "product-coffee",
-    description: "A bag of adaptogenic coffee.",
-    imageUrl: "https://images.unsplash.com/photo-1610128880537-9b81f40733c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBiYWd8ZW58MHx8fHwxNzYxMTcwMDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "coffee bag"
+    id: "product-chaga",
+    description: "Product bottle for Chaga tincture.",
+    imageUrl: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?auto=format&fit=crop&w=1080&q=80",
+    imageHint: "chaga mushroom"
   },
   {
-    id: "product-pack-mente-cuerpo",
-    description: "Product bundle for Mente y Cuerpo pack.",
-    imageUrl: "https://images.unsplash.com/photo-1642505171999-d704cd50f93c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYnVuZGxlfGVufDB8fHx8MTc2MTE1ODU3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "product bundle"
-  },
-  {
-    id: "product-pack-calma-defensa",
-    description: "Product bundle for Calma y Defensa pack.",
-    imageUrl: "https://images.unsplash.com/photo-1642505171999-d704cd50f93c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwYnVuZGxlfGVufDB8fHx8MTc2MTE1ODU3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "product bundle"
+    id: "product-tremella",
+    description: "Product bottle for Tremella tincture.",
+    imageUrl: "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?auto=format&fit=crop&w=1080&q=80",
+    imageHint: "tremella mushroom"
   },
   {
     id: "educational-guides",

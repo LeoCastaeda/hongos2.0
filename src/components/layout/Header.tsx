@@ -1,15 +1,14 @@
 'use client';
 
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import {
   Leaf,
   Menu,
   ShoppingCart,
-  User,
   X,
-  LogOut,
-  UserCircle,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -17,31 +16,13 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { benefits } from '@/lib/data';
 import { useCart } from '@/context/CartContext';
 import { CartSheet } from '../cart/CartSheet';
-import { useUser, useAuth } from '@/firebase';
-import { getAuth, signOut } from 'firebase/auth';
-
-const navLinks = [
-  { href: '/collections/all', label: 'Comprar' },
-  { href: '/learn', label: 'Aprender' },
-  { href: '/about', label: 'Nosotros' },
-  { href: '/quiz', label: 'Quiz' },
-];
-
-import { useState, useEffect } from 'react';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Header() {
+  const t = useTranslations('Nav');
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -49,71 +30,13 @@ export function Header() {
 
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
 
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
-
-  const UserMenu = () => {
-    if (!mounted || isUserLoading) {
-      return (
-        <Button variant="ghost" size="icon">
-          <User className="h-5 w-5 opacity-20" />
-        </Button>
-      );
-    }
-
-    if (!user) {
-      return (
-        <Button asChild variant="ghost" size="icon">
-          <Link href="/login">
-            <User className="h-5 w-5" />
-            <span className="sr-only">Perfil</span>
-          </Link>
-        </Button>
-      );
-    }
-
-    return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={user.photoURL || ''} alt={user.displayName || ''} />
-              <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
-            </Avatar>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{user.displayName}</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                {user.email}
-              </p>
-            </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link href="/profile">
-              <UserCircle className="mr-2 h-4 w-4" />
-              <span>Perfil</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleSignOut}>
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Cerrar Sesión</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    );
-  };
+  const navLinks = [
+    { href: '/collections/all', label: t('shop') },
+    { href: '/learn', label: t('learn') },
+    { href: '/about', label: t('about') },
+    { href: '/quiz', label: t('quiz') },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#0A0A0A] text-white">
@@ -143,51 +66,62 @@ export function Header() {
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Abrir menú</span>
+                <span className="sr-only">{t('openMenu')}</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between border-b pb-4">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <Leaf className="h-6 w-6 text-primary" />
-                        <span className="font-bold font-headline">Bouletmushrooms</span>
-                    </Link>
-                    <SheetClose asChild>
-                        <Button variant="ghost" size="icon">
-                            <X className="h-6 w-6" />
-                            <span className="sr-only">Cerrar</span>
-                        </Button>
-                    </SheetClose>
+                  <Link href="/" className="flex items-center space-x-2">
+                    <Leaf className="h-6 w-6 text-primary" />
+                    <span className="font-bold font-headline">Bouletmushrooms</span>
+                  </Link>
+                  <SheetClose asChild>
+                    <Button variant="ghost" size="icon">
+                      <X className="h-6 w-6" />
+                      <span className="sr-only">{t('closeMenu')}</span>
+                    </Button>
+                  </SheetClose>
                 </div>
                 <nav className="flex-grow mt-6">
                   <ul className="space-y-4">
                     {navLinks.map((link) => (
                       <li key={link.href}>
                         <SheetClose asChild>
-                          <Link href={link.href} className="text-lg font-medium hover:text-primary">
+                          <Link
+                            href={link.href}
+                            className="text-lg font-medium hover:text-primary"
+                          >
                             {link.label}
                           </Link>
                         </SheetClose>
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-6">
+                    <LanguageSwitcher className="text-foreground [&_button]:text-foreground/60 [&_button[aria-current=true]]:text-primary [&_span]:text-foreground/30" />
+                  </div>
                   <div className="mt-8 border-t pt-6">
-                    <h3 className="mb-4 font-semibold text-muted-foreground">Comprar por beneficio</h3>
+                    <h3 className="mb-4 font-semibold text-muted-foreground">
+                      {t('shopByBenefit')}
+                    </h3>
                     <ul className="space-y-4">
-                        {benefits.map((benefit) => {
-                            const Icon = benefit.icon;
-                            return (
-                                <li key={benefit.id}>
-                                    <SheetClose asChild>
-                                        <Link href={`/collections/${benefit.slug}`} className="flex items-center gap-3 text-lg font-medium hover:text-primary">
-                                           <Icon className="w-5 h-5 text-muted-foreground" />
-                                           <span>{benefit.name}</span>
-                                        </Link>
-                                    </SheetClose>
-                                </li>
-                            )
-                        })}
+                      {benefits.map((benefit) => {
+                        const Icon = benefit.icon;
+                        return (
+                          <li key={benefit.id}>
+                            <SheetClose asChild>
+                              <Link
+                                href={`/collections/${benefit.slug}`}
+                                className="flex items-center gap-3 text-lg font-medium hover:text-primary"
+                              >
+                                <Icon className="w-5 h-5 text-muted-foreground" />
+                                <span>{benefit.name}</span>
+                              </Link>
+                            </SheetClose>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </nav>
@@ -201,18 +135,22 @@ export function Header() {
             <Leaf className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline">Bouletmushrooms</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <UserMenu />
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <CartSheet>
-                <Button variant="ghost" size="icon" className="relative">
-                {mounted && itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                    {itemCount}
-                    </span>
-                )}
+              <Button id="cart-icon" variant="ghost" size="icon" className="relative">
+                <span
+                  id="cart-count"
+                  className={`absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-0.5 text-xs font-bold text-primary-foreground transition-opacity ${
+                    mounted && itemCount > 0 ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-hidden={!(mounted && itemCount > 0)}
+                >
+                  {mounted ? itemCount : 0}
+                </span>
                 <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Carrito</span>
-                </Button>
+                <span className="sr-only">{t('cart')}</span>
+              </Button>
             </CartSheet>
           </div>
         </div>

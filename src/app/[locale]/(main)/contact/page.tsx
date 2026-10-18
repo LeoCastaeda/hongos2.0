@@ -1,35 +1,46 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ContactForm } from '@/components/forms/ContactForm';
+import { buildPageMetadata } from '@/lib/seo';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact';
 
-export default function ContactPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Contact' });
+  return buildPageMetadata({
+    locale,
+    path: '/contact',
+    title: t('title'),
+    description: t('description'),
+  });
+}
+
+export default async function ContactPage() {
+  const t = await getTranslations('Contact');
+
   return (
     <div className="container mx-auto max-w-2xl py-16">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-headline">Contáctanos</CardTitle>
-          <CardDescription>
-            ¿Tienes alguna pregunta? Rellena el formulario y te responderemos lo antes posible.
-          </CardDescription>
+          <CardTitle className="text-4xl font-headline">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
+          <p className="pt-4 text-sm text-muted-foreground">
+            {t('orEmail')}{' '}
+            <a
+              href={CONTACT_MAILTO}
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </p>
         </CardHeader>
         <CardContent>
-          <form className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nombre</Label>
-              <Input id="name" placeholder="Tu nombre" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="tu@email.com" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Mensaje</Label>
-              <Textarea id="message" placeholder="Escribe tu mensaje aquí..." rows={5} />
-            </div>
-            <Button type="submit" className="w-full" size="lg">Enviar Mensaje</Button>
-          </form>
+          <ContactForm />
         </CardContent>
       </Card>
     </div>

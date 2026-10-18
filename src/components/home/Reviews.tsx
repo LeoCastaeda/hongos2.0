@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { reviews } from '@/lib/data';
 
 export function Reviews() {
+  const t = useTranslations('Home');
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -35,7 +37,7 @@ export function Reviews() {
       <div className="relative z-10 container px-4 max-w-4xl mx-auto">
         {/* Section label */}
         <p className="text-center text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-16 font-medium">
-          Comunidad Boulet
+          {t('reviewsLabel')}
         </p>
 
         {/* Quote */}

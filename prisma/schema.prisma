@@ -18,3 +18,52 @@ model Subscriber {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  email           String
+  firstName       String
+  lastName        String
+  address         String
+  apartment       String?
+  city            String
+  country         String
+  postalCode      String
+  status          OrderStatus @default(PENDING)
+  totalCents      Int
+  currency        String      @default("eur")
+  stripeSessionId String?     @unique
+  items           OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  orderId        String
+  order          Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId      String
+  name           String
+  quantity       Int
+  unitPriceCents Int
+}

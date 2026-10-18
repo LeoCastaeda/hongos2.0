@@ -1,88 +1,86 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Leaf, Heart, Award, Check, FlaskConical, ShieldCheck } from 'lucide-react';
+import { Leaf, Check, FlaskConical, ShieldCheck } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { AutoplayVideo } from '@/components/ui/AutoplayVideo';
+import { buildPageMetadata } from '@/lib/seo';
 
-const guarantees = [
-  {
-    icon: FlaskConical,
-    title: 'Testado por Terceros',
-    desc: 'Análisis de laboratorio independientes para cada lote de producción.',
-  },
-  {
-    icon: Leaf,
-    title: '100% Orgánico',
-    desc: 'Cultivado de forma sostenible. Sin pesticidas ni metales pesados.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Garantía de Satisfacción',
-    desc: 'Si no estás satisfecho en 30 días, te devolvemos tu dinero sin preguntas.',
-  },
-  {
-    icon: Check,
-    title: 'Sólo Cuerpo Fructífero',
-    desc: 'Sin micelio, sin granos, sin rellenos. Máxima concentración de activos.',
-  },
-];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'About' });
+  return buildPageMetadata({
+    locale,
+    path: '/about',
+    title: t('metaTitle'),
+    description: t('metaDesc'),
+    image: 'about-story',
+  });
+}
 
-export default function AboutPage() {
-  const storyImage = PlaceHolderImages.find(p => p.id === 'about-story');
-  const sustainabilityImage = PlaceHolderImages.find(p => p.id === 'about-sustainability');
+export default async function AboutPage() {
+  const t = await getTranslations('About');
+  const storyImage = PlaceHolderImages.find((p) => p.id === 'about-story');
+  const sustainabilityImage = PlaceHolderImages.find(
+    (p) => p.id === 'about-sustainability'
+  );
+
+  const guarantees = [
+    { icon: FlaskConical, title: t('g1Title'), desc: t('g1Desc') },
+    { icon: Leaf, title: t('g2Title'), desc: t('g2Desc') },
+    { icon: ShieldCheck, title: t('g3Title'), desc: t('g3Desc') },
+    { icon: Check, title: t('g4Title'), desc: t('g4Desc') },
+  ];
 
   return (
     <div className="bg-[#0A0A0A] text-white">
-
-      {/* ─── HERO CON VIDEO ────────────────────────────────────── */}
       <section className="relative h-[85vh] min-h-[600px] flex items-start overflow-hidden">
         <AutoplayVideo
           src="/videos/boulet_nosotros.mp4"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
-
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/45 z-[1]" />
-
         <div className="relative z-10 container px-6 md:px-10 pt-10 md:pt-16 text-left">
           <p className="text-xs uppercase tracking-[0.5em] text-white/50 mb-3 font-medium">
-            Nuestra Historia
+            {t('eyebrow')}
           </p>
           <h1 className="font-headline font-bold uppercase tracking-tighter leading-none text-white text-[clamp(1.8rem,4.5vw,4.5rem)] max-w-lg">
-            Volviendo<br />
-            a lo natural.
+            {t('heroLine1')}
+            <br />
+            {t('heroLine2')}
           </h1>
         </div>
       </section>
 
-      {/* ─── INTRO TEXT ────────────────────────────────────────── */}
       <section className="container px-4 py-20 lg:py-28 max-w-3xl">
         <p className="text-xl md:text-2xl font-light text-white/70 leading-relaxed">
-          En Boulet, creemos que el bienestar es un equilibrio entre cuerpo y mente. 
-          Nuestra misión es reconectar a las personas con el poder de la naturaleza 
-          a través de extractos de hongos funcionales —cultivados con respeto y 
-          procesados con ciencia.
+          {t('intro')}
         </p>
       </section>
 
-      {/* ─── ASYMMETRIC BLOCK 1: Texto izquierda / Imagen derecha ─ */}
       <section className="container px-4 py-10 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
           <div className="bg-[#1E2420] p-10 lg:p-16 flex flex-col justify-center">
             <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-6">
-              Proceso
+              {t('processEyebrow')}
             </p>
-            <h2 id="sustainability" className="font-headline font-bold uppercase text-4xl md:text-5xl tracking-tighter mb-8 leading-none">
-              Doble Extracción.<br />Máxima Potencia.
+            <h2
+              id="sustainability"
+              className="font-headline font-bold uppercase text-4xl md:text-5xl tracking-tighter mb-8 leading-none"
+            >
+              {t('processTitle1')}
+              <br />
+              {t('processTitle2')}
             </h2>
             <p className="text-white/60 font-light leading-relaxed mb-6">
-              Utilizamos un método de doble extracción —agua caliente y alcohol— 
-              para liberar todos los compuestos bioactivos del hongo: polisacáridos, 
-              beta-glucanos y triterpenos. El resultado es un extracto completo, 
-              no un simple polvo.
+              {t('processP1')}
             </p>
             <p className="text-white/60 font-light leading-relaxed">
-              La extracción dura semanas. No días. La paciencia es parte 
-              de nuestra fórmula.
+              {t('processP2')}
             </p>
           </div>
           {sustainabilityImage && (
@@ -99,7 +97,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── ASYMMETRIC BLOCK 2: Imagen izquierda / Texto derecha ─ */}
       <section className="container px-4 py-10 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
           {storyImage && (
@@ -115,34 +112,35 @@ export default function AboutPage() {
           )}
           <div className="bg-[#F0E8D8] text-[#0A0A0A] p-10 lg:p-16 flex flex-col justify-center order-1 lg:order-2">
             <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-6">
-              Origen
+              {t('originEyebrow')}
             </p>
             <h2 className="font-headline font-bold uppercase text-4xl md:text-5xl tracking-tighter mb-8 leading-none">
-              Barcelona.<br />De la fuente<br />a tu rutina.
+              {t('originTitle1')}
+              <br />
+              {t('originTitle2')}
+              <br />
+              {t('originTitle3')}
             </h2>
             <p className="text-[#0A0A0A]/60 font-light leading-relaxed mb-4">
-              Seleccionamos los hongos de cultivos locales certificados, 
-              cultivados en condiciones controladas sin pesticidas ni metales pesados. 
-              Solo usamos el cuerpo fructífero — la parte del hongo con mayor 
-              densidad de compuestos activos.
+              {t('originP1')}
             </p>
             <p className="text-[#0A0A0A]/60 font-light leading-relaxed">
-              Sin micelio de relleno. Sin granos. Sin trampa.
+              {t('originP2')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─── GARANTÍAS ─────────────────────────────────────────── */}
       <section id="made-in-bcn" className="py-24 lg:py-32 bg-[#1E2420]">
         <div className="container px-4">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-4">Transparencia total</p>
+            <p className="text-xs uppercase tracking-[0.4em] text-[#7A9E7E] mb-4">
+              {t('guaranteesEyebrow')}
+            </p>
             <h2 className="font-headline font-bold uppercase text-4xl md:text-6xl tracking-tighter">
-              Nuestras Garantías
+              {t('guaranteesTitle')}
             </h2>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
             {guarantees.map(({ icon: Icon, title, desc }) => (
               <div
@@ -153,8 +151,12 @@ export default function AboutPage() {
                   <Icon className="w-5 h-5 text-[#7A9E7E]" />
                 </div>
                 <div>
-                  <h3 className="font-headline font-bold text-xl uppercase tracking-tight mb-3">{title}</h3>
-                  <p className="text-sm text-white/50 font-light leading-relaxed">{desc}</p>
+                  <h3 className="font-headline font-bold text-xl uppercase tracking-tight mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-sm text-white/50 font-light leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -162,16 +164,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── CIERRE ────────────────────────────────────────────── */}
       <section className="py-24 lg:py-32">
         <div className="container px-4 text-center max-w-3xl mx-auto">
           <p className="font-headline italic text-2xl md:text-4xl text-white/60 font-light leading-relaxed">
-            "La naturaleza tiene respuestas que la ciencia solo está empezando a comprender."
+            &quot;{t('quote')}&quot;
           </p>
-          <p className="mt-6 text-xs uppercase tracking-[0.4em] text-[#7A9E7E]">— Equipo Boulet</p>
+          <p className="mt-6 text-xs uppercase tracking-[0.4em] text-[#7A9E7E]">
+            {t('quoteAuthor')}
+          </p>
         </div>
       </section>
-
     </div>
   );
 }
