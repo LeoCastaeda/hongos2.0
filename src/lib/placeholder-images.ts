@@ -68,15 +68,15 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   },
   {
     id: "about-story",
-    description: "Image representing the brand's story, maybe a person foraging for mushrooms.",
-    imageUrl: "https://images.unsplash.com/photo-1724751691410-5e7772ad116e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtdXNocm9vbSUyMGZvcmFnaW5nfGVufDB8fHx8MTc2MTIzMzcxM3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "mushroom foraging"
+    description: "Product lifestyle from source to daily routine — Barcelona origin.",
+    imageUrl: "/images/about-origen.jpg",
+    imageHint: "boulet products lifestyle"
   },
   {
     id: "about-sustainability",
-    description: "Image representing sustainability, like hands holding a small mushroom sprout.",
-    imageUrl: "https://images.unsplash.com/photo-1738832168475-c2140c049a43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHNwcm91dHxlbnwwfHx8fDE3NjEyMzM3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "mushroom sprout"
+    description: "Laboratory double extraction process for maximum potency.",
+    imageUrl: "/images/about-extraccion.jpg",
+    imageHint: "mushroom laboratory extraction"
   },
   {
     id: "quiz-background",
