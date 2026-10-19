@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import {
-  Leaf,
   Menu,
   ShoppingCart,
   X,
@@ -13,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetTitle,
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
@@ -20,6 +20,7 @@ import { benefits } from '@/lib/data';
 import { useCart } from '@/context/CartContext';
 import { CartSheet } from '../cart/CartSheet';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { BrandLogo } from './BrandLogo';
 
 export function Header() {
   const t = useTranslations('Nav');
@@ -42,11 +43,8 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-[#0A0A0A] text-white">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Leaf className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block font-headline uppercase tracking-wider text-xl">
-              Bouletmushrooms
-            </span>
+          <Link href="/" className="mr-6 flex items-center" aria-label="Boulet">
+            <BrandLogo variant="light" priority />
           </Link>
           <nav className="flex items-center space-x-8 text-xs font-headline uppercase tracking-widest">
             {navLinks.map((link) => (
@@ -70,11 +68,11 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
+              <SheetTitle className="sr-only">{t('openMenu')}</SheetTitle>
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between border-b pb-4">
-                  <Link href="/" className="flex items-center space-x-2">
-                    <Leaf className="h-6 w-6 text-primary" />
-                    <span className="font-bold font-headline">Bouletmushrooms</span>
+                  <Link href="/" className="flex items-center" aria-label="Boulet">
+                    <BrandLogo variant="dark" />
                   </Link>
                   <SheetClose asChild>
                     <Button variant="ghost" size="icon">
@@ -131,9 +129,12 @@ export function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <Link href="/" className="flex items-center space-x-2 md:hidden">
-            <Leaf className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">Bouletmushrooms</span>
+          <Link
+            href="/"
+            className="flex items-center md:hidden"
+            aria-label="Boulet"
+          >
+            <BrandLogo variant="light" />
           </Link>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />

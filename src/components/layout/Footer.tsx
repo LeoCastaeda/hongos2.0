@@ -1,9 +1,10 @@
 'use client';
 
-import { Linkedin, Instagram, Leaf, Mail } from 'lucide-react';
+import { Linkedin, Instagram, Mail } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact';
+import { BrandLogo } from './BrandLogo';
 
 export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
   void hideVideo;
@@ -33,11 +34,8 @@ export function Footer({ hideVideo = false }: { hideVideo?: boolean }) {
       <div className="container py-12 lg:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 pr-8">
-            <Link href="/" className="inline-flex items-center space-x-2 mb-4">
-              <Leaf className="h-7 w-7 text-primary" />
-              <span className="text-xl font-bold font-headline">
-                Bouletmushrooms
-              </span>
+            <Link href="/" className="inline-flex items-center mb-4" aria-label="Boulet">
+              <BrandLogo variant="light" className="h-10 w-auto md:h-11" />
             </Link>
             <p className="text-sm font-headline uppercase tracking-[0.2em] text-white mb-3">
               {t('motto')}
