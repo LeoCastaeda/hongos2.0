@@ -45,8 +45,8 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   {
     id: "product-tremella",
     description: "Product bottle for Tremella tincture.",
-    imageUrl: "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?auto=format&fit=crop&w=1080&q=80",
-    imageHint: "tremella mushroom"
+    imageUrl: "/images/tremella.jpg",
+    imageHint: "tremella mushroom bottle"
   },
   {
     id: "educational-guides",
