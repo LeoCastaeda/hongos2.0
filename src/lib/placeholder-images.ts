@@ -39,8 +39,8 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   {
     id: "product-chaga",
     description: "Product bottle for Chaga tincture.",
-    imageUrl: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?auto=format&fit=crop&w=1080&q=80",
-    imageHint: "chaga mushroom"
+    imageUrl: "/images/chaga.jpg",
+    imageHint: "chaga mushroom bottle"
   },
   {
     id: "product-tremella",
