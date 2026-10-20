@@ -191,41 +191,96 @@ export function productJsonLd(product: Product, locale: string) {
     : resolveImageUrl(product.image);
   const url = absoluteUrl(localizedPath(locale, `/products/${product.slug}`));
 
-  return {
-    '@context': 'https://schema.org',
+  const productNode: Record<string, unknown> = {
     '@type': 'Product',
+    '@id': `${url}#product`,
     name: product.name,
     description: product.description,
     image,
     sku: product.id,
+    category: product.category,
     brand: {
       '@type': 'Brand',
       name: SITE_NAME,
     },
+    manufacturer: { '@id': `${getSiteUrl()}/#organization` },
     offers: {
       '@type': 'Offer',
       url,
       priceCurrency: 'EUR',
       price: product.price.toFixed(2),
-      availability: 'https://schema.org/InStock',
+      availability: product.inStock === false
+        ? 'https://schema.org/OutOfStock'
+        : 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
+      seller: { '@id': `${getSiteUrl()}/#organization` },
     },
+  };
+
+  if (product.howToUse) {
+    productNode.usageInfo = product.howToUse;
+  }
+
+  const graph: Record<string, unknown>[] = [productNode];
+
+  if (product.faqs?.length) {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      isPartOf: { '@id': `${url}#product` },
+      mainEntity: product.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    });
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
   };
 }
 
 export function organizationJsonLd() {
   return {
     '@type': 'Organization',
+    '@id': `${getSiteUrl()}/#organization`,
     name: SITE_NAME,
+    alternateName: ['Boulet', 'Bouletmushrooms'],
     url: getSiteUrl(),
     logo: absoluteUrl(DEFAULT_OG_IMAGE),
+    image: absoluteUrl(DEFAULT_OG_IMAGE),
     description:
-      'Extractos dobles de hongos funcionales de cuerpo fructífero, elaborados en Barcelona.',
+      'Extractos dobles de hongos funcionales 100% cuerpo fructífero, elaborados en Barcelona con extracción ultrasónica (UAE). Envíos a España e Italia.',
+    email: 'info@bouletmushrooms.com',
+    foundingLocation: {
+      '@type': 'Place',
+      name: 'Barcelona, Spain',
+    },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Barcelona',
       addressCountry: 'ES',
     },
+    areaServed: [
+      { '@type': 'Country', name: 'Spain' },
+      { '@type': 'Country', name: 'Italy' },
+    ],
+    knowsAbout: [
+      'functional mushrooms',
+      'Lion\'s Mane',
+      'Reishi',
+      'Cordyceps',
+      'Chaga',
+      'Tremella',
+      'double extraction',
+      'ultrasonic assisted extraction',
+      'fruiting body extracts',
+    ],
     sameAs: ['https://www.instagram.com/bouletmushrooms'],
   };
 }
@@ -233,13 +288,12 @@ export function organizationJsonLd() {
 export function websiteJsonLd() {
   return {
     '@type': 'WebSite',
+    '@id': `${getSiteUrl()}/#website`,
     name: SITE_NAME,
     url: getSiteUrl(),
     inLanguage: ['es', 'en'],
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-    },
+    publisher: { '@id': `${getSiteUrl()}/#organization` },
+    about: { '@id': `${getSiteUrl()}/#organization` },
   };
 }
 

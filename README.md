@@ -100,6 +100,15 @@ npx prisma migrate dev
 - Ajusta la paleta de colores y tipografías en `tailwind.config.ts` y `src/app/globals.css`.
 - Revisa `docs/blueprint.md` para entender la visión de producto original y extender funcionalidades.【F:docs/blueprint.md†L1-L18】
 
+## 🤖 GEO (Generative Engine Optimization)
+
+Para que ChatGPT, Perplexity, Google AI y similares citen bien la marca:
+
+- `/llms.txt` — resumen citables (productos, hechos, URLs)
+- `/llms-full.txt` — versión ampliada con FAQs de producto
+- `robots.ts` — permite crawlers de IA (GPTBot, ClaudeBot, PerplexityBot, etc.)
+- JSON-LD enriquecido (Organization, Product + FAQ en PDP)
+
 ## ✅ Estado actual
 
 - Catálogo: WooCommerce si hay `WC_*`, si no `src/lib/data.tsx`.
