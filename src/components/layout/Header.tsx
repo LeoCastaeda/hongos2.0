@@ -139,18 +139,25 @@ export function Header() {
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <CartSheet>
-              <Button id="cart-icon" variant="ghost" size="icon" className="relative">
+              <Button
+                id="cart-icon"
+                variant="ghost"
+                size="icon"
+                className="relative"
+                aria-label={t('cart')}
+              >
                 <span
                   id="cart-count"
-                  className={`absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-0.5 text-xs font-bold text-primary-foreground transition-opacity ${
-                    mounted && itemCount > 0 ? 'opacity-100' : 'opacity-0'
+                  className={`absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-0.5 text-[10px] font-bold text-primary-foreground transition-all duration-300 ${
+                    mounted && itemCount > 0
+                      ? 'scale-100 opacity-100'
+                      : 'scale-75 opacity-0'
                   }`}
                   aria-hidden={!(mounted && itemCount > 0)}
                 >
                   {mounted ? itemCount : 0}
                 </span>
                 <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">{t('cart')}</span>
               </Button>
             </CartSheet>
           </div>

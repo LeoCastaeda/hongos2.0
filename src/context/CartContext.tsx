@@ -43,6 +43,10 @@ interface CartContextType {
   isCartReady: boolean;
   cartMode: CartMode;
   isSyncing: boolean;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
+  setCartOpen: (open: boolean) => void;
   addToCart: (product: Product, quantity: number) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
@@ -86,6 +90,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [shippingLabel, setShippingLabel] = useState<string | null>(null);
   const [needsShipping, setNeedsShipping] = useState(false);
   const [hasCalculatedShipping, setHasCalculatedShipping] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
+
+  const openCart = useCallback(() => setCartOpen(true), []);
+  const closeCart = useCallback(() => setCartOpen(false), []);
 
   const applyWooResponse = useCallback((data: CartApiResponse) => {
     setCartItems(data.items ?? []);
@@ -163,6 +171,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           }
           setCartMode('woocommerce');
           applyWooResponse(data);
+          setCartOpen(true);
           return;
         } catch (error) {
           console.error('[cart] WooCommerce add failed, using local cart', error);
@@ -185,6 +194,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         }
         return [...prevItems, { product, quantity }];
       });
+      setCartOpen(true);
     },
     [applyWooResponse]
   );
@@ -309,6 +319,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         isCartReady,
         cartMode,
         isSyncing,
+        isCartOpen,
+        openCart,
+        closeCart,
+        setCartOpen,
         addToCart,
         removeFromCart,
         updateQuantity,

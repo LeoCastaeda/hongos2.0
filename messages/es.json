@@ -82,14 +82,22 @@
     "rights": "Todos los derechos reservados."
   },
   "Cart": {
-    "title": "Tu Carrito ({count})",
+    "title": "Tu carrito ({count})",
+    "description": "Revisa los productos de tu carrito y continúa al pago.",
     "subtotal": "Subtotal",
-    "shippingNote": "El envío y los impuestos se calculan en la pantalla de pago.",
+    "shippingNote": "Envío e impuestos se calculan en el pago.",
     "shippingAmount": "Envío estimado: {amount}€",
-    "checkout": "Proceder al Pago",
-    "continue": "Continuar comprando",
+    "checkout": "Ir al pago",
+    "continue": "Seguir comprando",
+    "browse": "Ver productos",
     "empty": "Tu carrito está vacío",
-    "emptyHint": "¡Añade productos para empezar!"
+    "emptyHint": "Explora los extractos y añade tu stack.",
+    "updating": "Actualizando carrito…",
+    "unitPrice": "{price}€ / ud.",
+    "quantity": "Cantidad",
+    "increase": "Aumentar cantidad",
+    "decrease": "Reducir cantidad",
+    "remove": "Quitar {name} del carrito"
   },
   "Product": {
     "viewProduct": "Ver Producto",

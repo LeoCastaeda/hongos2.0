@@ -82,14 +82,22 @@
     "rights": "All rights reserved."
   },
   "Cart": {
-    "title": "Your Cart ({count})",
+    "title": "Your cart ({count})",
+    "description": "Review your cart items and continue to checkout.",
     "subtotal": "Subtotal",
     "shippingNote": "Shipping and taxes are calculated at checkout.",
     "shippingAmount": "Estimated shipping: €{amount}",
-    "checkout": "Proceed to Checkout",
-    "continue": "Continue shopping",
+    "checkout": "Go to checkout",
+    "continue": "Keep shopping",
+    "browse": "Browse products",
     "empty": "Your cart is empty",
-    "emptyHint": "Add products to get started!"
+    "emptyHint": "Explore the extracts and build your stack.",
+    "updating": "Updating cart…",
+    "unitPrice": "€{price} each",
+    "quantity": "Quantity",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "remove": "Remove {name} from cart"
   },
   "Product": {
     "viewProduct": "View Product",
