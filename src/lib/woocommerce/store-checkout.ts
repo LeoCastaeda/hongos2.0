@@ -115,35 +115,92 @@ type PaymentMethod = {
   title?: string;
 };
 
+const FALLBACK_METHODS = [
+  'stripe',
+  'woocommerce_payments',
+  'square_credit_card',
+  'ppcp-gateway',
+  'paypal',
+  'bacs',
+  'cod',
+  'cheque',
+] as const;
+
+/** Online gateways first; COD last. */
+export function pickPreferredPaymentMethod(methods: string[]): string | null {
+  const env = process.env.WC_PAYMENT_METHOD?.trim();
+  if (env && methods.includes(env)) return env;
+  if (env) return env;
+
+  const online = [
+    'stripe',
+    'woocommerce_payments',
+    'square_credit_card',
+    'ppcp-gateway',
+    'paypal',
+    'sumup',
+    'bacs',
+    'cheque',
+  ];
+  for (const id of online) {
+    if (methods.includes(id)) return id;
+  }
+  return methods.find((m) => m !== 'cod') || methods[0] || null;
+}
+
+function normalizeMethodIds(
+  methods: PaymentMethod[] | string[] | undefined
+): string[] {
+  return (methods ?? [])
+    .map((method) =>
+      typeof method === 'string' ? method : method.id || method.name || ''
+    )
+    .filter(Boolean);
+}
+
+function preferredOrder(ids: string[]): string[] {
+  const env = process.env.WC_PAYMENT_METHOD?.trim();
+  const unique = [...new Set(ids.filter(Boolean))];
+  if (!env) return unique;
+  return [env, ...unique.filter((id) => id !== env)];
+}
+
 export async function getStorePaymentMethods(cartToken?: string | null) {
+  let token = cartToken ?? null;
+  let storeIds: string[] = [];
+
   try {
-    const { data, cartToken: token } = await storeFetch<{
+    const { data, cartToken: nextToken } = await storeFetch<{
       payment_methods?: PaymentMethod[] | string[];
     }>('/checkout', { cartToken });
-
-    const methods = data.payment_methods ?? [];
-    const ids = methods
-      .map((method) =>
-        typeof method === 'string' ? method : method.id || method.name || ''
-      )
-      .filter(Boolean);
-
-    return { methods: ids, cartToken: token };
+    token = nextToken ?? token;
+    storeIds = normalizeMethodIds(data.payment_methods);
   } catch {
-    // Fallback: common gateways; store may accept one of these
-    return {
-      methods: [
-        process.env.WC_PAYMENT_METHOD,
-        'stripe',
-        'woocommerce_payments',
-        'paypal',
-        'bacs',
-        'cod',
-        'cheque',
-      ].filter((m): m is string => !!m),
-      cartToken: cartToken ?? null,
-    };
+    // Store checkout GET can fail without a ready cart; keep going.
   }
+
+  if (storeIds.length) {
+    return { methods: preferredOrder(storeIds), cartToken: token };
+  }
+
+  // Store API often returns [] for classic-only gateways — use REST list.
+  try {
+    const { fetchEnabledPaymentGateways } = await import('./client');
+    const restIds = await fetchEnabledPaymentGateways();
+    if (restIds.length) {
+      return { methods: preferredOrder(restIds), cartToken: token };
+    }
+  } catch {
+    // Missing REST permissions or API error.
+  }
+
+  return {
+    methods: preferredOrder([
+      process.env.WC_PAYMENT_METHOD?.trim() || '',
+      ...FALLBACK_METHODS,
+    ]),
+    cartToken: token,
+  };
 }
 
 export async function processStoreCheckout(input: {

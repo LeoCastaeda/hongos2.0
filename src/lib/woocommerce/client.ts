@@ -92,3 +92,18 @@ export async function pingWooCommerce(): Promise<{
     };
   }
 }
+
+export type WooPaymentGateway = {
+  id: string;
+  title?: string;
+  enabled?: boolean | string;
+};
+
+/** Enabled gateways from authenticated REST API (classic + Store). */
+export async function fetchEnabledPaymentGateways(): Promise<string[]> {
+  const gateways = await wooFetch<WooPaymentGateway[]>('/payment_gateways');
+  return gateways
+    .filter((g) => g.enabled === true || g.enabled === 'yes')
+    .map((g) => g.id)
+    .filter(Boolean);
+}

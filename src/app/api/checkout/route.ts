@@ -3,6 +3,7 @@ import { isWooStoreConfigured } from '@/lib/woocommerce/config';
 import { readCartToken, writeCartToken } from '@/lib/woocommerce/cart-cookie';
 import {
   getStorePaymentMethods,
+  pickPreferredPaymentMethod,
   processStoreCheckout,
   toCountryCode,
   updateStoreCustomer,
@@ -99,18 +100,13 @@ export async function POST(request: Request) {
       await writeCartToken(token);
     }
 
-    const preferred =
-      process.env.WC_PAYMENT_METHOD ||
-      methods.methods.find((m) =>
-        ['stripe', 'woocommerce_payments', 'paypal'].includes(m)
-      ) ||
-      methods.methods[0];
+    const preferred = pickPreferredPaymentMethod(methods.methods);
 
     if (!preferred) {
       return NextResponse.json(
         {
           error:
-            'No hay métodos de pago activos en WooCommerce. Activa Stripe/PayPal/transferencia en WP.',
+            'No hay métodos de pago activos en WooCommerce. En WP: WooCommerce → Ajustes → Pagos. Activa Square, Stripe, PayPal o transferencia.',
         },
         { status: 502 }
       );
