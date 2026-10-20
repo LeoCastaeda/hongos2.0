@@ -35,6 +35,7 @@ export type ShippingAddressInput = {
   country: string;
   postalCode: string;
   phone?: string;
+  province?: string;
 };
 
 interface CartContextType {

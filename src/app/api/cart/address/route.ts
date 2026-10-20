@@ -7,6 +7,7 @@ import {
   updateStoreCustomer,
   type StoreAddress,
 } from '@/lib/woocommerce/store-checkout';
+import { normalizeSpainState } from '@/lib/woocommerce/spain-provinces';
 import type { StoreCart } from '@/lib/woocommerce/store-cart';
 
 export async function POST(request: Request) {
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
       country?: string;
       postalCode?: string;
       phone?: string;
+      province?: string;
     };
 
     if (!body.postalCode || !body.country || !body.city) {
@@ -37,15 +39,19 @@ export async function POST(request: Request) {
       );
     }
 
+    const country = toCountryCode(body.country);
     const address: StoreAddress = {
       first_name: body.firstName || 'Cliente',
       last_name: body.lastName || '',
       address_1: body.address || '—',
       address_2: body.apartment || '',
       city: body.city,
-      state: '',
+      state:
+        country === 'ES'
+          ? normalizeSpainState(body.province)
+          : (body.province || '').trim(),
       postcode: body.postalCode,
-      country: toCountryCode(body.country),
+      country,
       email: body.email || '',
       phone: body.phone || '',
     };

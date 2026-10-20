@@ -13,6 +13,7 @@ import {
   ensureShippingRateSelected,
   type StoreCart,
 } from '@/lib/woocommerce/store-cart';
+import { normalizeSpainState } from '@/lib/woocommerce/spain-provinces';
 
 function appOrigin(request: Request) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       country?: string;
       postalCode?: string;
       phone?: string;
+      province?: string;
       locale?: string;
     };
 
@@ -49,10 +51,12 @@ export async function POST(request: Request) {
       !body.lastName ||
       !body.address ||
       !body.city ||
-      !body.postalCode
+      !body.postalCode ||
+      !body.phone ||
+      !body.province
     ) {
       return NextResponse.json(
-        { error: 'Faltan datos de envío.' },
+        { error: 'Faltan datos de envío (teléfono y provincia incluidos).' },
         { status: 400 }
       );
     }
@@ -64,11 +68,14 @@ export async function POST(request: Request) {
       address_1: body.address,
       address_2: body.apartment || '',
       city: body.city,
-      state: '',
+      state:
+        country === 'ES'
+          ? normalizeSpainState(body.province)
+          : body.province.trim(),
       postcode: body.postalCode,
       country,
       email: body.email,
-      phone: body.phone || '',
+      phone: body.phone.trim(),
     };
 
     let token = await readCartToken();
