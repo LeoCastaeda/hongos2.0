@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
 import { isWooStoreConfigured } from '@/lib/woocommerce/config';
 import { readCartToken, writeCartToken } from '@/lib/woocommerce/cart-cookie';
+import { buildCartPayload } from '@/lib/woocommerce/cart-response';
 import {
-  getStoreCartTotal,
-  mapStoreCartToItems,
   removeStoreCartItem,
   updateStoreCartItem,
 } from '@/lib/woocommerce/store-cart';
@@ -34,14 +33,10 @@ export async function POST(request: Request) {
         ? await removeStoreCartItem(key, token)
         : await updateStoreCartItem(key, quantity, token);
 
-    if (result.cartToken) await writeCartToken(result.cartToken);
+    const built = await buildCartPayload(result.cart, result.cartToken);
+    if (built.cartToken) await writeCartToken(built.cartToken);
 
-    return NextResponse.json({
-      mode: 'woocommerce',
-      items: mapStoreCartToItems(result.cart),
-      total: getStoreCartTotal(result.cart),
-      itemsCount: result.cart.items_count ?? 0,
-    });
+    return NextResponse.json(built.payload);
   } catch (error) {
     console.error('[api/cart/update]', error);
     return NextResponse.json(

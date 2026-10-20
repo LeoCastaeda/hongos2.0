@@ -85,6 +85,7 @@
     "title": "Tu Carrito ({count})",
     "subtotal": "Subtotal",
     "shippingNote": "El envío y los impuestos se calculan en la pantalla de pago.",
+    "shippingAmount": "Envío estimado: {amount}€",
     "checkout": "Proceder al Pago",
     "continue": "Continuar comprando",
     "empty": "Tu carrito está vacío",
@@ -157,7 +158,12 @@
     "apartment": "Apartamento, piso, etc. (opcional)",
     "city": "Ciudad",
     "country": "País",
-    "postalCode": "Código Postal"
+    "postalCode": "Código Postal",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "total": "Total",
+    "shippingFree": "Gratis",
+    "shippingPending": "Introduce la dirección para calcular"
   },
   "Quiz": {
     "questionOf": "Pregunta {current} de {total}",

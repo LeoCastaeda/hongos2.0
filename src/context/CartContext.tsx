@@ -16,7 +16,25 @@ type CartApiResponse = {
   mode?: CartMode;
   items?: CartItem[];
   total?: number;
+  subtotal?: number;
+  shipping?: number;
+  tax?: number;
+  shippingLabel?: string | null;
+  needsShipping?: boolean;
+  hasCalculatedShipping?: boolean;
   error?: string;
+};
+
+export type ShippingAddressInput = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  apartment?: string;
+  city: string;
+  country: string;
+  postalCode: string;
+  phone?: string;
 };
 
 interface CartContextType {
@@ -28,7 +46,14 @@ interface CartContextType {
   removeFromCart: (productId: string) => Promise<void>;
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
+  updateShippingAddress: (address: ShippingAddressInput) => Promise<void>;
   cartTotal: number;
+  cartSubtotal: number;
+  shippingTotal: number;
+  taxTotal: number;
+  shippingLabel: string | null;
+  needsShipping: boolean;
+  hasCalculatedShipping: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -53,6 +78,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isCartReady, setIsCartReady] = useState(false);
   const [cartMode, setCartMode] = useState<CartMode>('unknown');
   const [isSyncing, setIsSyncing] = useState(false);
+  const [wooTotal, setWooTotal] = useState<number | null>(null);
+  const [wooSubtotal, setWooSubtotal] = useState<number | null>(null);
+  const [shippingTotal, setShippingTotal] = useState(0);
+  const [taxTotal, setTaxTotal] = useState(0);
+  const [shippingLabel, setShippingLabel] = useState<string | null>(null);
+  const [needsShipping, setNeedsShipping] = useState(false);
+  const [hasCalculatedShipping, setHasCalculatedShipping] = useState(false);
+
+  const applyWooResponse = useCallback((data: CartApiResponse) => {
+    setCartItems(data.items ?? []);
+    if (typeof data.total === 'number') setWooTotal(data.total);
+    if (typeof data.subtotal === 'number') setWooSubtotal(data.subtotal);
+    if (typeof data.shipping === 'number') setShippingTotal(data.shipping);
+    if (typeof data.tax === 'number') setTaxTotal(data.tax);
+    setShippingLabel(data.shippingLabel ?? null);
+    setNeedsShipping(Boolean(data.needsShipping));
+    setHasCalculatedShipping(Boolean(data.hasCalculatedShipping));
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -64,7 +107,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
         if (data.mode === 'woocommerce') {
           setCartMode('woocommerce');
-          setCartItems(data.items ?? []);
+          applyWooResponse(data);
         } else {
           setCartMode('local');
           const storedCart = localStorage.getItem('cart');
@@ -96,16 +139,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [applyWooResponse]);
 
   useEffect(() => {
     if (!isCartReady || cartMode !== 'local') return;
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems, isCartReady, cartMode]);
-
-  const applyWooResponse = useCallback((data: CartApiResponse) => {
-    setCartItems(data.items ?? []);
-  }, []);
 
   const addToCart = useCallback(
     async (product: Product, quantity: number) => {
@@ -206,6 +245,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(async () => {
     setCartItems([]);
+    setWooTotal(0);
+    setWooSubtotal(0);
+    setShippingTotal(0);
+    setTaxTotal(0);
+    setShippingLabel(null);
+    setNeedsShipping(false);
+    setHasCalculatedShipping(false);
     if (cartMode !== 'woocommerce') return;
 
     setIsSyncing(true);
@@ -224,9 +270,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [applyWooResponse, cartItems, cartMode]);
 
-  const cartTotal = cartItems.reduce((total, item) => {
+  const updateShippingAddress = useCallback(
+    async (address: ShippingAddressInput) => {
+      if (cartMode !== 'woocommerce') return;
+      setIsSyncing(true);
+      try {
+        const data = await readCartApi('/api/cart/address', {
+          method: 'POST',
+          body: JSON.stringify(address),
+        });
+        applyWooResponse(data);
+      } finally {
+        setIsSyncing(false);
+      }
+    },
+    [applyWooResponse, cartMode]
+  );
+
+  const localSubtotal = cartItems.reduce((total, item) => {
     return total + item.product.price * item.quantity;
   }, 0);
+
+  const cartSubtotal =
+    cartMode === 'woocommerce' && wooSubtotal != null ? wooSubtotal : localSubtotal;
+  const cartTotal =
+    cartMode === 'woocommerce' && wooTotal != null
+      ? wooTotal
+      : localSubtotal + shippingTotal;
 
   return (
     <CartContext.Provider
@@ -239,7 +309,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
         removeFromCart,
         updateQuantity,
         clearCart,
+        updateShippingAddress,
         cartTotal,
+        cartSubtotal,
+        shippingTotal,
+        taxTotal,
+        shippingLabel,
+        needsShipping,
+        hasCalculatedShipping,
       }}
     >
       {children}

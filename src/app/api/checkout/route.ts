@@ -8,6 +8,10 @@ import {
   updateStoreCustomer,
   type StoreAddress,
 } from '@/lib/woocommerce/store-checkout';
+import {
+  ensureShippingRateSelected,
+  type StoreCart,
+} from '@/lib/woocommerce/store-cart';
 
 function appOrigin(request: Request) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -77,6 +81,15 @@ export async function POST(request: Request) {
     const customer = await updateStoreCustomer(address, token);
     if (customer.cartToken) {
       token = customer.cartToken;
+      await writeCartToken(token);
+    }
+
+    const shippingReady = await ensureShippingRateSelected(
+      customer.data as StoreCart,
+      token
+    );
+    if (shippingReady.cartToken) {
+      token = shippingReady.cartToken;
       await writeCartToken(token);
     }
 

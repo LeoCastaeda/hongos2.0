@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCart } from '@/context/CartContext';
 
@@ -31,10 +31,16 @@ const shippingSchema = z.object({
 type ShippingFormValues = z.infer<typeof shippingSchema>;
 
 export function CheckoutForm() {
-  const { cartItems, cartMode, clearCart } = useCart();
+  const {
+    cartItems,
+    cartMode,
+    clearCart,
+    updateShippingAddress,
+  } = useCart();
   const locale = useLocale();
   const t = useTranslations('Checkout');
   const [error, setError] = useState<string | null>(null);
+  const lastAddressKey = useRef('');
 
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
@@ -50,6 +56,64 @@ export function CheckoutForm() {
     },
   });
 
+  const watchedCity = form.watch('city');
+  const watchedCountry = form.watch('country');
+  const watchedPostalCode = form.watch('postalCode');
+  const watchedAddress = form.watch('address');
+  const watchedEmail = form.watch('email');
+  const watchedFirstName = form.watch('firstName');
+  const watchedLastName = form.watch('lastName');
+  const watchedApartment = form.watch('apartment');
+
+  useEffect(() => {
+    if (cartMode !== 'woocommerce') return;
+    if (!watchedCity?.trim() || !watchedCountry?.trim() || !watchedPostalCode?.trim()) {
+      return;
+    }
+
+    const key = [
+      watchedEmail,
+      watchedFirstName,
+      watchedLastName,
+      watchedAddress,
+      watchedApartment,
+      watchedCity,
+      watchedCountry,
+      watchedPostalCode,
+    ].join('|');
+
+    if (key === lastAddressKey.current) return;
+
+    const timer = window.setTimeout(() => {
+      lastAddressKey.current = key;
+      void updateShippingAddress({
+        email: watchedEmail || undefined,
+        firstName: watchedFirstName || undefined,
+        lastName: watchedLastName || undefined,
+        address: watchedAddress || undefined,
+        apartment: watchedApartment || undefined,
+        city: watchedCity.trim(),
+        country: watchedCountry.trim(),
+        postalCode: watchedPostalCode.trim(),
+      }).catch((err) => {
+        console.error('[checkout] shipping calc failed', err);
+      });
+    }, 600);
+
+    return () => window.clearTimeout(timer);
+  }, [
+    cartMode,
+    updateShippingAddress,
+    watchedAddress,
+    watchedApartment,
+    watchedCity,
+    watchedCountry,
+    watchedEmail,
+    watchedFirstName,
+    watchedLastName,
+    watchedPostalCode,
+  ]);
+
   async function onSubmit(data: ShippingFormValues) {
     setError(null);
 
@@ -64,6 +128,18 @@ export function CheckoutForm() {
     }
 
     try {
+      // Ensure WC has the latest address before creating the order
+      await updateShippingAddress({
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address,
+        apartment: data.apartment,
+        city: data.city,
+        country: data.country,
+        postalCode: data.postalCode,
+      });
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -83,7 +159,6 @@ export function CheckoutForm() {
         return;
       }
 
-      // Clear local view; WC cart is consumed by the order
       await clearCart().catch(() => undefined);
       window.location.href = result.url;
     } catch {

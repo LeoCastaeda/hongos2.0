@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
 import { isWooStoreConfigured } from '@/lib/woocommerce/config';
 import { readCartToken, writeCartToken } from '@/lib/woocommerce/cart-cookie';
-import {
-  getStoreCartTotal,
-  mapStoreCartToItems,
-  removeStoreCartItem,
-} from '@/lib/woocommerce/store-cart';
+import { buildCartPayload } from '@/lib/woocommerce/cart-response';
+import { removeStoreCartItem } from '@/lib/woocommerce/store-cart';
 
 export async function POST(request: Request) {
   if (!isWooStoreConfigured()) {
@@ -24,14 +21,10 @@ export async function POST(request: Request) {
 
     const token = await readCartToken();
     const { cart, cartToken } = await removeStoreCartItem(key, token);
-    if (cartToken) await writeCartToken(cartToken);
+    const built = await buildCartPayload(cart, cartToken);
+    if (built.cartToken) await writeCartToken(built.cartToken);
 
-    return NextResponse.json({
-      mode: 'woocommerce',
-      items: mapStoreCartToItems(cart),
-      total: getStoreCartTotal(cart),
-      itemsCount: cart.items_count ?? 0,
-    });
+    return NextResponse.json(built.payload);
   } catch (error) {
     console.error('[api/cart/remove]', error);
     return NextResponse.json(

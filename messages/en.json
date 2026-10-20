@@ -85,6 +85,7 @@
     "title": "Your Cart ({count})",
     "subtotal": "Subtotal",
     "shippingNote": "Shipping and taxes are calculated at checkout.",
+    "shippingAmount": "Estimated shipping: €{amount}",
     "checkout": "Proceed to Checkout",
     "continue": "Continue shopping",
     "empty": "Your cart is empty",
@@ -157,7 +158,12 @@
     "apartment": "Apartment, floor, etc. (optional)",
     "city": "City",
     "country": "Country",
-    "postalCode": "Postal code"
+    "postalCode": "Postal code",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "shippingFree": "Free",
+    "shippingPending": "Enter your address to calculate"
   },
   "Quiz": {
     "questionOf": "Question {current} of {total}",

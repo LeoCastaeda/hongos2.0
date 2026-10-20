@@ -1,28 +1,31 @@
 import { NextResponse } from 'next/server';
 import { isWooStoreConfigured } from '@/lib/woocommerce/config';
 import { readCartToken, writeCartToken } from '@/lib/woocommerce/cart-cookie';
-import {
-  getStoreCart,
-  getStoreCartTotal,
-  mapStoreCartToItems,
-} from '@/lib/woocommerce/store-cart';
+import { buildCartPayload } from '@/lib/woocommerce/cart-response';
+import { getStoreCart } from '@/lib/woocommerce/store-cart';
 
 export async function GET() {
   if (!isWooStoreConfigured()) {
-    return NextResponse.json({ mode: 'local', items: [], total: 0 });
+    return NextResponse.json({
+      mode: 'local',
+      items: [],
+      total: 0,
+      subtotal: 0,
+      shipping: 0,
+      tax: 0,
+      shippingLabel: null,
+      needsShipping: false,
+      hasCalculatedShipping: false,
+    });
   }
 
   try {
     const token = await readCartToken();
     const { cart, cartToken } = await getStoreCart(token);
-    if (cartToken) await writeCartToken(cartToken);
+    const built = await buildCartPayload(cart, cartToken);
+    if (built.cartToken) await writeCartToken(built.cartToken);
 
-    return NextResponse.json({
-      mode: 'woocommerce',
-      items: mapStoreCartToItems(cart),
-      total: getStoreCartTotal(cart),
-      itemsCount: cart.items_count ?? 0,
-    });
+    return NextResponse.json(built.payload);
   } catch (error) {
     console.error('[api/cart GET]', error);
     return NextResponse.json(
@@ -31,6 +34,12 @@ export async function GET() {
         error: error instanceof Error ? error.message : 'Cart error',
         items: [],
         total: 0,
+        subtotal: 0,
+        shipping: 0,
+        tax: 0,
+        shippingLabel: null,
+        needsShipping: false,
+        hasCalculatedShipping: false,
       },
       { status: 502 }
     );

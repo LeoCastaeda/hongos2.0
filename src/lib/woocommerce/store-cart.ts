@@ -33,14 +33,49 @@ export type StoreCartItem = {
   prices: StoreCartPrices;
 };
 
+export type StoreShippingRateOption = {
+  rate_id: string;
+  name: string;
+  description?: string;
+  price: string;
+  selected?: boolean;
+};
+
+export type StoreShippingPackage = {
+  package_id: number | string;
+  name?: string;
+  shipping_rates?: StoreShippingRateOption[];
+};
+
 export type StoreCart = {
   items: StoreCartItem[];
   items_count: number;
+  needs_shipping?: boolean;
+  has_calculated_shipping?: boolean;
+  shipping_rates?: StoreShippingPackage[];
   totals: {
-    total_items: string;
-    total_price: string;
+    total_items?: string;
+    total_items_tax?: string;
+    total_fees?: string;
+    total_fees_tax?: string;
+    total_discount?: string;
+    total_discount_tax?: string;
+    total_shipping?: string | null;
+    total_shipping_tax?: string | null;
+    total_price?: string;
+    total_tax?: string;
     currency_minor_unit?: number;
   };
+};
+
+export type CartTotalsSummary = {
+  subtotal: number;
+  shipping: number;
+  tax: number;
+  total: number;
+  shippingLabel: string | null;
+  needsShipping: boolean;
+  hasCalculatedShipping: boolean;
 };
 
 type StoreCartResult = {
@@ -48,7 +83,8 @@ type StoreCartResult = {
   cartToken: string | null;
 };
 
-function minorToMajor(value: string, minorUnit = 2): number {
+function minorToMajor(value: string | null | undefined, minorUnit = 2): number {
+  if (value == null || value === '') return 0;
   const raw = Number.parseInt(value, 10);
   if (!Number.isFinite(raw)) return 0;
   return raw / 10 ** minorUnit;
@@ -91,6 +127,71 @@ export function mapStoreCartToItems(cart: StoreCart): CartItem[] {
 export function getStoreCartTotal(cart: StoreCart): number {
   const minor = cart.totals?.currency_minor_unit ?? 2;
   return minorToMajor(cart.totals?.total_price ?? '0', minor);
+}
+
+export function getSelectedShippingLabel(cart: StoreCart): string | null {
+  for (const pkg of cart.shipping_rates ?? []) {
+    const selected = pkg.shipping_rates?.find((rate) => rate.selected);
+    if (selected?.name) return selected.name;
+  }
+  return null;
+}
+
+export function mapStoreCartTotals(cart: StoreCart): CartTotalsSummary {
+  const minor = cart.totals?.currency_minor_unit ?? 2;
+  const shipping =
+    minorToMajor(cart.totals?.total_shipping, minor) +
+    minorToMajor(cart.totals?.total_shipping_tax, minor);
+
+  return {
+    subtotal: minorToMajor(cart.totals?.total_items, minor),
+    shipping,
+    tax: minorToMajor(cart.totals?.total_tax, minor),
+    total: minorToMajor(cart.totals?.total_price, minor),
+    shippingLabel: getSelectedShippingLabel(cart),
+    needsShipping: Boolean(cart.needs_shipping),
+    hasCalculatedShipping: Boolean(cart.has_calculated_shipping),
+  };
+}
+
+export async function selectStoreShippingRate(
+  packageId: number | string,
+  rateId: string,
+  cartToken?: string | null
+) {
+  return storeFetch('/cart/select-shipping-rate', {
+    method: 'POST',
+    cartToken,
+    body: {
+      package_id: Number(packageId),
+      rate_id: rateId,
+    },
+  });
+}
+
+/** Picks the first available rate on each package when none is selected yet. */
+export async function ensureShippingRateSelected(
+  cart: StoreCart,
+  cartToken?: string | null
+): Promise<StoreCartResult> {
+  let current = cart;
+  let token = cartToken ?? null;
+
+  for (const pkg of current.shipping_rates ?? []) {
+    const rates = pkg.shipping_rates ?? [];
+    if (!rates.length) continue;
+    if (rates.some((rate) => rate.selected)) continue;
+
+    const result = await selectStoreShippingRate(
+      pkg.package_id,
+      rates[0].rate_id,
+      token
+    );
+    current = result.cart;
+    token = result.cartToken;
+  }
+
+  return { cart: current, cartToken: token };
 }
 
 async function storeFetch(

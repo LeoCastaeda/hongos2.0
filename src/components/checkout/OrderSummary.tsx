@@ -4,16 +4,35 @@ import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import { getProductImageUrl } from '@/lib/product-image';
+import { useTranslations } from 'next-intl';
 
 export function OrderSummary() {
-  const { cartItems, cartTotal } = useCart();
-  const shippingCost = 0; // Envío gratuito por ahora
-  const total = cartTotal + shippingCost;
+  const t = useTranslations('Checkout');
+  const {
+    cartItems,
+    cartSubtotal,
+    cartTotal,
+    shippingTotal,
+    shippingLabel,
+    needsShipping,
+    hasCalculatedShipping,
+    isSyncing,
+  } = useCart();
+
+  const shippingDisplay = (() => {
+    if (!needsShipping) return t('shippingFree');
+    if (!hasCalculatedShipping) return t('shippingPending');
+    if (shippingTotal > 0) {
+      const amount = `${shippingTotal.toFixed(2)}€`;
+      return shippingLabel ? `${amount} · ${shippingLabel}` : amount;
+    }
+    return shippingLabel ? `${t('shippingFree')} · ${shippingLabel}` : t('shippingFree');
+  })();
 
   return (
     <div className="rounded-lg border bg-card p-6 shadow-sm">
       <div className="space-y-4">
-        {cartItems.map(item => {
+        {cartItems.map((item) => {
           const imageUrl = getProductImageUrl(item.product);
 
           return (
@@ -44,20 +63,22 @@ export function OrderSummary() {
       <Separator className="my-6" />
       <div className="space-y-2">
         <div className="flex justify-between">
-          <p className="text-muted-foreground">Subtotal</p>
-          <p className="font-medium">{cartTotal.toFixed(2)}€</p>
+          <p className="text-muted-foreground">{t('subtotal')}</p>
+          <p className="font-medium">{cartSubtotal.toFixed(2)}€</p>
         </div>
-        <div className="flex justify-between">
-          <p className="text-muted-foreground">Envío</p>
-          <p className="font-medium">
-            {shippingCost > 0 ? `${shippingCost.toFixed(2)}€` : 'Gratis'}
+        <div className="flex justify-between gap-4">
+          <p className="text-muted-foreground">{t('shipping')}</p>
+          <p
+            className={`font-medium text-right ${isSyncing ? 'opacity-60' : ''}`}
+          >
+            {shippingDisplay}
           </p>
         </div>
       </div>
       <Separator className="my-6" />
       <div className="flex justify-between font-bold text-lg">
-        <p>Total</p>
-        <p>{total.toFixed(2)}€</p>
+        <p>{t('total')}</p>
+        <p>{cartTotal.toFixed(2)}€</p>
       </div>
     </div>
   );

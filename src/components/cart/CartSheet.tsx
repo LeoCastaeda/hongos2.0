@@ -23,7 +23,8 @@ interface CartSheetProps {
 
 export function CartSheet({ children }: CartSheetProps) {
   const t = useTranslations('Cart');
-  const { cartItems, cartTotal } = useCart();
+  const { cartItems, cartSubtotal, shippingTotal, hasCalculatedShipping } =
+    useCart();
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -58,9 +59,17 @@ export function CartSheet({ children }: CartSheetProps) {
                 <Separator />
                 <div className="flex justify-between items-center font-bold text-lg text-white">
                   <p>{t('subtotal')}</p>
-                  <p>{cartTotal.toFixed(2)}€</p>
+                  <p>{cartSubtotal.toFixed(2)}€</p>
                 </div>
-                <p className="text-sm text-gray-200 text-center">{t('shippingNote')}</p>
+                {hasCalculatedShipping && shippingTotal > 0 ? (
+                  <p className="text-sm text-gray-200 text-center">
+                    {t('shippingAmount', { amount: shippingTotal.toFixed(2) })}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-200 text-center">
+                    {t('shippingNote')}
+                  </p>
+                )}
                 <SheetClose asChild>
                   <Button className="w-full" size="lg" asChild>
                     <Link href="/checkout">{t('checkout')}</Link>
