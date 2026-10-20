@@ -130,13 +130,20 @@ export async function POST(request: Request) {
     const locale = body.locale === 'en' ? 'en' : 'es';
     const fallbackSuccess = `${appOrigin(request)}/${locale}/checkout/success?order_id=${result.orderId}&key=${encodeURIComponent(result.orderKey)}`;
 
+    const url = result.redirectUrl || fallbackSuccess;
+    const needsExternalPayment =
+      Boolean(result.redirectUrl) ||
+      result.paymentStatus === 'pending' ||
+      result.paymentStatus === 'failure';
+
     return NextResponse.json({
       orderId: result.orderId,
       orderKey: result.orderKey,
       status: result.status,
       paymentStatus: result.paymentStatus,
       paymentMethod: preferred,
-      url: result.redirectUrl || fallbackSuccess,
+      needsExternalPayment,
+      url,
     });
   } catch (error) {
     console.error('[api/checkout]', error);

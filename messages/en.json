@@ -152,7 +152,7 @@
     "cancelled": "Payment was cancelled. You can review your cart and try again.",
     "loading": "Loading cart...",
     "emptyRedirect": "Your cart is empty. Redirecting...",
-    "payNote": "Your order is created in WooCommerce. We’ll redirect you to the store’s configured payment method (Stripe, PayPal, etc.).",
+    "payNote": "Your order is created in WooCommerce. We’ll redirect you to the store’s secure payment (Square or another active gateway).",
     "continuePay": "Confirm and pay",
     "redirecting": "Processing order…",
     "emptyCart": "Your cart is empty.",
