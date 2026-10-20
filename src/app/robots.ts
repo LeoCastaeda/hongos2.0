@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getSiteUrl } from '@/lib/seo';
+import { getPublicOrigin } from '@/lib/seo';
 
 /** AI / answer-engine crawlers — keep allowed for Generative Engine Optimization (GEO). */
 const AI_USER_AGENTS = [
@@ -16,8 +16,9 @@ const AI_USER_AGENTS = [
   'meta-externalagent',
 ] as const;
 
-export default function robots(): MetadataRoute.Robots {
-  const site = getSiteUrl();
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const site = await getPublicOrigin();
+  const host = site.replace(/^https?:\/\//, '');
   const disallowCheckout = ['/*/checkout', '/*/checkout/'];
 
   return {
@@ -34,6 +35,6 @@ export default function robots(): MetadataRoute.Robots {
       })),
     ],
     sitemap: `${site}/sitemap.xml`,
-    host: site,
+    host,
   };
 }

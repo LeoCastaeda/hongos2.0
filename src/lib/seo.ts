@@ -14,8 +14,36 @@ export function getSiteUrl() {
   return fromEnv || FALLBACK_SITE_URL;
 }
 
-export function absoluteUrl(path = '/') {
-  const base = getSiteUrl();
+/**
+ * Origin of the live Next storefront for the current request.
+ * Prefer Host headers so robots/sitemap/GEO don't cite WordPress when
+ * the app is served from *.vercel.app (or another deploy domain).
+ */
+export async function getPublicOrigin() {
+  try {
+    const { headers } = await import('next/headers');
+    const h = await headers();
+    const host = h.get('x-forwarded-host') || h.get('host');
+    if (host && !host.includes('localhost') && !host.startsWith('127.')) {
+      const proto = h.get('x-forwarded-proto') || 'https';
+      return `${proto}://${host}`.replace(/\/$/, '');
+    }
+  } catch {
+    // Outside a request (build time) — fall through
+  }
+
+  const vercel =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+  if (vercel) {
+    const host = vercel.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    return `https://${host}`;
+  }
+
+  return getSiteUrl();
+}
+
+export function absoluteUrl(path = '/', origin?: string) {
+  const base = (origin || getSiteUrl()).replace(/\/$/, '');
   if (!path || path === '/') return base;
   return `${base}${path.startsWith('/') ? path : `/${path}`}`;
 }

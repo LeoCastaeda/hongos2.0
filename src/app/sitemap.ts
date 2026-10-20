@@ -4,19 +4,20 @@ import { routing } from '@/i18n/routing';
 import {
   absoluteUrl,
   COLLECTION_SLUGS,
-  getSiteUrl,
+  getPublicOrigin,
   localizedPath,
   STATIC_PATHS,
 } from '@/lib/seo';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const origin = await getPublicOrigin();
   const lastModified = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of routing.locales) {
     for (const path of STATIC_PATHS) {
       entries.push({
-        url: absoluteUrl(localizedPath(locale, path)),
+        url: absoluteUrl(localizedPath(locale, path), origin),
         lastModified,
         changeFrequency: path === '' ? 'weekly' : 'monthly',
         priority: path === '' ? 1 : 0.7,
@@ -25,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const slug of COLLECTION_SLUGS) {
       entries.push({
-        url: absoluteUrl(localizedPath(locale, `/collections/${slug}`)),
+        url: absoluteUrl(localizedPath(locale, `/collections/${slug}`), origin),
         lastModified,
         changeFrequency: 'weekly',
         priority: 0.8,
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const product of products) {
       entries.push({
-        url: absoluteUrl(localizedPath(locale, `/products/${product.slug}`)),
+        url: absoluteUrl(localizedPath(locale, `/products/${product.slug}`), origin),
         lastModified,
         changeFrequency: 'monthly',
         priority: 0.9,
@@ -43,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const article of articles) {
       entries.push({
-        url: absoluteUrl(localizedPath(locale, `/learn/${article.slug}`)),
+        url: absoluteUrl(localizedPath(locale, `/learn/${article.slug}`), origin),
         lastModified,
         changeFrequency: 'monthly',
         priority: 0.6,
@@ -51,9 +52,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Ensure root resolves for crawlers that expect the bare domain
   entries.unshift({
-    url: getSiteUrl(),
+    url: origin,
     lastModified,
     changeFrequency: 'weekly',
     priority: 1,
