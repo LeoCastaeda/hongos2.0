@@ -24,10 +24,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCart } from '@/context/CartContext';
 import { SPAIN_PROVINCES } from '@/lib/woocommerce/spain-provinces';
+import {
+  PHONE_COUNTRY_CODES,
+  buildInternationalPhone,
+} from '@/lib/phone-country-codes';
 
 const shippingSchema = z.object({
   email: z.string().email({ message: 'Email inválido.' }),
-  phone: z.string().min(9, { message: 'El teléfono es requerido.' }),
+  phoneDialCode: z.string().min(2, { message: 'Código de país requerido.' }),
+  phoneNumber: z
+    .string()
+    .min(6, { message: 'El teléfono es requerido.' })
+    .regex(/^[\d\s\-().]+$/, { message: 'Solo números en el teléfono.' }),
   firstName: z.string().min(1, { message: 'El nombre es requerido.' }),
   lastName: z.string().min(1, { message: 'El apellido es requerido.' }),
   address: z.string().min(1, { message: 'La dirección es requerida.' }),
@@ -39,6 +47,10 @@ const shippingSchema = z.object({
 });
 
 type ShippingFormValues = z.infer<typeof shippingSchema>;
+
+function toFullPhone(data: Pick<ShippingFormValues, 'phoneDialCode' | 'phoneNumber'>) {
+  return buildInternationalPhone(data.phoneDialCode, data.phoneNumber);
+}
 
 export function CheckoutForm() {
   const {
@@ -56,7 +68,8 @@ export function CheckoutForm() {
     resolver: zodResolver(shippingSchema),
     defaultValues: {
       email: '',
-      phone: '',
+      phoneDialCode: '+34',
+      phoneNumber: '',
       firstName: '',
       lastName: '',
       address: '',
@@ -73,7 +86,8 @@ export function CheckoutForm() {
   const watchedPostalCode = form.watch('postalCode');
   const watchedAddress = form.watch('address');
   const watchedEmail = form.watch('email');
-  const watchedPhone = form.watch('phone');
+  const watchedPhoneDialCode = form.watch('phoneDialCode');
+  const watchedPhoneNumber = form.watch('phoneNumber');
   const watchedFirstName = form.watch('firstName');
   const watchedLastName = form.watch('lastName');
   const watchedApartment = form.watch('apartment');
@@ -90,9 +104,14 @@ export function CheckoutForm() {
       return;
     }
 
+    const phone = buildInternationalPhone(
+      watchedPhoneDialCode || '+34',
+      watchedPhoneNumber || ''
+    );
+
     const key = [
       watchedEmail,
-      watchedPhone,
+      phone,
       watchedFirstName,
       watchedLastName,
       watchedAddress,
@@ -109,7 +128,7 @@ export function CheckoutForm() {
       lastAddressKey.current = key;
       void updateShippingAddress({
         email: watchedEmail || undefined,
-        phone: watchedPhone || undefined,
+        phone: phone || undefined,
         firstName: watchedFirstName || undefined,
         lastName: watchedLastName || undefined,
         address: watchedAddress || undefined,
@@ -134,7 +153,8 @@ export function CheckoutForm() {
     watchedEmail,
     watchedFirstName,
     watchedLastName,
-    watchedPhone,
+    watchedPhoneDialCode,
+    watchedPhoneNumber,
     watchedPostalCode,
     watchedProvince,
   ]);
@@ -152,10 +172,12 @@ export function CheckoutForm() {
       return;
     }
 
+    const phone = toFullPhone(data);
+
     try {
       await updateShippingAddress({
         email: data.email,
-        phone: data.phone,
+        phone,
         firstName: data.firstName,
         lastName: data.lastName,
         address: data.address,
@@ -170,8 +192,16 @@ export function CheckoutForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...data,
+          email: data.email,
+          phone,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.address,
           apartment: data.apartment || undefined,
+          city: data.city,
+          province: data.province,
+          country: data.country,
+          postalCode: data.postalCode,
           locale: locale === 'en' ? 'en' : 'es',
         }),
       });
@@ -195,37 +225,64 @@ export function CheckoutForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('email')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="tu@email.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('phone')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="tel"
-                    placeholder={t('phonePlaceholder')}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('email')}</FormLabel>
+              <FormControl>
+                <Input placeholder="tu@email.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="space-y-2">
+          <FormLabel>{t('phone')}</FormLabel>
+          <div className="grid grid-cols-[minmax(8.5rem,11rem)_1fr] gap-2">
+            <FormField
+              control={form.control}
+              name="phoneDialCode"
+              render={({ field }) => (
+                <FormItem>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger aria-label={t('phoneCountryCode')}>
+                        <SelectValue placeholder="+34" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {PHONE_COUNTRY_CODES.map((item) => (
+                        <SelectItem key={item.iso} value={item.dial}>
+                          {item.dial} {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel-national"
+                      placeholder={t('phonePlaceholder')}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField
