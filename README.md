@@ -54,16 +54,32 @@ npm run build
 npm start
 ```
 
-## 🔐 Base de datos y pago
+## 🔐 Base de datos, pago y WooCommerce
 
 Copia `.env.example` a `.env` y rellena:
 
 - `DATABASE_URL`: conexión a PostgreSQL.
-- `STRIPE_SECRET_KEY`: clave secreta de test (`sk_test_...`).
+- `STRIPE_SECRET_KEY`: clave secreta de test (`sk_test_...`) — checkout demo actual.
 - `STRIPE_WEBHOOK_SECRET`: secreto del endpoint `checkout.session.completed` apuntando a `/api/stripe/webhook`.
 - `NEXT_PUBLIC_APP_URL`: origen público, en local `http://localhost:9003`.
+- `WC_BASE_URL`, `WC_CONSUMER_KEY`, `WC_CONSUMER_SECRET`: API REST de WooCommerce (opcional).
 
-Después de cambiar el schema:
+### WooCommerce (catálogo headless)
+
+Si las variables `WC_*` están definidas, home / colecciones / PDP cargan productos desde WooCommerce.  
+Si faltan o la API falla, se usa el catálogo local en `src/lib/data.tsx`.
+
+1. En WordPress: **WooCommerce → Ajustes → Avanzado → REST API → Añadir clave** (lectura).
+2. Pon la URL del sitio (ej. `https://bouletmushrooms.com`) y las claves en `.env`.
+3. Comprueba la conexión:
+
+```bash
+curl http://localhost:9003/api/woocommerce/health
+```
+
+Código relevante: `src/lib/woocommerce/`.
+
+Después de cambiar el schema Prisma:
 
 ```bash
 npx prisma migrate dev
@@ -86,7 +102,9 @@ npx prisma migrate dev
 
 ## ✅ Estado actual
 
-El catálogo sigue en `src/lib/data.tsx` y el carrito en `localStorage`. El checkout guarda el pedido en PostgreSQL y cobra con Stripe. No hay cuentas de usuario: el pedido queda asociado al email de envío.
+- Catálogo: WooCommerce si hay `WC_*`, si no `src/lib/data.tsx`.
+- Carrito: `localStorage` (aún no Store API de WC).
+- Checkout demo: PostgreSQL + Stripe (fase posterior: pedidos en WooCommerce).
 
 ---
 

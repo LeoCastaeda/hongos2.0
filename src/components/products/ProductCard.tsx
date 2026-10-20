@@ -9,10 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart } from 'lucide-react';
 import { useMessages, useTranslations } from 'next-intl';
 import type { Product } from '@/lib/types';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCart } from '@/context/CartContext';
 import { flyToCart } from '@/lib/fly-to-cart';
 import { getProductCopy } from '@/lib/product-messages';
+import { getProductImageHint, getProductImageUrl } from '@/lib/product-image';
 
 interface ProductCardProps {
   product: Product;
@@ -22,9 +22,8 @@ export function ProductCard({ product }: ProductCardProps) {
   const imageRef = useRef<HTMLDivElement>(null);
   const { addToCart } = useCart();
   const t = useTranslations('Product');
-  const placeholder = PlaceHolderImages.find(p => p.id === product.image);
-  const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
-  const imageHint = placeholder?.imageHint || "product";
+  const imageUrl = getProductImageUrl(product);
+  const imageHint = getProductImageHint(product);
 
   const messages = useMessages();
   const { name: productName, description: productDescription } = getProductCopy(

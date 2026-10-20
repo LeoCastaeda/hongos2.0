@@ -11,11 +11,11 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { useMessages, useTranslations } from 'next-intl';
 import { Star, CheckCircle, Minus, Plus, ShoppingCart } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Product, Review } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
 import { flyToCart } from '@/lib/fly-to-cart';
 import { getProductCopy } from '@/lib/product-messages';
+import { getProductImageHint, getProductImageUrl } from '@/lib/product-image';
 
 interface ProductDetailsProps {
     product: Product;
@@ -27,9 +27,8 @@ export function ProductDetails({ product, reviews }: ProductDetailsProps) {
   const { addToCart } = useCart();
   const imageRef = useRef<HTMLDivElement>(null);
 
-  const placeholder = PlaceHolderImages.find(p => p.id === product.image);
-  const imageUrl = placeholder?.imageUrl || "https://picsum.photos/seed/placeholder/600/600";
-  const imageHint = placeholder?.imageHint || "product";
+  const imageUrl = getProductImageUrl(product);
+  const imageHint = getProductImageHint(product);
 
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();

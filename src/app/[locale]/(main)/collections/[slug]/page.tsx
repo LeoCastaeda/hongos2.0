@@ -7,6 +7,7 @@ import {
   COLLECTION_SLUGS,
   getCollectionContent,
 } from '@/lib/seo';
+import { getCatalogProducts } from '@/lib/woocommerce';
 
 export async function generateStaticParams() {
   return COLLECTION_SLUGS.map((slug) => ({ slug }));
@@ -54,7 +55,8 @@ export default async function CollectionPage({
   const { slug } = await params;
   const t = await getTranslations('Collections');
   const tb = await getTranslations('Benefits');
-  const { filteredProducts, benefit } = getCollectionContent(slug);
+  const catalog = await getCatalogProducts();
+  const { filteredProducts, benefit } = getCollectionContent(slug, catalog);
 
   let title = t('all');
   let description = t('allDesc');

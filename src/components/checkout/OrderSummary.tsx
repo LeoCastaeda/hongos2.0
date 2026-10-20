@@ -1,9 +1,9 @@
 'use client';
 
 import { useCart } from '@/context/CartContext';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
+import { getProductImageUrl } from '@/lib/product-image';
 
 export function OrderSummary() {
   const { cartItems, cartTotal } = useCart();
@@ -14,8 +14,7 @@ export function OrderSummary() {
     <div className="rounded-lg border bg-card p-6 shadow-sm">
       <div className="space-y-4">
         {cartItems.map(item => {
-          const placeholder = PlaceHolderImages.find(p => p.id === item.product.image);
-          const imageUrl = placeholder?.imageUrl || `https://picsum.photos/seed/${item.product.id}/100/100`;
+          const imageUrl = getProductImageUrl(item.product);
 
           return (
             <div key={item.product.id} className="flex items-center gap-4">

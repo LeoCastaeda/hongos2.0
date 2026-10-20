@@ -6,6 +6,10 @@ import { notFound } from 'next/navigation';
 import { ProductCard } from '@/components/products/ProductCard';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildPageMetadata, productJsonLd } from '@/lib/seo';
+import {
+  getCatalogProductBySlug,
+  getCatalogProducts,
+} from '@/lib/woocommerce';
 
 export async function generateStaticParams() {
   return products.map((product) => ({
@@ -19,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const product = products.find((p) => p.slug === slug);
+  const product = await getCatalogProductBySlug(slug);
   if (!product) {
     return buildPageMetadata({
       locale,
@@ -35,7 +39,7 @@ export async function generateMetadata({
     path: `/products/${product.slug}`,
     title: product.name,
     description: product.description,
-    image: product.image,
+    image: product.imageUrl || product.image,
   });
 }
 
@@ -45,15 +49,19 @@ export default async function ProductPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const product = products.find((p) => p.slug === slug);
+  const product = await getCatalogProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
   const t = await getTranslations('Product');
-  const productReviews = allReviews.filter((r) => r.product_id === product.id);
-  const recommendedStack = products
+  const catalog = await getCatalogProducts();
+  const localTwin = products.find((p) => p.slug === product.slug);
+  const productReviews = allReviews.filter(
+    (r) => r.product_id === (localTwin?.id ?? product.id)
+  );
+  const recommendedStack = catalog
     .filter((p) => p.type === 'tincture' && p.id !== product.id)
     .slice(0, 2);
 

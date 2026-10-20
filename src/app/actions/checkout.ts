@@ -2,9 +2,9 @@
 
 import { headers } from 'next/headers';
 import { z } from 'zod';
-import { products } from '@/lib/data';
 import { prisma } from '@/lib/prisma';
 import { getStripe } from '@/lib/stripe';
+import { getCatalogProducts } from '@/lib/woocommerce';
 
 const checkoutSchema = z.object({
   email: z.string().email(),
@@ -50,8 +50,9 @@ export async function startCheckout(input: unknown) {
     return { error: 'El pago no está configurado. Falta STRIPE_SECRET_KEY.' };
   }
 
+  const catalog = await getCatalogProducts();
   const lines = parsed.data.items.map((item) => {
-    const product = products.find((entry) => entry.id === item.productId);
+    const product = catalog.find((entry) => entry.id === item.productId);
     if (!product) return null;
     return { product, quantity: item.quantity };
   });

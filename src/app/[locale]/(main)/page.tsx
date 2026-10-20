@@ -4,14 +4,15 @@ import { BrandStory } from '@/components/home/BrandStory';
 import { EducationalBlock } from '@/components/home/EducationalBlock';
 import { Reviews } from '@/components/home/Reviews';
 import { SubscriptionCta } from '@/components/home/SubscriptionCta';
-import { products } from '@/lib/data';
 import { ProductCard } from '@/components/products/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import { getCatalogProducts } from '@/lib/woocommerce';
 
 export default async function HomePage() {
   const t = await getTranslations('Home');
-  const featuredProducts = products.slice(0, 4);
+  const catalog = await getCatalogProducts();
+  const featuredProducts = catalog.slice(0, 4);
 
   return (
     <>

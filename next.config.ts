@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/wp-content/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.bouletmushrooms.com',
+        port: '',
+        pathname: '/wp-content/**',
+      },
     ],
   },
 };

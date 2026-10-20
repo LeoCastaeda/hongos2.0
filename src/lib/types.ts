@@ -8,11 +8,18 @@ export type Product = {
   howToUse: string;
   labResults: string;
   faqs: { question: string; answer: string }[];
+  /** Local placeholder image id (see placeholder-images). */
   image: string;
+  /** Absolute image URL (WooCommerce media). Preferred when set. */
+  imageUrl?: string;
   type: 'tincture' | 'bundle' | 'coffee';
   category: 'Medicinal' | 'Comestible' | 'Edible';
   benefitCategory: string;
   isBestSeller?: boolean;
+  /** WooCommerce product id when sourced from the API. */
+  wooId?: number;
+  inStock?: boolean;
+  source?: 'local' | 'woocommerce';
 };
 
 export type Benefit = {
@@ -52,4 +59,6 @@ export type PurchaseType = 'onetime' | 'subscribe';
 export interface CartItem {
   product: Product;
   quantity: number;
+  /** WooCommerce Store API cart line key (required for update/remove on WC). */
+  key?: string;
 }

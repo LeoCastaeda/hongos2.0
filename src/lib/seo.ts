@@ -125,33 +125,36 @@ export function buildPageMetadata({
   };
 }
 
-export function getCollectionContent(slug: string) {
+export function getCollectionContent(
+  slug: string,
+  catalog: Product[] = products
+) {
   const benefit = benefits.find((b) => b.slug === slug);
 
-  let filteredProducts = products;
+  let filteredProducts = catalog;
   let title = 'Nuestros Productos';
   let description = 'Explora nuestra gama completa de suplementos naturales de hongos funcionales.';
 
   if (slug === 'all') {
-    filteredProducts = products;
+    filteredProducts = catalog;
   } else if (slug === 'bundles') {
-    filteredProducts = products.filter((p) => p.type === 'bundle');
+    filteredProducts = catalog.filter((p) => p.type === 'bundle');
     title = 'Packs y Bundles';
     description = 'Ahorra con nuestros packs predefinidos para objetivos específicos.';
   } else if (slug === 'tinctures') {
-    filteredProducts = products.filter((p) => p.type === 'tincture');
+    filteredProducts = catalog.filter((p) => p.type === 'tincture');
     title = 'Todas las Tinturas';
     description = 'Descubre nuestra colección de tinturas de hongos funcionales de doble extracción.';
   } else if (slug === 'medicinal') {
-    filteredProducts = products.filter((p) => p.category === 'Medicinal');
+    filteredProducts = catalog.filter((p) => p.category === 'Medicinal');
     title = 'Hongos Medicinales';
     description = 'Extractos y packs centrados en los beneficios para la salud.';
   } else if (slug === 'comestible') {
-    filteredProducts = products.filter((p) => p.category === 'Comestible');
+    filteredProducts = catalog.filter((p) => p.category === 'Comestible');
     title = 'Productos Comestibles';
     description = 'Disfruta de los beneficios de los hongos en tu día a día.';
   } else if (benefit) {
-    filteredProducts = products.filter(
+    filteredProducts = catalog.filter(
       (p) =>
         p.benefitCategory === slug ||
         (p.type === 'bundle' && p.slug.includes(slug))
@@ -183,7 +186,9 @@ export const STATIC_PATHS = [
 ] as const;
 
 export function productJsonLd(product: Product, locale: string) {
-  const image = resolveImageUrl(product.image);
+  const image = product.imageUrl
+    ? product.imageUrl
+    : resolveImageUrl(product.image);
   const url = absoluteUrl(localizedPath(locale, `/products/${product.slug}`));
 
   return {

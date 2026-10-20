@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { Minus, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SheetClose } from '@/components/ui/sheet';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { CartItem } from '@/lib/types';
 import { useCart } from '@/context/CartContext';
+import { getProductImageUrl } from '@/lib/product-image';
 
 interface CartItemCardProps {
   item: CartItem;
@@ -15,9 +15,7 @@ interface CartItemCardProps {
 
 export function CartItemCard({ item }: CartItemCardProps) {
   const { updateQuantity, removeFromCart } = useCart();
-
-  const placeholder = PlaceHolderImages.find(p => p.id === item.product.image);
-  const imageUrl = placeholder?.imageUrl || `https://picsum.photos/seed/${item.product.id}/100/100`;
+  const imageUrl = getProductImageUrl(item.product);
 
   const price = item.product.price;
 
