@@ -205,25 +205,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const clearCart = useCallback(async () => {
-    if (cartMode === 'woocommerce') {
-      setIsSyncing(true);
-      try {
-        // Remove lines one by one (Store API clear via DELETE /items)
-        for (const item of [...cartItems]) {
-          if (!item.key) continue;
-          await readCartApi('/api/cart/remove', {
-            method: 'POST',
-            body: JSON.stringify({ key: item.key }),
-          });
-        }
-        const data = await readCartApi('/api/cart');
-        applyWooResponse(data);
-      } finally {
-        setIsSyncing(false);
-      }
-      return;
-    }
     setCartItems([]);
+    if (cartMode !== 'woocommerce') return;
+
+    setIsSyncing(true);
+    try {
+      for (const item of [...cartItems]) {
+        if (!item.key) continue;
+        await readCartApi('/api/cart/remove', {
+          method: 'POST',
+          body: JSON.stringify({ key: item.key }),
+        }).catch(() => undefined);
+      }
+      const data = await readCartApi('/api/cart').catch(() => null);
+      if (data) applyWooResponse(data);
+    } finally {
+      setIsSyncing(false);
+    }
   }, [applyWooResponse, cartItems, cartMode]);
 
   const cartTotal = cartItems.reduce((total, item) => {

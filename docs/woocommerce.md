@@ -48,10 +48,17 @@ Proxy Next.js (lee/escribe `Cart-Token` en cookie httpOnly):
 
 El `CartContext` usa estos endpoints cuando WC está configurado.
 
+## Checkout (Store API) — activo
+
+- UI sin demo de tarjeta Stripe
+- `POST /api/checkout` → `update-customer` + `POST /wc/store/v1/checkout`
+- Redirección al `payment_result.redirect_url` del gateway de WC
+- Opcional: `WC_PAYMENT_METHOD=stripe` (u otro id) en `.env`
+
 ## Próximas fases
 
-1. Checkout / pedidos en WooCommerce (`/wc/store/v1/checkout`)
-2. Desactivar Stripe+Prisma orders en producción
+1. Refinar gateways / IVA / envíos según config WC
+2. Retirar código Stripe demo si ya no se usa
 
 ## Publicación
 

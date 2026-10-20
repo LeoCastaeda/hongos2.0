@@ -103,8 +103,8 @@ npx prisma migrate dev
 ## ✅ Estado actual
 
 - Catálogo: WooCommerce si hay `WC_*`, si no `src/lib/data.tsx`.
-- Carrito: `localStorage` (aún no Store API de WC).
-- Checkout demo: PostgreSQL + Stripe (fase posterior: pedidos en WooCommerce).
+- Carrito: Store API de WooCommerce (`/api/cart`).
+- Checkout: pedido en WooCommerce (`/api/checkout`) + pago del gateway configurado en WP.
 
 ---
 

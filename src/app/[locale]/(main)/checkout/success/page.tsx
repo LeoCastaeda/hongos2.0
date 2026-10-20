@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
 import { ClearCart } from '@/components/checkout/ClearCart';
 import { Button } from '@/components/ui/button';
-import { confirmPaidSession } from '@/lib/orders';
 import { buildPageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({
@@ -14,7 +13,7 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale,
     path: '/checkout/success',
-    title: 'Pago confirmado',
+    title: 'Pedido recibido',
     description: 'Confirmación de pedido.',
     noIndex: true,
   });
@@ -23,39 +22,33 @@ export async function generateMetadata({
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ order_id?: string; key?: string; session_id?: string }>;
 }) {
-  const { session_id: sessionId } = await searchParams;
-  const order = sessionId ? await confirmPaidSession(sessionId).catch(() => null) : null;
+  const params = await searchParams;
+  const orderId = params.order_id;
+  const hasOrder = Boolean(orderId);
 
   return (
     <div className="container mx-auto max-w-lg px-4 py-20 text-center">
-      {order ? (
+      {hasOrder ? (
         <>
           <ClearCart />
-          <h1 className="text-3xl font-headline font-bold mb-4">Pago confirmado</h1>
+          <h1 className="text-3xl font-headline font-bold mb-4">Pedido recibido</h1>
           <p className="text-muted-foreground mb-2">
-            Hemos registrado tu pedido para {order.email}.
+            Tu pedido #{orderId} se ha creado en WooCommerce.
           </p>
-          <p className="font-medium mb-8">
-            Total: {(order.totalCents / 100).toFixed(2)}€
+          <p className="text-sm text-muted-foreground mb-8">
+            Recibirás la confirmación y el estado del pago según el método
+            configurado en la tienda.
           </p>
-          <ul className="mb-8 space-y-2 text-left">
-            {order.items.map((item) => (
-              <li key={item.id} className="flex justify-between gap-4">
-                <span>
-                  {item.name} × {item.quantity}
-                </span>
-                <span>{((item.unitPriceCents * item.quantity) / 100).toFixed(2)}€</span>
-              </li>
-            ))}
-          </ul>
         </>
       ) : (
         <>
-          <h1 className="text-3xl font-headline font-bold mb-4">No hemos podido confirmar el pago</h1>
+          <ClearCart />
+          <h1 className="text-3xl font-headline font-bold mb-4">Gracias por tu compra</h1>
           <p className="text-muted-foreground mb-8">
-            Si el cargo se ha realizado, el pedido quedará marcado en cuanto Stripe nos avise.
+            Si has completado el pago, el pedido aparecerá en WooCommerce en unos
+            momentos.
           </p>
         </>
       )}

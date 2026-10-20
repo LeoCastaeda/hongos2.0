@@ -16,13 +16,6 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCart } from '@/context/CartContext';
-import { startCheckout } from '@/app/actions/checkout';
-import {
-  CreditCardPreview,
-  detectCardBrand,
-  formatCardNumber,
-  formatExpiry,
-} from '@/components/checkout/CreditCardPreview';
 
 const shippingSchema = z.object({
   email: z.string().email({ message: 'Email inválido.' }),
@@ -38,18 +31,10 @@ const shippingSchema = z.object({
 type ShippingFormValues = z.infer<typeof shippingSchema>;
 
 export function CheckoutForm() {
-  const { cartItems } = useCart();
+  const { cartItems, cartMode, clearCart } = useCart();
   const locale = useLocale();
   const t = useTranslations('Checkout');
   const [error, setError] = useState<string | null>(null);
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardHolder, setCardHolder] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvv, setCardCvv] = useState('');
-  const [cvvFocused, setCvvFocused] = useState(false);
-
-  const brand = detectCardBrand(cardNumber);
-  const cvvMax = brand === 'amex' ? 4 : 3;
 
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
@@ -67,22 +52,43 @@ export function CheckoutForm() {
 
   async function onSubmit(data: ShippingFormValues) {
     setError(null);
-    const result = await startCheckout({
-      ...data,
-      apartment: data.apartment || undefined,
-      locale: locale === 'en' ? 'en' : 'es',
-      items: cartItems.map((item) => ({
-        productId: item.product.id,
-        quantity: item.quantity,
-      })),
-    });
 
-    if (result.error || !result.url) {
-      setError(result.error ?? 'No se pudo iniciar el pago.');
+    if (cartItems.length === 0) {
+      setError(t('emptyCart'));
       return;
     }
 
-    window.location.href = result.url;
+    if (cartMode !== 'woocommerce') {
+      setError(t('wooRequired'));
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          apartment: data.apartment || undefined,
+          locale: locale === 'en' ? 'en' : 'es',
+        }),
+      });
+      const result = (await response.json()) as {
+        error?: string;
+        url?: string;
+      };
+
+      if (!response.ok || result.error || !result.url) {
+        setError(result.error ?? t('checkoutError'));
+        return;
+      }
+
+      // Clear local view; WC cart is consumed by the order
+      await clearCart().catch(() => undefined);
+      window.location.href = result.url;
+    } catch {
+      setError(t('checkoutError'));
+    }
   }
 
   return (
@@ -197,91 +203,21 @@ export function CheckoutForm() {
           />
         </div>
 
-        <div className="pt-6 space-y-4">
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <h3 className="text-xl font-headline font-bold">{t('payment')}</h3>
-            <p className="text-xs text-muted-foreground">{t('payDemo')}</p>
-          </div>
-          <CreditCardPreview
-            number={cardNumber}
-            holder={cardHolder}
-            expiry={cardExpiry}
-            cvv={cardCvv}
-            flipped={cvvFocused}
-          />
-          <div className="space-y-3">
-            <div>
-              <label htmlFor="card-number" className="text-sm font-medium leading-none">
-                {t('cardNumber')}
-              </label>
-              <Input
-                id="card-number"
-                className="mt-2"
-                inputMode="numeric"
-                autoComplete="cc-number"
-                placeholder="Número de tarjeta"
-                value={formatCardNumber(cardNumber, brand)}
-                onChange={(e) => {
-                  const nextBrand = detectCardBrand(e.target.value);
-                  setCardNumber(formatCardNumber(e.target.value, nextBrand));
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="card-holder" className="text-sm font-medium leading-none">
-                {t('cardHolder')}
-              </label>
-              <Input
-                id="card-holder"
-                className="mt-2"
-                autoComplete="cc-name"
-                placeholder={t('cardHolderPlaceholder')}
-                value={cardHolder}
-                onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="card-expiry" className="text-sm font-medium leading-none">
-                  {t('expiry')}
-                </label>
-                <Input
-                  id="card-expiry"
-                  className="mt-2"
-                  inputMode="numeric"
-                  autoComplete="cc-exp"
-                  placeholder="MM/AA"
-                  value={cardExpiry}
-                  onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
-                />
-              </div>
-              <div>
-                <label htmlFor="card-cvv" className="text-sm font-medium leading-none">
-                  {t('cvv')}
-                </label>
-                <Input
-                  id="card-cvv"
-                  className="mt-2"
-                  inputMode="numeric"
-                  autoComplete="cc-csc"
-                  placeholder={brand === 'amex' ? '1234' : '123'}
-                  maxLength={cvvMax}
-                  value={cardCvv}
-                  onChange={(e) =>
-                    setCardCvv(e.target.value.replace(/\D/g, '').slice(0, cvvMax))
-                  }
-                  onFocus={() => setCvvFocused(true)}
-                  onBlur={() => setCvvFocused(false)}
-                />
-              </div>
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">{t('payNote')}</p>
+        <div className="pt-4 space-y-2">
+          <h3 className="text-xl font-headline font-bold">{t('payment')}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {t('payNote')}
+          </p>
         </div>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
-        <Button type="submit" className="w-full mt-6" size="lg" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? t('redirecting') : t('continueStripe')}
+        <Button
+          type="submit"
+          className="w-full mt-6"
+          size="lg"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? t('redirecting') : t('continuePay')}
         </Button>
       </form>
     </Form>
