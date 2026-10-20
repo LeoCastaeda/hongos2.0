@@ -23,7 +23,11 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCart } from '@/context/CartContext';
-import { SPAIN_PROVINCES } from '@/lib/woocommerce/spain-provinces';
+import {
+  CHECKOUT_COUNTRIES,
+  defaultDialForCountry,
+  getProvincesForCountry,
+} from '@/lib/woocommerce/shipping-regions';
 import {
   PHONE_COUNTRY_CODES,
   buildInternationalPhone,
@@ -76,7 +80,7 @@ export function CheckoutForm() {
       apartment: '',
       city: '',
       province: '',
-      country: locale === 'en' ? 'Spain' : 'España',
+      country: 'ES',
       postalCode: '',
     },
   });
@@ -92,6 +96,17 @@ export function CheckoutForm() {
   const watchedLastName = form.watch('lastName');
   const watchedApartment = form.watch('apartment');
   const watchedProvince = form.watch('province');
+
+  const provinces = getProvincesForCountry(watchedCountry || 'ES');
+
+  useEffect(() => {
+    // Clear province when country changes so the list stays valid.
+    const current = form.getValues('province');
+    if (!current) return;
+    if (!provinces.some((p) => p.code === current)) {
+      form.setValue('province', '');
+    }
+  }, [form, provinces, watchedCountry]);
 
   useEffect(() => {
     if (cartMode !== 'woocommerce') return;
@@ -365,13 +380,31 @@ export function CheckoutForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="city"
+            name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('city')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Tu ciudad" {...field} />
-                </FormControl>
+                <FormLabel>{t('country')}</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    form.setValue('province', '');
+                    form.setValue('phoneDialCode', defaultDialForCountry(value));
+                  }}
+                  value={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('countryPlaceholder')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {CHECKOUT_COUNTRIES.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {locale === 'en' ? country.labelEn : country.labelEs}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -382,14 +415,18 @@ export function CheckoutForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('province')}</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  disabled={!watchedCountry}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder={t('provincePlaceholder')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {SPAIN_PROVINCES.map((province) => (
+                    {provinces.map((province) => (
                       <SelectItem key={province.code} value={province.code}>
                         {province.name}
                       </SelectItem>
@@ -404,12 +441,12 @@ export function CheckoutForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="postalCode"
+            name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('postalCode')}</FormLabel>
+                <FormLabel>{t('city')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ej: 28001" {...field} />
+                  <Input placeholder="Tu ciudad" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -417,12 +454,17 @@ export function CheckoutForm() {
           />
           <FormField
             control={form.control}
-            name="country"
+            name="postalCode"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('country')}</FormLabel>
+                <FormLabel>{t('postalCode')}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    placeholder={
+                      watchedCountry === 'IT' ? 'Ej: 20121' : 'Ej: 28001'
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

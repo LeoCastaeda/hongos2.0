@@ -257,6 +257,7 @@ export async function processStoreCheckout(input: {
 export function toCountryCode(country: string): string {
   const value = country.trim().toLowerCase();
   if (value === 'españa' || value === 'spain' || value === 'es') return 'ES';
+  if (value === 'italia' || value === 'italy' || value === 'it') return 'IT';
   if (value === 'portugal' || value === 'pt') return 'PT';
   if (value === 'france' || value === 'francia' || value === 'fr') return 'FR';
   if (value.length === 2) return value.toUpperCase();

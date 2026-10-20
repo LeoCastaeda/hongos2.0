@@ -13,7 +13,7 @@ import {
   ensureShippingRateSelected,
   type StoreCart,
 } from '@/lib/woocommerce/store-cart';
-import { normalizeSpainState } from '@/lib/woocommerce/spain-provinces';
+import { normalizeStateForCountry } from '@/lib/woocommerce/shipping-regions';
 
 function appOrigin(request: Request) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -68,10 +68,7 @@ export async function POST(request: Request) {
       address_1: body.address,
       address_2: body.apartment || '',
       city: body.city,
-      state:
-        country === 'ES'
-          ? normalizeSpainState(body.province)
-          : body.province.trim(),
+      state: normalizeStateForCountry(country, body.province),
       postcode: body.postalCode,
       country,
       email: body.email,
