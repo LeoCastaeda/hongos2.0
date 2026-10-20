@@ -1,19 +1,35 @@
 import { products } from '@/lib/data';
-import { absoluteUrl, getSiteUrl, SITE_NAME } from '@/lib/seo';
+import { getSiteUrl, SITE_NAME } from '@/lib/seo';
 
 /**
  * Generative Engine Optimization (GEO) content for AI crawlers.
  * Spec-inspired: https://llmstxt.org/
+ *
+ * Prefer the request origin so links match the live Next storefront
+ * (e.g. *.vercel.app) instead of the WordPress shop domain.
  */
-export function buildLlmsTxt(): string {
-  const site = getSiteUrl();
+function resolveBaseUrl(origin?: string | null) {
+  const fromRequest = origin?.replace(/\/$/, '');
+  if (fromRequest?.startsWith('http')) return fromRequest;
+  return getSiteUrl();
+}
+
+function href(base: string, path = '/') {
+  if (!path || path === '/') return base;
+  return `${base}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
+export function buildLlmsTxt(origin?: string | null): string {
+  const site = resolveBaseUrl(origin);
+  const brandDomain = 'https://bouletmushrooms.com';
 
   const lines = [
     `# ${SITE_NAME}`,
     '',
     `> Extractos dobles de hongos funcionales 100% cuerpo fructífero, elaborados en Barcelona (España). Marca: Boulet. Envíos a España e Italia.`,
     '',
-    `Sitio: ${site}`,
+    `Sitio (storefront): ${site}`,
+    `Marca / WordPress: ${brandDomain}`,
     `Idiomas: español (/es), inglés (/en)`,
     `Contacto: info@bouletmushrooms.com`,
     '',
@@ -27,21 +43,21 @@ export function buildLlmsTxt(): string {
     '## Productos principales',
     '',
     ...products.map((p) => {
-      const url = absoluteUrl(`/es/products/${p.slug}`);
+      const url = href(site, `/es/products/${p.slug}`);
       return `- [${p.name}](${url}): ${p.description} Precio orientativo ${p.price.toFixed(2)} EUR.`;
     }),
     '',
     '## Páginas clave',
     '',
-    `- [Inicio ES](${absoluteUrl('/es')}): propuesta de valor y bestsellers`,
-    `- [Inicio EN](${absoluteUrl('/en')}): value proposition and bestsellers`,
-    `- [Tienda](${absoluteUrl('/es/collections/all')}): catálogo completo`,
-    `- [Nosotros](${absoluteUrl('/es/about')}): historia, método UAE, garantías`,
-    `- [Aprender](${absoluteUrl('/es/learn')}): guías y ciencia`,
-    `- [FAQ](${absoluteUrl('/es/faq')}): preguntas frecuentes`,
-    `- [Envíos](${absoluteUrl('/es/shipping')}): política de envíos y devoluciones`,
-    `- [Quiz](${absoluteUrl('/es/quiz')}): recomendación de stack personalizado`,
-    `- [Contacto](${absoluteUrl('/es/contact')})`,
+    `- [Inicio ES](${href(site, '/es')}): propuesta de valor y bestsellers`,
+    `- [Inicio EN](${href(site, '/en')}): value proposition and bestsellers`,
+    `- [Tienda](${href(site, '/es/collections/all')}): catálogo completo`,
+    `- [Nosotros](${href(site, '/es/about')}): historia, método UAE, garantías`,
+    `- [Aprender](${href(site, '/es/learn')}): guías y ciencia`,
+    `- [FAQ](${href(site, '/es/faq')}): preguntas frecuentes`,
+    `- [Envíos](${href(site, '/es/shipping')}): política de envíos y devoluciones`,
+    `- [Quiz](${href(site, '/es/quiz')}): recomendación de stack personalizado`,
+    `- [Contacto](${href(site, '/es/contact')})`,
     '',
     '## Hechos citables',
     '',
@@ -52,22 +68,23 @@ export function buildLlmsTxt(): string {
     '',
     '## Archivos opcionales',
     '',
-    `- [llms-full.txt](${absoluteUrl('/llms-full.txt')}): versión ampliada con FAQs de producto`,
-    `- [sitemap.xml](${absoluteUrl('/sitemap.xml')})`,
+    `- [llms-full.txt](${href(site, '/llms-full.txt')}): versión ampliada con FAQs de producto`,
+    `- [sitemap.xml](${href(site, '/sitemap.xml')})`,
     '',
   ];
 
   return lines.join('\n');
 }
 
-export function buildLlmsFullTxt(): string {
-  const base = buildLlmsTxt();
+export function buildLlmsFullTxt(origin?: string | null): string {
+  const site = resolveBaseUrl(origin);
+  const base = buildLlmsTxt(origin);
   const faqBlocks = products.flatMap((p) => {
     if (!p.faqs?.length) return [];
     return [
       '',
       `### ${p.name}`,
-      `URL: ${absoluteUrl(`/es/products/${p.slug}`)}`,
+      `URL: ${href(site, `/es/products/${p.slug}`)}`,
       `Uso: ${p.howToUse}`,
       `Lab: ${p.labResults}`,
       ...p.faqs.map((f) => `Q: ${f.question}\nA: ${f.answer}`),
