@@ -167,14 +167,38 @@ export function CheckoutForm() {
       return;
     }
 
-    if (cartMode !== 'woocommerce') {
-      setError(t('wooRequired'));
-      return;
-    }
-
     const phone = toFullPhone(data);
 
     try {
+      // Re-check server cart mode: local checkout cannot create WC orders.
+      const cartProbe = await fetch('/api/cart')
+        .then((r) => r.json())
+        .catch(() => null);
+      if (!cartProbe || cartProbe.mode !== 'woocommerce') {
+        setError(t('wooRequired'));
+        return;
+      }
+
+      // If UI was on local cart but WC is configured, push lines into WC first.
+      if (cartMode !== 'woocommerce') {
+        for (const item of cartItems) {
+          const wooId = item.product.wooId;
+          if (!wooId) {
+            setError(t('wooRequired'));
+            return;
+          }
+          const added = await fetch('/api/cart/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: wooId, quantity: item.quantity }),
+          });
+          if (!added.ok) {
+            setError(t('wooRequired'));
+            return;
+          }
+        }
+      }
+
       await updateShippingAddress({
         email: data.email,
         phone,

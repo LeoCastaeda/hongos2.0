@@ -149,15 +149,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addToCart = useCallback(
     async (product: Product, quantity: number) => {
-      const tryWoo = cartMode === 'woocommerce' || (cartMode !== 'local' && !!product.wooId);
-
-      if (tryWoo && product.wooId) {
+      // Always try Store API when we have a Woo product id — even if init
+      // fell back to local (missing env on first paint, stale localStorage…).
+      if (product.wooId) {
         setIsSyncing(true);
         try {
           const data = await readCartApi('/api/cart/add', {
             method: 'POST',
             body: JSON.stringify({ productId: product.wooId, quantity }),
           });
+          if (data.mode === 'local') {
+            throw new Error('WooCommerce cart is not configured on the server');
+          }
           setCartMode('woocommerce');
           applyWooResponse(data);
           return;
@@ -183,7 +186,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return [...prevItems, { product, quantity }];
       });
     },
-    [applyWooResponse, cartMode]
+    [applyWooResponse]
   );
 
   const removeFromCart = useCallback(
@@ -273,19 +276,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateShippingAddress = useCallback(
     async (address: ShippingAddressInput) => {
-      if (cartMode !== 'woocommerce') return;
       setIsSyncing(true);
       try {
         const data = await readCartApi('/api/cart/address', {
           method: 'POST',
           body: JSON.stringify(address),
         });
+        setCartMode('woocommerce');
         applyWooResponse(data);
       } finally {
         setIsSyncing(false);
       }
     },
-    [applyWooResponse, cartMode]
+    [applyWooResponse]
   );
 
   const localSubtotal = cartItems.reduce((total, item) => {

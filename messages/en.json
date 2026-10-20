@@ -148,7 +148,7 @@
     "continuePay": "Confirm and pay",
     "redirecting": "Processing order…",
     "emptyCart": "Your cart is empty.",
-    "wooRequired": "The WooCommerce cart is not active. Add products again and retry.",
+    "wooRequired": "WooCommerce is not active on the server (missing WC_* env vars on Vercel, or the cart is local). Check Environment Variables, Redeploy, clear the cart and add products again.",
     "checkoutError": "Could not complete the order. Check your details or try again.",
     "payment": "Payment",
     "email": "Email",

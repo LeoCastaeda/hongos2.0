@@ -6,11 +6,15 @@ import { fetchWooProductBySlug, fetchWooProducts } from './client';
 import { mapWooProductToProduct } from './mapper';
 
 function withLocalSource(products: Product[]): Product[] {
-  return products.map((p) => ({
-    ...p,
-    source: p.source ?? 'local',
-    inStock: p.inStock ?? true,
-  }));
+  return products.map((p) => {
+    const entry = findCatalogEntry({ slug: p.slug });
+    return {
+      ...p,
+      wooId: p.wooId ?? entry?.wooId,
+      source: p.source ?? 'local',
+      inStock: p.inStock ?? true,
+    };
+  });
 }
 
 /**

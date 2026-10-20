@@ -148,7 +148,7 @@
     "continuePay": "Confirmar y pagar",
     "redirecting": "Procesando pedido…",
     "emptyCart": "Tu carrito está vacío.",
-    "wooRequired": "El carrito de WooCommerce no está activo. Añade productos de nuevo e inténtalo.",
+    "wooRequired": "WooCommerce no está activo en el servidor (faltan variables WC_* en Vercel o el carrito es local). Revisa Environment Variables, haz Redeploy, vacía el carrito y añade productos otra vez.",
     "checkoutError": "No se pudo completar el pedido. Revisa los datos o inténtalo de nuevo.",
     "payment": "Pago",
     "email": "Email",
