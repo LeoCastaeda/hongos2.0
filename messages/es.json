@@ -152,7 +152,7 @@
     "cancelled": "El pago se ha cancelado. Puedes revisar el carrito e intentarlo de nuevo.",
     "loading": "Cargando el carrito...",
     "emptyRedirect": "Tu carrito está vacío. Serás redirigido...",
-    "payNote": "El pedido se crea en WooCommerce. Te redirigiremos al pago seguro de la tienda (Square u otro gateway activo).",
+    "payNote": "Crearemos el pedido y te llevaremos a la pasarela segura de pago (Square) para introducir la tarjeta.",
     "continuePay": "Confirmar y pagar",
     "redirecting": "Procesando pedido…",
     "emptyCart": "Tu carrito está vacío.",

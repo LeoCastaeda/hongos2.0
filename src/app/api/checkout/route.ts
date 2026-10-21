@@ -14,6 +14,10 @@ import {
   type StoreCart,
 } from '@/lib/woocommerce/store-cart';
 import { normalizeStateForCountry } from '@/lib/woocommerce/shipping-regions';
+import {
+  createHostedPaymentOrder,
+  needsHostedPayment,
+} from '@/lib/woocommerce/hosted-checkout';
 
 function appOrigin(request: Request) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -116,6 +120,27 @@ export async function POST(request: Request) {
       );
     }
 
+    // Square (and similar) need a card token on Store API. Without a Next
+    // payment SDK we create a pending order and send the shopper to WP pay.
+    if (needsHostedPayment(preferred)) {
+      const hosted = await createHostedPaymentOrder({
+        cart: shippingReady.cart,
+        address,
+        paymentMethod: preferred,
+        cartToken: token,
+      });
+
+      return NextResponse.json({
+        orderId: hosted.order.id,
+        orderKey: hosted.order.order_key,
+        status: hosted.order.status,
+        paymentStatus: 'pending',
+        paymentMethod: preferred,
+        needsExternalPayment: true,
+        url: hosted.payUrl,
+      });
+    }
+
     const result = await processStoreCheckout({
       billing: address,
       shipping: address,
@@ -131,10 +156,6 @@ export async function POST(request: Request) {
     const fallbackSuccess = `${appOrigin(request)}/${locale}/checkout/success?order_id=${result.orderId}&key=${encodeURIComponent(result.orderKey)}`;
 
     const url = result.redirectUrl || fallbackSuccess;
-    const needsExternalPayment =
-      Boolean(result.redirectUrl) ||
-      result.paymentStatus === 'pending' ||
-      result.paymentStatus === 'failure';
 
     return NextResponse.json({
       orderId: result.orderId,
@@ -142,7 +163,7 @@ export async function POST(request: Request) {
       status: result.status,
       paymentStatus: result.paymentStatus,
       paymentMethod: preferred,
-      needsExternalPayment,
+      needsExternalPayment: Boolean(result.redirectUrl),
       url,
     });
   } catch (error) {

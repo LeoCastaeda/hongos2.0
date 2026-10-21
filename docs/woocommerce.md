@@ -62,3 +62,12 @@ Mapeo: `src/lib/woocommerce/catalog-map.ts`.
 
 En WP activos típicos: `square_credit_card`, `cod`.  
 Forzar en env: `WC_PAYMENT_METHOD=square_credit_card`.
+
+### Square (headless)
+
+Square necesita tokenizar la tarjeta en el navegador. En este storefront Next:
+
+1. Se crea un pedido **pendiente** vía REST API (`/wc/v3/orders`)
+2. Se redirige a `bouletmushrooms.com/checkout/order-pay/...` donde el formulario Square de WP cobra
+
+La clave REST debe ser **Read/Write** (no solo Read).

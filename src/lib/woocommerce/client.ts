@@ -20,7 +20,8 @@ function authHeader(config: WooCommerceConfig) {
 
 async function wooFetch<T>(
   path: string,
-  searchParams?: Record<string, string | number | boolean | undefined>
+  searchParams?: Record<string, string | number | boolean | undefined>,
+  options?: { method?: string; body?: unknown; cache?: RequestCache }
 ): Promise<T> {
   const config = getWooCommerceConfig();
   if (!config) {
@@ -35,12 +36,20 @@ async function wooFetch<T>(
     }
   }
 
+  const method = options?.method ?? 'GET';
   const response = await fetch(url.toString(), {
+    method,
     headers: {
       Authorization: authHeader(config),
       Accept: 'application/json',
+      ...(options?.body !== undefined
+        ? { 'Content-Type': 'application/json' }
+        : {}),
     },
-    next: { revalidate: 120, tags: ['woocommerce'] },
+    body:
+      options?.body !== undefined ? JSON.stringify(options.body) : undefined,
+    cache: options?.cache ?? (method === 'GET' ? undefined : 'no-store'),
+    ...(method === 'GET' ? { next: { revalidate: 120, tags: ['woocommerce'] } } : {}),
   });
 
   if (!response.ok) {
@@ -106,4 +115,28 @@ export async function fetchEnabledPaymentGateways(): Promise<string[]> {
     .filter((g) => g.enabled === true || g.enabled === 'yes')
     .map((g) => g.id)
     .filter(Boolean);
+}
+
+export type WooCreatedOrder = {
+  id: number;
+  order_key: string;
+  status: string;
+  payment_url?: string;
+};
+
+/** Create a pending order (needs API key with Write permission). */
+export async function createWooOrder(body: unknown): Promise<WooCreatedOrder> {
+  return wooFetch<WooCreatedOrder>('/orders', undefined, {
+    method: 'POST',
+    body,
+    cache: 'no-store',
+  });
+}
+
+export function getWooOrderPayUrl(orderId: number, orderKey: string): string {
+  const config = getWooCommerceConfig();
+  if (!config) {
+    throw new WooCommerceError('WooCommerce is not configured', 503);
+  }
+  return `${config.baseUrl}/checkout/order-pay/${orderId}/?pay_for_order=true&key=${encodeURIComponent(orderKey)}`;
 }
