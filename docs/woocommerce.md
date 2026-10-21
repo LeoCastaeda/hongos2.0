@@ -65,9 +65,21 @@ Forzar en env: `WC_PAYMENT_METHOD=square_credit_card`.
 
 ### Square (headless)
 
-Square necesita tokenizar la tarjeta en el navegador. En este storefront Next:
+Square necesita tokenizar la tarjeta en el navegador. Flujo actual:
 
-1. Se crea un pedido **pendiente** vía REST API (`/wc/v3/orders`)
-2. Se redirige a `bouletmushrooms.com/checkout/order-pay/...` donde el formulario Square de WP cobra
+1. Pedido **pendiente** vía REST (`/wc/v3/orders`) — clave **Read/Write**
+2. Página puente Next (`/checkout/pay`) con marca Boulet
+3. Pasarela WP `…/checkout/order-pay/…` (formulario Square)
 
-La clave REST debe ser **Read/Write** (no solo Read).
+#### Mejora futura (pago 100% en Next)
+
+Integrar [Square Web Payments SDK](https://developer.squareup.com/docs/web-payments/overview) en el checkout Next y enviar el token en `payment_data` del Store API. Hace falta:
+
+- Application ID + Location ID de Square
+- Confirmar keys `payment_data` del plugin WooCommerce Square
+- CSP / HTTPS en Vercel
+
+Mientras tanto, en WP se puede:
+
+- Usar una plantilla de checkout mínima (sin menú Shop antiguo)
+- Redirigir “Thank you” a `https://hongos2-0.vercel.app/es/checkout/success?order_id=…`

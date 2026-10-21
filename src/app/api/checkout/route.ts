@@ -121,7 +121,8 @@ export async function POST(request: Request) {
     }
 
     // Square (and similar) need a card token on Store API. Without a Next
-    // payment SDK we create a pending order and send the shopper to WP pay.
+    // payment SDK we create a pending order and bridge via a branded Next page
+    // before opening the WP order-pay form.
     if (needsHostedPayment(preferred)) {
       const hosted = await createHostedPaymentOrder({
         cart: shippingReady.cart,
@@ -130,6 +131,12 @@ export async function POST(request: Request) {
         cartToken: token,
       });
 
+      const locale = body.locale === 'en' ? 'en' : 'es';
+      const bridge = new URL(`${appOrigin(request)}/${locale}/checkout/pay`);
+      bridge.searchParams.set('pay_url', hosted.payUrl);
+      bridge.searchParams.set('order_id', String(hosted.order.id));
+      bridge.searchParams.set('key', hosted.order.order_key);
+
       return NextResponse.json({
         orderId: hosted.order.id,
         orderKey: hosted.order.order_key,
@@ -137,7 +144,8 @@ export async function POST(request: Request) {
         paymentStatus: 'pending',
         paymentMethod: preferred,
         needsExternalPayment: true,
-        url: hosted.payUrl,
+        payUrl: hosted.payUrl,
+        url: bridge.toString(),
       });
     }
 
