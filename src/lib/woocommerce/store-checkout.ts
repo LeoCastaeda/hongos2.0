@@ -97,6 +97,8 @@ export async function updateStoreCustomer(
     state: address.state || '',
     postcode: address.postcode,
     country: address.country,
+    // Some WC setups (Square, etc.) require phone on shipping too
+    phone: address.phone || '',
   };
 
   return storeFetch('/cart/update-customer', {
@@ -237,6 +239,7 @@ export async function processStoreCheckout(input: {
         state: input.shipping.state || '',
         postcode: input.shipping.postcode,
         country: input.shipping.country,
+        phone: input.shipping.phone || '',
       },
       customer_note: input.customerNote || '',
       payment_method: input.paymentMethod,
