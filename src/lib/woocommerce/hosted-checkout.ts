@@ -7,8 +7,21 @@ import type { StoreAddress } from './store-checkout';
 import type { StoreCart } from './store-cart';
 import { clearStoreCart } from './store-cart';
 
+import { isSquareEmbeddedConfigured } from '@/lib/square/config';
+
 /** Gateways that need a hosted WP payment form (no card SDK on Next). */
-export function needsHostedPayment(methodId: string): boolean {
+export function needsHostedPayment(
+  methodId: string,
+  options?: { hasSquareToken?: boolean }
+): boolean {
+  if (
+    methodId === 'square_credit_card' &&
+    options?.hasSquareToken &&
+    isSquareEmbeddedConfigured()
+  ) {
+    return false;
+  }
+
   return [
     'square_credit_card',
     'square_cash_app_pay',
@@ -102,6 +115,8 @@ export async function createHostedPaymentOrder(input: {
       })),
       shipping_lines: shippingLine ? [shippingLine] : [],
       customer_note: '',
+      // Marks headless Next checkouts so WP thank-you can redirect only these.
+      meta_data: [{ key: '_boulet_storefront', value: 'next' }],
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

@@ -5,6 +5,7 @@ import {
   pingWooCommerce,
 } from '@/lib/woocommerce';
 import { isWooStoreConfigured } from '@/lib/woocommerce/config';
+import { isSquareEmbeddedConfigured } from '@/lib/square/config';
 
 /**
  * GET /api/woocommerce/health
@@ -18,6 +19,12 @@ export async function GET() {
     WC_CONSUMER_SECRET: Boolean(process.env.WC_CONSUMER_SECRET?.trim()),
     WC_PAYMENT_METHOD: Boolean(process.env.WC_PAYMENT_METHOD?.trim()),
     NEXT_PUBLIC_APP_URL: Boolean(process.env.NEXT_PUBLIC_APP_URL?.trim()),
+    NEXT_PUBLIC_SQUARE_APPLICATION_ID: Boolean(
+      process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID?.trim()
+    ),
+    NEXT_PUBLIC_SQUARE_LOCATION_ID: Boolean(
+      process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID?.trim()
+    ),
   };
   const missing = Object.entries(present)
     .filter(([key, ok]) => !ok && key.startsWith('WC_') && key !== 'WC_PAYMENT_METHOD')
@@ -27,10 +34,13 @@ export async function GET() {
   const storeConfigured = isWooStoreConfigured();
   const source = getCatalogSource();
 
+  const squareEmbedded = isSquareEmbeddedConfigured();
+
   if (!configured) {
     return NextResponse.json({
       configured: false,
       storeConfigured: false,
+      squareEmbedded,
       source,
       ok: false,
       present,
@@ -47,6 +57,7 @@ export async function GET() {
   return NextResponse.json({
     configured: true,
     storeConfigured,
+    squareEmbedded,
     source,
     ok: ping.ok,
     present,
@@ -55,7 +66,9 @@ export async function GET() {
     productSample: ping.productCount,
     error: ping.error,
     message: ping.ok
-      ? 'WooCommerce API reachable. Catalog will prefer WC products.'
+      ? squareEmbedded
+        ? 'WooCommerce OK. Square embed activo en checkout Next.'
+        : 'WooCommerce OK. Square via order-pay (sin NEXT_PUBLIC_SQUARE_*).'
       : 'Credentials present but API call failed.',
   });
 }

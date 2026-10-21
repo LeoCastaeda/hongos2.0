@@ -18,6 +18,8 @@ import {
   createHostedPaymentOrder,
   needsHostedPayment,
 } from '@/lib/woocommerce/hosted-checkout';
+import { buildSquarePaymentData } from '@/lib/woocommerce/square-payment-data';
+import { isSquareEmbeddedConfigured } from '@/lib/square/config';
 
 function appOrigin(request: Request) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -47,6 +49,15 @@ export async function POST(request: Request) {
       phone?: string;
       province?: string;
       locale?: string;
+      squarePayment?: {
+        nonce?: string;
+        cardType?: string;
+        lastFour?: string;
+        expMonth?: string;
+        expYear?: string;
+        postalCode?: string;
+        buyerVerificationToken?: string;
+      };
     };
 
     if (
@@ -120,10 +131,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Square (and similar) need a card token on Store API. Without a Next
-    // payment SDK we create a pending order and bridge via a branded Next page
-    // before opening the WP order-pay form.
-    if (needsHostedPayment(preferred)) {
+    const squareNonce = body.squarePayment?.nonce?.trim();
+    const canEmbedSquare =
+      preferred === 'square_credit_card' &&
+      Boolean(squareNonce) &&
+      isSquareEmbeddedConfigured();
+
+    // Square without embedded token → pending order + branded bridge → WP order-pay.
+    if (needsHostedPayment(preferred, { hasSquareToken: canEmbedSquare })) {
       const hosted = await createHostedPaymentOrder({
         cart: shippingReady.cart,
         address,
@@ -149,11 +164,25 @@ export async function POST(request: Request) {
       });
     }
 
+    const paymentData =
+      canEmbedSquare && body.squarePayment?.nonce
+        ? buildSquarePaymentData({
+            nonce: body.squarePayment.nonce,
+            cardType: body.squarePayment.cardType,
+            lastFour: body.squarePayment.lastFour,
+            expMonth: body.squarePayment.expMonth,
+            expYear: body.squarePayment.expYear,
+            postalCode: body.squarePayment.postalCode || address.postcode,
+            buyerVerificationToken: body.squarePayment.buyerVerificationToken,
+          })
+        : [];
+
     const result = await processStoreCheckout({
       billing: address,
       shipping: address,
       paymentMethod: preferred,
       cartToken: token,
+      paymentData,
     });
 
     if (result.cartToken) {

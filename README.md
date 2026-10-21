@@ -63,6 +63,7 @@ Copia `.env.example` a `.env` y rellena:
 - `NEXT_PUBLIC_APP_URL`: origen público (`http://localhost:9003` o la URL de Vercel).
 - `WC_BASE_URL`, `WC_CONSUMER_KEY`, `WC_CONSUMER_SECRET`: **obligatorias** en producción.
 - `WC_PAYMENT_METHOD`: p. ej. `square_credit_card`.
+- `NEXT_PUBLIC_SQUARE_APPLICATION_ID` + `NEXT_PUBLIC_SQUARE_LOCATION_ID` (opcional): tarjeta Square embebida en Next. Sin ellas → puente `order-pay`. Guía WP: `docs/wp-checkout.md`.
 - Stripe (`STRIPE_*`): solo legacy; el checkout vivo es WC.
 
 ### WooCommerce (catálogo headless)

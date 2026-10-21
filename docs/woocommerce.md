@@ -13,7 +13,9 @@ Sin esto el storefront cae a catálogo/carrito **local**.
 | `WC_CONSUMER_KEY` | `ck_…` (mismo que `.env` local) |
 | `WC_CONSUMER_SECRET` | `cs_…` |
 | `WC_PAYMENT_METHOD` | `square_credit_card` |
-| `NEXT_PUBLIC_APP_URL` | `https://hongos2-0-fcnj.vercel.app` (hasta el cutover de dominio) |
+| `NEXT_PUBLIC_APP_URL` | `https://hongos2-0.vercel.app` |
+| `NEXT_PUBLIC_SQUARE_APPLICATION_ID` | (opcional) embed tarjeta en Next |
+| `NEXT_PUBLIC_SQUARE_LOCATION_ID` | (opcional) Location ID Square |
 
 3. **Deployments → ⋯ → Redeploy**
 4. Comprueba: `/api/woocommerce/health`  
@@ -65,21 +67,18 @@ Forzar en env: `WC_PAYMENT_METHOD=square_credit_card`.
 
 ### Square (headless)
 
-Square necesita tokenizar la tarjeta en el navegador. Flujo actual:
+#### Sin `NEXT_PUBLIC_SQUARE_*` (por defecto)
 
 1. Pedido **pendiente** vía REST (`/wc/v3/orders`) — clave **Read/Write**
 2. Página puente Next (`/checkout/pay`) con marca Boulet
 3. Pasarela WP `…/checkout/order-pay/…` (formulario Square)
 
-#### Mejora futura (pago 100% en Next)
+Suavizar WP: ver **[wp-checkout.md](./wp-checkout.md)** (CSS + thank-you → Next).
 
-Integrar [Square Web Payments SDK](https://developer.squareup.com/docs/web-payments/overview) en el checkout Next y enviar el token en `payment_data` del Store API. Hace falta:
+#### Con Square embed (`NEXT_PUBLIC_SQUARE_APPLICATION_ID` + `LOCATION_ID`)
 
-- Application ID + Location ID de Square
-- Confirmar keys `payment_data` del plugin WooCommerce Square
-- CSP / HTTPS en Vercel
+1. [Square Web Payments SDK](https://developer.squareup.com/docs/web-payments/overview) en el checkout Next
+2. Token → Store API `payment_data` (`wc-square-credit-card-payment-nonce`, etc.)
+3. Éxito → `/checkout/success` sin salir del storefront
 
-Mientras tanto, en WP se puede:
-
-- Usar una plantilla de checkout mínima (sin menú Shop antiguo)
-- Redirigir “Thank you” a `https://hongos2-0.vercel.app/es/checkout/success?order_id=…`
+**Cobra en production** si las keys son live. Usa sandbox (`sandbox-sq0idb-…`) para pruebas.

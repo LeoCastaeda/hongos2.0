@@ -205,12 +205,15 @@ export async function getStorePaymentMethods(cartToken?: string | null) {
   };
 }
 
+export type StorePaymentDataEntry = { key: string; value: string };
+
 export async function processStoreCheckout(input: {
   billing: StoreAddress;
   shipping: StoreAddress;
   paymentMethod: string;
   cartToken?: string | null;
   customerNote?: string;
+  paymentData?: StorePaymentDataEntry[];
 }): Promise<StoreCheckoutResult> {
   const { data, cartToken } = await storeFetch<{
     order_id: number;
@@ -243,7 +246,7 @@ export async function processStoreCheckout(input: {
       },
       customer_note: input.customerNote || '',
       payment_method: input.paymentMethod,
-      payment_data: [],
+      payment_data: input.paymentData ?? [],
     },
   });
 

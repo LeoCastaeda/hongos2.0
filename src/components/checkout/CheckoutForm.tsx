@@ -32,6 +32,11 @@ import {
   PHONE_COUNTRY_CODES,
   buildInternationalPhone,
 } from '@/lib/phone-country-codes';
+import { isSquareEmbeddedConfigured } from '@/lib/square/config';
+import {
+  SquareCardFields,
+  type SquareCardHandle,
+} from '@/components/checkout/SquareCardFields';
 
 const shippingSchema = z.object({
   email: z.string().email({ message: 'Email inválido.' }),
@@ -60,13 +65,17 @@ export function CheckoutForm() {
   const {
     cartItems,
     cartMode,
+    cartTotal,
     clearCart,
     updateShippingAddress,
   } = useCart();
   const locale = useLocale();
   const t = useTranslations('Checkout');
   const [error, setError] = useState<string | null>(null);
+  const [squareReady, setSquareReady] = useState(false);
   const lastAddressKey = useRef('');
+  const squareRef = useRef<SquareCardHandle>(null);
+  const embedSquare = isSquareEmbeddedConfigured();
 
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
@@ -227,6 +236,32 @@ export function CheckoutForm() {
         postalCode: data.postalCode,
       });
 
+      let squarePayment:
+        | Awaited<ReturnType<SquareCardHandle['tokenize']>>
+        | undefined;
+
+      if (embedSquare) {
+        if (!squareRef.current || !squareReady) {
+          setError(t('squareNotReady'));
+          return;
+        }
+        squarePayment = await squareRef.current.tokenize({
+          amount: Math.max(cartTotal, 0).toFixed(2),
+          currencyCode: 'EUR',
+          billingContact: {
+            givenName: data.firstName,
+            familyName: data.lastName,
+            email: data.email,
+            phone,
+            addressLines: [data.address, data.apartment || ''].filter(Boolean),
+            city: data.city,
+            state: data.province,
+            countryCode: data.country,
+            postalCode: data.postalCode,
+          },
+        });
+      }
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -242,6 +277,7 @@ export function CheckoutForm() {
           country: data.country,
           postalCode: data.postalCode,
           locale: locale === 'en' ? 'en' : 'es',
+          squarePayment,
         }),
       });
       const result = (await response.json()) as {
@@ -256,8 +292,9 @@ export function CheckoutForm() {
 
       await clearCart().catch(() => undefined);
       window.location.href = result.url;
-    } catch {
-      setError(t('checkoutError'));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('checkoutError');
+      setError(message || t('checkoutError'));
     }
   }
 
@@ -472,11 +509,23 @@ export function CheckoutForm() {
           />
         </div>
 
-        <div className="pt-4 space-y-2">
+        <div className="pt-4 space-y-3">
           <h3 className="text-xl font-headline font-bold">{t('payment')}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {t('payNote')}
-          </p>
+          {embedSquare ? (
+            <>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t('payNoteEmbedded')}
+              </p>
+              <SquareCardFields
+                ref={squareRef}
+                onReadyChange={setSquareReady}
+              />
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {t('payNote')}
+            </p>
+          )}
         </div>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
@@ -484,7 +533,9 @@ export function CheckoutForm() {
           type="submit"
           className="w-full mt-6"
           size="lg"
-          disabled={form.formState.isSubmitting}
+          disabled={
+            form.formState.isSubmitting || (embedSquare && !squareReady)
+          }
         >
           {form.formState.isSubmitting ? t('redirecting') : t('continuePay')}
         </Button>
