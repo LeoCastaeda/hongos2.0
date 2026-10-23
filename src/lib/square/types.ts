@@ -52,14 +52,19 @@ export type SquareVerificationDetails = {
   sellerKeyedIn?: boolean;
 };
 
+export type SquareCardOptions = {
+  postalCode?: string;
+};
+
 export type SquareCard = {
   attach: (selector: string) => Promise<void>;
   destroy: () => Promise<void>;
+  configure?: (options: SquareCardOptions) => Promise<void>;
   tokenize: () => Promise<SquareTokenizeResult>;
 };
 
 export type SquarePayments = {
-  card: () => Promise<SquareCard>;
+  card: (options?: SquareCardOptions) => Promise<SquareCard>;
   verifyBuyer: (
     sourceId: string,
     verificationDetails: SquareVerificationDetails

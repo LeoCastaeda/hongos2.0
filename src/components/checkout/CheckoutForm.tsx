@@ -518,6 +518,7 @@ export function CheckoutForm() {
               </p>
               <SquareCardFields
                 ref={squareRef}
+                postalCode={watchedPostalCode}
                 onReadyChange={setSquareReady}
               />
             </>

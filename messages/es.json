@@ -159,6 +159,8 @@
     "squareInitError": "No se pudo cargar el formulario de tarjeta. Recarga la página o inténtalo más tarde.",
     "squareNotReady": "El formulario de tarjeta aún no está listo. Espera un momento.",
     "squareTokenError": "No se pudo validar la tarjeta. Revisa los datos e inténtalo de nuevo.",
+    "squarePostalError": "El código postal de la tarjeta no es válido. Usa el mismo CP de envío (España: 5 dígitos, p. ej. 08001).",
+    "squarePostalHint": "Si Square pide código postal, usa el mismo que en la dirección de envío (5 dígitos en España).",
     "payBridgeTitle": "Pago seguro",
     "payBridgeBody": "Te redirigimos a la pasarela cifrada para introducir tu tarjeta. Es el mismo pedido Boulet.",
     "payBridgeOrder": "Pedido #{id}",

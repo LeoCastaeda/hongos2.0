@@ -39,6 +39,8 @@ export type SquareCardHandle = {
 };
 
 type Props = {
+  /** Prefills Square’s postal-code field from the shipping form. */
+  postalCode?: string;
   onReadyChange?: (ready: boolean) => void;
 };
 
@@ -72,8 +74,12 @@ function loadSquareScript(): Promise<void> {
   });
 }
 
+function normalizePostalCode(value?: string) {
+  return (value || '').trim();
+}
+
 export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
-  function SquareCardFields({ onReadyChange }, ref) {
+  function SquareCardFields({ postalCode, onReadyChange }, ref) {
     const t = useTranslations('Checkout');
     const containerId = useRef(
       `square-card-${Math.random().toString(36).slice(2, 9)}`
@@ -105,7 +111,10 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
           }
 
           const payments = await window.Square.payments(appId, locationId);
-          const card = await payments.card();
+          const initialPostal = normalizePostalCode(postalCode);
+          const card = await payments.card(
+            initialPostal ? { postalCode: initialPostal } : undefined
+          );
           await card.attach(`#${containerId}`);
 
           if (cancelled) {
@@ -135,7 +144,18 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
         paymentsRef.current = null;
         void card?.destroy().catch(() => undefined);
       };
+      // Init once; postal updates go through configure below.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [containerId, t]);
+
+    useEffect(() => {
+      const card = cardRef.current;
+      const value = normalizePostalCode(postalCode);
+      if (!card || !value || !card.configure) return;
+      void card.configure({ postalCode: value }).catch((err) => {
+        console.warn('[square] configure postalCode failed', err);
+      });
+    }, [postalCode, ready]);
 
     const tokenize = useCallback<SquareCardHandle['tokenize']>(
       async ({ amount, currencyCode = 'EUR', billingContact }) => {
@@ -145,11 +165,19 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
           throw new Error(t('squareNotReady'));
         }
 
+        const shippingPostal = normalizePostalCode(billingContact.postalCode);
+        if (shippingPostal && card.configure) {
+          await card.configure({ postalCode: shippingPostal }).catch(() => undefined);
+        }
+
         const result: SquareTokenizeResult = await card.tokenize();
         if (result.status !== 'OK' || !result.token) {
-          const message =
-            result.errors?.[0]?.message || t('squareTokenError');
-          throw new Error(message);
+          const raw = result.errors?.[0]?.message || '';
+          const lower = raw.toLowerCase();
+          if (lower.includes('postal') || lower.includes('zip')) {
+            throw new Error(t('squarePostalError'));
+          }
+          throw new Error(raw || t('squareTokenError'));
         }
 
         let buyerVerificationToken: string | undefined;
@@ -164,7 +192,6 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
           });
           buyerVerificationToken = verification.token;
         } catch (err) {
-          // Some cards / regions skip SCA; continue with the nonce alone.
           console.warn('[square] verifyBuyer skipped/failed', err);
         }
 
@@ -197,6 +224,9 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
           id={containerId}
           className="min-h-[56px] rounded-md border border-input bg-background px-3 py-3"
         />
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          {t('squarePostalHint')}
+        </p>
         {error && <p className="text-sm text-destructive">{error}</p>}
         {!error && !ready && (
           <p className="text-sm text-muted-foreground">{t('squareLoading')}</p>

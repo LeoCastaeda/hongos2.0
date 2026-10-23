@@ -159,6 +159,8 @@
     "squareInitError": "Could not load the card form. Reload the page or try again later.",
     "squareNotReady": "The card form isn’t ready yet. Please wait a moment.",
     "squareTokenError": "Could not validate the card. Check the details and try again.",
+    "squarePostalError": "The card postal code is not valid. Use the same shipping postcode (Spain: 5 digits, e.g. 08001).",
+    "squarePostalHint": "If Square asks for a postal code, use the same one as your shipping address (5 digits in Spain).",
     "payBridgeTitle": "Secure payment",
     "payBridgeBody": "We’re sending you to the encrypted gateway to enter your card. It’s still your Boulet order.",
     "payBridgeOrder": "Order #{id}",
