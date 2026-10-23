@@ -18,14 +18,38 @@ export type SquarePaymentPayload = {
 
 const PREFIX = 'wc-square-credit-card';
 
+/** Square SDK brands → WooCommerce Square normalized ids. */
+function normalizeCardType(brand?: string): string {
+  const raw = (brand || '').trim().toLowerCase().replace(/[\s_-]+/g, '');
+  const map: Record<string, string> = {
+    visa: 'visa',
+    mastercard: 'mastercard',
+    amex: 'amex',
+    americanexpress: 'amex',
+    discover: 'discover',
+    discoverdiners: 'dinersclub',
+    dinersclub: 'dinersclub',
+    diners: 'dinersclub',
+    jcb: 'jcb',
+    unionpay: 'unionpay',
+    chinaunionpay: 'unionpay',
+  };
+  return map[raw] || 'visa';
+}
+
 export function buildSquarePaymentData(
   payment: SquarePaymentPayload
 ): Array<{ key: string; value: string }> {
   const entries: Array<[string, string | undefined]> = [
     [`${PREFIX}-payment-nonce`, payment.nonce],
-    [`${PREFIX}-card-type`, payment.cardType || 'CARD'],
-    [`${PREFIX}-last-four`, payment.lastFour || '0000'],
-    [`${PREFIX}-exp-month`, payment.expMonth || '01'],
+    [`${PREFIX}-card-type`, normalizeCardType(payment.cardType)],
+    [`${PREFIX}-last-four`, (payment.lastFour || '0000').slice(-4)],
+    [
+      `${PREFIX}-exp-month`,
+      payment.expMonth
+        ? String(payment.expMonth).padStart(2, '0')
+        : '01',
+    ],
     [`${PREFIX}-exp-year`, payment.expYear || '2099'],
     [`${PREFIX}-payment-postcode`, payment.postalCode || ''],
     [

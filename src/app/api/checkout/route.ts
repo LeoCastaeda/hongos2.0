@@ -177,32 +177,70 @@ export async function POST(request: Request) {
           })
         : [];
 
-    const result = await processStoreCheckout({
-      billing: address,
-      shipping: address,
-      paymentMethod: preferred,
-      cartToken: token,
-      paymentData,
-    });
+    try {
+      const result = await processStoreCheckout({
+        billing: address,
+        shipping: address,
+        paymentMethod: preferred,
+        cartToken: token,
+        paymentData,
+      });
 
-    if (result.cartToken) {
-      await writeCartToken(result.cartToken);
+      if (result.cartToken) {
+        await writeCartToken(result.cartToken);
+      }
+
+      const locale = body.locale === 'en' ? 'en' : 'es';
+      const fallbackSuccess = `${appOrigin(request)}/${locale}/checkout/success?order_id=${result.orderId}&key=${encodeURIComponent(result.orderKey)}`;
+
+      const url = result.redirectUrl || fallbackSuccess;
+
+      return NextResponse.json({
+        orderId: result.orderId,
+        orderKey: result.orderKey,
+        status: result.status,
+        paymentStatus: result.paymentStatus,
+        paymentMethod: preferred,
+        needsExternalPayment: Boolean(result.redirectUrl),
+        url,
+      });
+    } catch (storeError) {
+      // Embedded Square via Store API often 400s (SCA / payment_data). Fall
+      // back to the working hosted order-pay bridge so checkout isn't blocked.
+      if (canEmbedSquare) {
+        console.warn(
+          '[api/checkout] Store Square failed, falling back to hosted pay',
+          storeError
+        );
+        const hosted = await createHostedPaymentOrder({
+          cart: shippingReady.cart,
+          address,
+          paymentMethod: preferred,
+          cartToken: token,
+        });
+
+        const locale = body.locale === 'en' ? 'en' : 'es';
+        const bridge = new URL(`${appOrigin(request)}/${locale}/checkout/pay`);
+        bridge.searchParams.set('pay_url', hosted.payUrl);
+        bridge.searchParams.set('order_id', String(hosted.order.id));
+        bridge.searchParams.set('key', hosted.order.order_key);
+
+        return NextResponse.json({
+          orderId: hosted.order.id,
+          orderKey: hosted.order.order_key,
+          status: hosted.order.status,
+          paymentStatus: 'pending',
+          paymentMethod: preferred,
+          needsExternalPayment: true,
+          payUrl: hosted.payUrl,
+          url: bridge.toString(),
+          embedFallback: true,
+          embedError:
+            storeError instanceof Error ? storeError.message : String(storeError),
+        });
+      }
+      throw storeError;
     }
-
-    const locale = body.locale === 'en' ? 'en' : 'es';
-    const fallbackSuccess = `${appOrigin(request)}/${locale}/checkout/success?order_id=${result.orderId}&key=${encodeURIComponent(result.orderKey)}`;
-
-    const url = result.redirectUrl || fallbackSuccess;
-
-    return NextResponse.json({
-      orderId: result.orderId,
-      orderKey: result.orderKey,
-      status: result.status,
-      paymentStatus: result.paymentStatus,
-      paymentMethod: preferred,
-      needsExternalPayment: Boolean(result.redirectUrl),
-      url,
-    });
   } catch (error) {
     console.error('[api/checkout]', error);
     return NextResponse.json(

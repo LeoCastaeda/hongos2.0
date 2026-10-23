@@ -167,10 +167,28 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
 
         const shippingPostal = normalizePostalCode(billingContact.postalCode);
         if (shippingPostal && card.configure) {
-          await card.configure({ postalCode: shippingPostal }).catch(() => undefined);
+          await card
+            .configure({ postalCode: shippingPostal })
+            .catch(() => undefined);
         }
 
-        const result: SquareTokenizeResult = await card.tokenize();
+        const verificationDetails = {
+          amount,
+          currencyCode,
+          intent: 'CHARGE' as const,
+          customerInitiated: true,
+          sellerKeyedIn: false,
+          billingContact,
+        };
+
+        // Prefer tokenize+SCA in one step (EU). Fallback to plain tokenize.
+        let result: SquareTokenizeResult;
+        try {
+          result = await card.tokenize(verificationDetails);
+        } catch {
+          result = await card.tokenize();
+        }
+
         if (result.status !== 'OK' || !result.token) {
           const raw = result.errors?.[0]?.message || '';
           const lower = raw.toLowerCase();
@@ -182,14 +200,10 @@ export const SquareCardFields = forwardRef<SquareCardHandle, Props>(
 
         let buyerVerificationToken: string | undefined;
         try {
-          const verification = await payments.verifyBuyer(result.token, {
-            amount,
-            currencyCode,
-            intent: 'CHARGE',
-            customerInitiated: true,
-            sellerKeyedIn: false,
-            billingContact,
-          });
+          const verification = await payments.verifyBuyer(
+            result.token,
+            verificationDetails
+          );
           buyerVerificationToken = verification.token;
         } catch (err) {
           console.warn('[square] verifyBuyer skipped/failed', err);

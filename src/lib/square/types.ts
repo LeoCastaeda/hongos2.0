@@ -60,7 +60,10 @@ export type SquareCard = {
   attach: (selector: string) => Promise<void>;
   destroy: () => Promise<void>;
   configure?: (options: SquareCardOptions) => Promise<void>;
-  tokenize: () => Promise<SquareTokenizeResult>;
+  /** Optionally pass verificationDetails for SCA (EU). */
+  tokenize: (
+    verificationDetails?: SquareVerificationDetails
+  ) => Promise<SquareTokenizeResult>;
 };
 
 export type SquarePayments = {

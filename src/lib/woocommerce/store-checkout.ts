@@ -66,11 +66,21 @@ async function storeFetch<T>(
   const data = (await response.json().catch(() => ({}))) as T & {
     message?: string;
     code?: string;
+    data?: { message?: string; status?: number; details?: unknown };
   };
 
   if (!response.ok) {
+    const detail =
+      typeof data.data?.details === 'string'
+        ? data.data.details
+        : data.data?.details
+          ? JSON.stringify(data.data.details)
+          : '';
+    const message = [data.message || data.data?.message, data.code, detail]
+      .filter(Boolean)
+      .join(' — ');
     throw new WooCommerceError(
-      data.message || `Store checkout ${response.status}`,
+      message || `Store checkout ${response.status}`,
       response.status
     );
   }
