@@ -37,6 +37,12 @@ import {
   SquareCardFields,
   type SquareCardHandle,
 } from '@/components/checkout/SquareCardFields';
+import {
+  CreditCardPreview,
+  detectCardBrand,
+  formatCardNumber,
+  formatExpiry,
+} from '@/components/checkout/CreditCardPreview';
 
 const shippingSchema = z.object({
   email: z.string().email({ message: 'Email inválido.' }),
@@ -73,9 +79,16 @@ export function CheckoutForm() {
   const t = useTranslations('Checkout');
   const [error, setError] = useState<string | null>(null);
   const [squareReady, setSquareReady] = useState(false);
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardHolder, setCardHolder] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
+  const [cvvFocused, setCvvFocused] = useState(false);
   const lastAddressKey = useRef('');
   const squareRef = useRef<SquareCardHandle>(null);
   const embedSquare = isSquareEmbeddedConfigured();
+  const brand = detectCardBrand(cardNumber);
+  const cvvMax = brand === 'amex' ? 4 : 3;
 
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
@@ -116,6 +129,14 @@ export function CheckoutForm() {
       form.setValue('province', '');
     }
   }, [form, provinces, watchedCountry]);
+
+  // Prefill visual card holder from shipping name (preview only).
+  useEffect(() => {
+    if (embedSquare) return;
+    const name = `${watchedFirstName} ${watchedLastName}`.trim();
+    if (!name) return;
+    setCardHolder((prev) => (prev.trim() ? prev : name.toUpperCase()));
+  }, [embedSquare, watchedFirstName, watchedLastName]);
 
   useEffect(() => {
     if (cartMode !== 'woocommerce') return;
@@ -510,7 +531,12 @@ export function CheckoutForm() {
         </div>
 
         <div className="pt-4 space-y-3">
-          <h3 className="text-xl font-headline font-bold">{t('payment')}</h3>
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <h3 className="text-xl font-headline font-bold">{t('payment')}</h3>
+            {!embedSquare && (
+              <p className="text-xs text-muted-foreground">{t('payDemo')}</p>
+            )}
+          </div>
           {embedSquare ? (
             <>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -523,9 +549,105 @@ export function CheckoutForm() {
               />
             </>
           ) : (
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {t('payNote')}
-            </p>
+            <>
+              <CreditCardPreview
+                number={cardNumber}
+                holder={cardHolder}
+                expiry={cardExpiry}
+                cvv={cardCvv}
+                flipped={cvvFocused}
+              />
+              <div className="space-y-3">
+                <div>
+                  <label
+                    htmlFor="card-number"
+                    className="text-sm font-medium leading-none"
+                  >
+                    {t('cardNumber')}
+                  </label>
+                  <Input
+                    id="card-number"
+                    className="mt-2"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    placeholder="•••• •••• •••• ••••"
+                    value={formatCardNumber(cardNumber, brand)}
+                    onChange={(e) => {
+                      const nextBrand = detectCardBrand(e.target.value);
+                      setCardNumber(
+                        formatCardNumber(e.target.value, nextBrand)
+                      );
+                    }}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="card-holder"
+                    className="text-sm font-medium leading-none"
+                  >
+                    {t('cardHolder')}
+                  </label>
+                  <Input
+                    id="card-holder"
+                    className="mt-2"
+                    autoComplete="cc-name"
+                    placeholder={t('cardHolderPlaceholder')}
+                    value={cardHolder}
+                    onChange={(e) =>
+                      setCardHolder(e.target.value.toUpperCase())
+                    }
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="card-expiry"
+                      className="text-sm font-medium leading-none"
+                    >
+                      {t('expiry')}
+                    </label>
+                    <Input
+                      id="card-expiry"
+                      className="mt-2"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder="MM/AA"
+                      value={cardExpiry}
+                      onChange={(e) =>
+                        setCardExpiry(formatExpiry(e.target.value))
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="card-cvv"
+                      className="text-sm font-medium leading-none"
+                    >
+                      {t('cvv')}
+                    </label>
+                    <Input
+                      id="card-cvv"
+                      className="mt-2"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder={brand === 'amex' ? '1234' : '123'}
+                      maxLength={cvvMax}
+                      value={cardCvv}
+                      onChange={(e) =>
+                        setCardCvv(
+                          e.target.value.replace(/\D/g, '').slice(0, cvvMax)
+                        )
+                      }
+                      onFocus={() => setCvvFocused(true)}
+                      onBlur={() => setCvvFocused(false)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t('payNote')}
+              </p>
+            </>
           )}
         </div>
 
